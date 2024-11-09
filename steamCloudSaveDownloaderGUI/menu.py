@@ -1,4 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
+from .core import core
+import os
 
 class login_action(QtGui.QAction):
     def __init__(self):
@@ -7,7 +9,9 @@ class login_action(QtGui.QAction):
 
     @QtCore.Slot()
     def execute(self, p_action):
-        pass
+        # TODO: Placeholder
+        with open(core.s_session_file, "w+"):
+            pass
 
 class logout_action(QtGui.QAction):
     def __init__(self):
@@ -16,7 +20,8 @@ class logout_action(QtGui.QAction):
 
     @QtCore.Slot()
     def execute(self, p_action):
-        pass
+        if (os.path.isfile(core.s_session_file)):
+            os.remove(core.s_session_file)
 
 class session_menu(QtWidgets.QMenu):
     def __init__(self):
@@ -26,8 +31,12 @@ class session_menu(QtWidgets.QMenu):
         self.logout_action = logout_action()
         self.addAction(self.login_action)
 
-        # TODO: Disable if no session
         self.addAction(self.logout_action)
+        self.aboutToShow.connect(self.on_menu_to_show)
+
+    @QtCore.Slot()
+    def on_menu_to_show(self):
+        self.logout_action.setEnabled(os.path.isfile(core.s_session_file))
 
 class options_menu(QtWidgets.QMenu):
     def __init__(self):
