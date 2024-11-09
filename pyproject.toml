@@ -1,0 +1,39 @@
+[build-system]
+requires = ['hatchling', 'hatch-requirements-txt', "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scsd-gui"
+authors = [
+  { name="hchsu"}
+]
+description = "Steam Cloud Save Downloader GUI"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version", "dependencies"]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements.txt"]
+
+
+[project.urls]
+"Homepage" = "https://github.com/hhhhhojeihsu/steamCloudSaveDownloaderGUI"
+"Bug Tracker" = "https://github.com/hhhhhojeihsu/steamCloudSaveDownloaderGUI/issues"
+
+[project.scripts]
+scsd-gui = "steamCloudSaveDownloaderGUI.__main__:__main__"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["steamCloudSaveDownloaderGUI"]
+
+[tool.ruff]
+select = ["E9", "F63", "F7", "F82"]
+target-version= "py39"
