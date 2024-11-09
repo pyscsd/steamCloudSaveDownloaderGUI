@@ -1,3 +1,3 @@
 [submodule "steamCloudSaveDownloader"]
-	path = steamCloudSaveDownloader
+	path = steamCloudSaveDownloaderGUI/steamCloudSaveDownloader
 	url = https://github.com/pyscsd/steamCloudSaveDownloader.git
