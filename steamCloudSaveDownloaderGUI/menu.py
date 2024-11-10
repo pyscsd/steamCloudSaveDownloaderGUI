@@ -1,6 +1,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from .core import core
 import os
+from .dialogs import auth_dialog
 
 class login_action(QtGui.QAction):
     def __init__(self):
@@ -9,9 +10,8 @@ class login_action(QtGui.QAction):
 
     @QtCore.Slot()
     def execute(self, p_action):
-        # TODO: Placeholder
-        with open(core.s_session_file, "w+"):
-            pass
+        self.dialog = auth_dialog()
+        self.dialog.exec()
 
 class logout_action(QtGui.QAction):
     def __init__(self):
