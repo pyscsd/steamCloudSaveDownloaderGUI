@@ -5,3 +5,4 @@ class main_window(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setMenuBar(menu.menu_bar());
+        self.setWindowTitle("scsd-gui")

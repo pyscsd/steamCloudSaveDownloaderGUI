@@ -1,7 +1,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from .core import core
 import os
-from .dialogs import login_dialog
+from .dialogs import login_dialog, options_dialog
 
 class login_action(QtGui.QAction):
     def __init__(self):
@@ -38,14 +38,20 @@ class session_menu(QtWidgets.QMenu):
     def on_menu_to_show(self):
         self.logout_action.setEnabled(os.path.isfile(core.s_session_file))
 
-class options_menu(QtWidgets.QMenu):
+class options_action(QtGui.QAction):
     def __init__(self):
         super().__init__("Options")
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot()
+    def execute(self, p_action):
+        self.dialog = options_dialog()
+        self.dialog.exec()
 
 class menu_bar(QtWidgets.QMenuBar):
     def __init__(self):
         super().__init__()
         self.session_menu = session_menu()
-        self.options_menu = options_menu()
+        self.options_action = options_action()
         self.addMenu(self.session_menu)
-        self.addMenu(self.options_menu)
+        self.addAction(self.options_action)
