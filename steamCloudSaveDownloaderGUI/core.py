@@ -21,6 +21,9 @@ class core:
             initial_config = {
                 'General': {
                     "save_dir": core.s_default_save_dir
+                },
+                'Rotation': {
+                    "rotation": config.Defaults['Rotation']['rotation'][1]
                 }
             }
             config.config.export_to_file(initial_config, core.s_config_file)

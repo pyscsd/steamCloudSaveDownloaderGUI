@@ -132,6 +132,11 @@ class options_dialog(QW.QDialog):
         self.browse_button = QW.QToolButton()
         self.browse_button.setIcon(QtGui.QIcon.fromTheme(QtGui.QIcon.ThemeIcon.FolderOpen))
 
+        self.rotation_label = QW.QLabel("Rotation:")
+        self.rotation_value = QW.QSpinBox()
+        self.rotation_value.setMinimum(1)
+        self.rotation_value.setValue(self.config['Rotation']['rotation'])
+
         self.button_box = QW.QDialogButtonBox(self)
         self.button_box.save_button = self.button_box.addButton(
             "Save",
@@ -152,6 +157,8 @@ class options_dialog(QW.QDialog):
         self.grid_layout.addWidget(self.save_directory_label, 0, 0, right_align)
         self.grid_layout.addWidget(self.save_directory_input, 0, 1, left_align)
         self.grid_layout.addWidget(self.browse_button, 0, 2, left_align)
+        self.grid_layout.addWidget(self.rotation_label, 1, 0, right_align)
+        self.grid_layout.addWidget(self.rotation_value, 1, 1, left_align)
 
         # TODO setRowStretch, setColStretch
         # https://stackoverflow.com/a/69884434
@@ -183,7 +190,12 @@ class options_dialog(QW.QDialog):
         self.save_directory_input.setText(path)
         self.config['General']['save_dir'] = path
 
+    @QtCore.Slot()
+    def on_rotation_value_change(self, p_value: int):
+        self.config['Rotation']['rotation'] = p_value
+
     def connect_signals(self):
         self.button_box.save_button.clicked.connect(self.save)
         self.button_box.cancel_button.clicked.connect(self.reject)
         self.browse_button.clicked.connect(self.browse)
+        self.rotation_value.valueChanged.connect(self.on_rotation_value_change)
