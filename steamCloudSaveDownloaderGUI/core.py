@@ -27,3 +27,7 @@ class core:
                 }
             }
             config.config.export_to_file(initial_config, core.s_config_file)
+
+    @staticmethod
+    def has_session() -> bool:
+        return os.path.isfile(core.s_session_file)
