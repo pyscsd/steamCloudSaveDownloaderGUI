@@ -6,8 +6,10 @@ from .steamCloudSaveDownloader.steamCloudSaveDownloader import config
 class core:
     def __init__(self):
         pass
+    # TODO: COnfig, save, .cache,
     s_config_dir = os.path.join(pathlib.Path.home(), "scsd")
     s_config_file = os.path.join(s_config_dir, "scsd.conf")
+    s_cache_dir = os.path.join(s_config_dir, ".cache")
     s_default_save_dir = os.path.join(pathlib.Path.home(), "scsd", "saves")
     s_session_file = os.path.join(s_config_dir, auth.auth.s_session_filename)
 

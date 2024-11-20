@@ -1,8 +1,9 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from .core import core
-from .core import core
+from .data_provider import data_provider
 from .dialogs import login_dialog, options_dialog
 from .status_bar import status_bar
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.config import config
 import os
 
 class login_action(QtGui.QAction):
@@ -77,6 +78,8 @@ class options_action(QtGui.QAction):
         self.dialog.exec()
 
 class start_stop_action(QtGui.QAction):
+    data_updated_signal = QtCore.Signal(list)
+
     def __init__(self):
         super().__init__()
         self.start_state = True
@@ -102,9 +105,15 @@ class start_stop_action(QtGui.QAction):
     def execute(self, p_action):
         if self.start_state:
             self.start_state = False
+            self.set_text()
+
+            config_ = config(core.s_config_file).get_conf()
+            data_provider_ = data_provider(config_)
+            game_list = data_provider_.get_game_list_from_web()
+            self.data_updated_signal.emit(game_list)
         else:
             self.start_state = True
-        self.set_text()
+            self.set_text()
 
 class menu_bar(QtWidgets.QMenuBar):
     def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):

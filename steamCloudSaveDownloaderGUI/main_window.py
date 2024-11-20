@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets
 from . import menu
 from . import status_bar
+from . import table_widget
 
 class main_window(QtWidgets.QMainWindow):
     def __init__(self):
@@ -11,4 +12,12 @@ class main_window(QtWidgets.QMainWindow):
         self.menu_bar = menu.menu_bar(self, self.status_bar)
         self.setMenuBar(self.menu_bar)
 
+        self.table_widget = table_widget.table_widget(self)
+        self.setCentralWidget(self.table_widget)
+
         self.setWindowTitle("scsd-gui")
+
+        self.connect_signals()
+
+    def connect_signals(self):
+        self.menu_bar.start_stop_action.data_updated_signal.connect(self.table_widget.on_data_change)
