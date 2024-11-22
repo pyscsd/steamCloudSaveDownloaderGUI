@@ -1,5 +1,6 @@
 from PySide6 import QtWidgets as QW
 from PySide6 import QtCore
+from .data_provider import data_provider
 
 class table_model(QtCore.QAbstractTableModel):
     def __init__(self, p_parent:QtCore.QObject):
@@ -54,6 +55,7 @@ class table_model(QtCore.QAbstractTableModel):
         else:
             return super().headerData(p_section, p_orient, p_role)
 
+    # Requires: [{'app_id': "value", 'name': "value"}]
     def update_data(self, p_list: list):
         self.beginResetModel()
         self.raw_list = p_list
@@ -84,11 +86,17 @@ class table_widget(QW.QWidget):
     def __init__(self, p_parent: QtCore.QObject):
         super().__init__(p_parent)
 
+        self.data_provider = data_provider()
+
         self.table_view = table_view(self)
         self.table_model = table_model(self)
 
         self.table_view.setModel(self.table_model)
         self.table_view.set_header_stretch(self.table_model.columnCount(None))
+        self.table_model.update_data(self.data_provider.load_existing_from_db())
+
+        # TODO: On press load
+        #game_list = data_provider_.get_game_list_from_web()
 
     @QtCore.Slot(list)
     def on_data_change(self, p_data: list):

@@ -1,19 +1,25 @@
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.config import config
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.db import db
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.web import web
 from .core import core
 import pickle # TODO: Remove
 import os # TODO: Remove
 
 class data_provider:
-    def __init__(self, p_config: dict) -> None:
+    def __init__(self) -> None:
         # TODO: Uncomment when mock finished
+        self.config = config(core.s_config_file).get_conf()
+        self.db = db(core.s_config_dir, self.config['Rotation']['rotation'])
         '''
-        self.config = p_config
         self.auth = auth(core.s_config_dir, '')
         self.auth.refresh_session()
         self.web = web(self.auth.get_session_path(), self.config['Danger Zone']['wait_interval'])
         '''
 
+    def load_existing_from_db(self):
+        id_and_names = self.db.get_stored_game_names([])
+        return [{'app_id': app_id, 'name': name} for app_id, name in id_and_names]
 
     def get_game_list_from_web(self):
         data = self.load_from_pkl()
