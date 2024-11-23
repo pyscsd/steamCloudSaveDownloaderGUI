@@ -95,6 +95,9 @@ class table_widget(QW.QWidget):
         self.table_view.set_header_stretch(self.table_model.columnCount(None))
         self.table_model.update_data(self.data_provider.load_existing_from_db())
 
+        self.v_layout = QW.QVBoxLayout(self)
+        self.v_layout.addWidget(self.table_view)
+
         # TODO: On press load
         #game_list = data_provider_.get_game_list_from_web()
 
