@@ -81,6 +81,7 @@ class table_view(QW.QTableView):
             QW.QAbstractItemView.SelectionBehavior.SelectRows)
 
         self.setSortingEnabled(True)
+        self.horizontalHeader().setSortIndicatorShown(True)
 
     def set_header_stretch(self, p_section_size:int):
         for i in range(p_section_size - 1):
@@ -107,6 +108,7 @@ class table_widget(QW.QWidget):
 
         self.table_view.set_header_stretch(self.table_model.columnCount(None))
         self.table_model.update_data(self.data_provider.load_existing_from_db())
+        self.sort_filter_model.sort(1, QtCore.Qt.SortOrder.AscendingOrder)
 
         self.v_layout = QW.QVBoxLayout(self)
         self.v_layout.addWidget(self.table_view)
