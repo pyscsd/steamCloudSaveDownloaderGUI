@@ -65,6 +65,11 @@ class table_model(QtCore.QAbstractTableModel):
         #end = self.createIndex(self.rowCount(self.parent) - 1, self.columnCount(self.parent) - 1)
         #self.dataChanged.emit(start, end)
 
+class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
+    def __init__(self, p_parent:QtCore.QObject):
+        super().__init__(p_parent)
+
+
 class table_view(QW.QTableView):
     def __init__(self, p_parent:QtCore.QObject):
         super().__init__(p_parent)
@@ -74,6 +79,8 @@ class table_view(QW.QTableView):
 
         self.setSelectionBehavior(
             QW.QAbstractItemView.SelectionBehavior.SelectRows)
+
+        self.setSortingEnabled(True)
 
     def set_header_stretch(self, p_section_size:int):
         for i in range(p_section_size - 1):
@@ -93,8 +100,11 @@ class table_widget(QW.QWidget):
 
         self.table_view = table_view(self)
         self.table_model = table_model(self)
+        self.sort_filter_model = table_sort_filter_proxy(self)
 
-        self.table_view.setModel(self.table_model)
+        self.sort_filter_model.setSourceModel(self.table_model)
+        self.table_view.setModel(self.sort_filter_model)
+
         self.table_view.set_header_stretch(self.table_model.columnCount(None))
         self.table_model.update_data(self.data_provider.load_existing_from_db())
 
