@@ -72,6 +72,9 @@ class table_view(QW.QTableView):
 
         self.verticalHeader().hide()
 
+        self.setSelectionBehavior(
+            QW.QAbstractItemView.SelectionBehavior.SelectRows)
+
     def set_header_stretch(self, p_section_size:int):
         for i in range(p_section_size - 1):
             self.horizontalHeader().setSectionResizeMode(
