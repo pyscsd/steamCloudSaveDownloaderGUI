@@ -7,6 +7,8 @@ class table_model(QtCore.QAbstractTableModel):
         self.parent = p_parent
         super().__init__(p_parent)
         self.raw_list = list()
+        self.data_provider = data_provider()
+        self.update_data(self.data_provider.load_existing_from_db())
 
     def rowCount(self, p_index: QtCore.QModelIndex):
         return len(self.raw_list)
@@ -26,7 +28,6 @@ class table_model(QtCore.QAbstractTableModel):
             return flags
 
 
-
     def data(self,
             p_index: QtCore.QModelIndex,
             p_role: QtCore.Qt.ItemDataRole):
@@ -36,7 +37,10 @@ class table_model(QtCore.QAbstractTableModel):
 
         if p_role == QtCore.Qt.ItemDataRole.CheckStateRole:
             if column == 0:
-                return QtCore.Qt.CheckState.Checked
+                if self.data_provider.should_download_appid(item['app_id']):
+                    return QtCore.Qt.CheckState.Checked
+                else:
+                    return QtCore.Qt.CheckState.Unchecked
 
         if p_role != QtCore.Qt.ItemDataRole.DisplayRole:
             return None
@@ -118,8 +122,6 @@ class table_widget(QW.QWidget):
     def __init__(self, p_parent: QtCore.QObject):
         super().__init__(p_parent)
 
-        self.data_provider = data_provider()
-
         self.table_view = table_view(self)
         self.table_model = table_model(self)
         self.sort_filter_model = table_sort_filter_proxy(self)
@@ -128,8 +130,7 @@ class table_widget(QW.QWidget):
         self.table_view.setModel(self.sort_filter_model)
 
         self.table_view.set_header_stretch(self.table_model.columnCount(None))
-        self.table_model.update_data(self.data_provider.load_existing_from_db())
-        self.sort_filter_model.sort(1, QtCore.Qt.SortOrder.AscendingOrder)
+        self.sort_filter_model.sort(2, QtCore.Qt.SortOrder.AscendingOrder)
 
         self.v_layout = QW.QVBoxLayout(self)
         self.v_layout.addWidget(self.table_view)

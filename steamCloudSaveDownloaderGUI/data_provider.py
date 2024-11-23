@@ -8,14 +8,18 @@ import os # TODO: Remove
 
 class data_provider:
     def __init__(self) -> None:
-        # TODO: Uncomment when mock finished
-        self.config = config(core.s_config_file).get_conf()
+        self.reload_config()
         self.db = db(core.s_config_dir, self.config['Rotation']['rotation'])
+        # TODO: Uncomment when mock finished
         '''
         self.auth = auth(core.s_config_dir, '')
         self.auth.refresh_session()
         self.web = web(self.auth.get_session_path(), self.config['Danger Zone']['wait_interval'])
         '''
+
+    def reload_config(self):
+        self.config = config(core.s_config_file).get_conf()
+        self.exclude_set = set(self.config['Target']['list'])
 
     def load_existing_from_db(self):
         id_and_names = self.db.get_stored_game_names([])
@@ -34,3 +38,6 @@ class data_provider:
         with open(os.path.join(core.s_config_dir, 'game_list.pkl'), 'rb') as f:
             game_list = pickle.load(f)
         return game_list
+
+    def should_download_appid(self, app_id: int) -> bool:
+        return app_id not in self.exclude_set
