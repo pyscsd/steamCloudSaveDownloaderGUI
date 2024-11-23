@@ -12,26 +12,45 @@ class table_model(QtCore.QAbstractTableModel):
         return len(self.raw_list)
 
     def columnCount(self, p_index: QtCore.QModelIndex):
-        # Preview(Capsule), appID, name, last updated
-        return 4
+        # Enabled, Preview(Capsule), appID, name, last updated
+        return 5
+
+    def flags(self, p_index: QtCore.QModelIndex):
+        column = p_index.column()
+
+        flags = super().flags(p_index)
+        if column == 0:
+            flags |= QtCore.Qt.ItemFlag.ItemIsUserCheckable
+            return flags
+        else:
+            return flags
+
+
 
     def data(self,
             p_index: QtCore.QModelIndex,
             p_role: QtCore.Qt.ItemDataRole):
-        if p_role != QtCore.Qt.ItemDataRole.DisplayRole:
-            return None
 
         item = self.raw_list[p_index.row()]
         column = p_index.column()
 
+        if p_role == QtCore.Qt.ItemDataRole.CheckStateRole:
+            if column == 0:
+                return QtCore.Qt.CheckState.Checked
+
+        if p_role != QtCore.Qt.ItemDataRole.DisplayRole:
+            return None
+
         if column == 0:
+            pass
+        elif column == 1:
             # TODO: Pic
             return "Placeholder"
-        elif column == 1:
-            return item['app_id']
         elif column == 2:
-            return item['name']
+            return item['app_id']
         elif column == 3:
+            return item['name']
+        elif column == 4:
             return "Placeholder"
         else:
             assert(False)
@@ -43,12 +62,14 @@ class table_model(QtCore.QAbstractTableModel):
         if p_orient == QtCore.Qt.Orientation.Horizontal and \
             p_role == QtCore.Qt.ItemDataRole.DisplayRole:
             if p_section == 0:
-                return 'Capsule'
+                return 'Enabled'
             elif p_section == 1:
-                return 'App ID'
+                return 'Capsule'
             elif p_section == 2:
-                return 'Name'
+                return 'App ID'
             elif p_section == 3:
+                return 'Name'
+            elif p_section == 4:
                 return 'Last Updated'
             else:
                 assert(False)
