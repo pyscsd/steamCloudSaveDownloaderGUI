@@ -60,3 +60,6 @@ class data_provider:
         self.config_client.export_to_file(self.config, core.s_config_file)
         self.reload_config()
         return True
+
+    def get_save_dir(self, app_id: int) -> os.path:
+        return os.path.join(self.config['General']["save_dir"], str(app_id))

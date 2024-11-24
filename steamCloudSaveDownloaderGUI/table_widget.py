@@ -1,6 +1,9 @@
 from PySide6 import QtWidgets as QW
-from PySide6 import QtCore
+from PySide6 import QtCore, QtGui
 from .data_provider import data_provider
+
+import webbrowser
+import os
 
 class table_model(QtCore.QAbstractTableModel):
     def __init__(self, p_parent:QtCore.QObject):
@@ -106,8 +109,46 @@ class table_model(QtCore.QAbstractTableModel):
         #self.dataChanged.emit(start, end)
 
 class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
-    def __init__(self, p_parent:QtCore.QObject):
+    def __init__(self,
+                 p_parent:QtCore.QObject,
+                 p_source_model: table_model):
         super().__init__(p_parent)
+        self.setSourceModel(p_source_model)
+        self.data_provider = p_source_model.data_provider
+
+class open_saves_directory_action(QtGui.QAction):
+    def __init__(self,
+                p_model: table_sort_filter_proxy,
+                p_index: QtCore.QModelIndex):
+        super().__init__("Open Saves Directory")
+
+        self.model = p_model
+        self.index = p_index
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot(bool)
+    def execute(self, p_b: bool):
+        app_id_index = self.model.index(self.index.row(), 2)
+        app_id = \
+            self.model.data(app_id_index, QtCore.Qt.ItemDataRole.DisplayRole)
+
+        save_dir = self.model.data_provider.get_save_dir(app_id)
+        if (not os.path.isdir(save_dir)):
+            # TODO: Handle This
+            print(f"Error {save_dir} not exit")
+            return
+
+        webbrowser.open("file:///" + str(save_dir))
+
+class table_csm(QW.QMenu):
+    def __init__(self,
+                p_parent: QW.QWidget,
+                p_model: table_sort_filter_proxy,
+                p_index: QtCore.QModelIndex):
+        super().__init__(p_parent)
+
+        self.open_saves_directory_action = open_saves_directory_action(p_model, p_index)
+        self.addAction(self.open_saves_directory_action)
 
 
 class table_view(QW.QTableView):
@@ -122,6 +163,16 @@ class table_view(QW.QTableView):
 
         self.setSortingEnabled(True)
         self.horizontalHeader().setSortIndicatorShown(True)
+
+        self.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.on_csm_requested)
+
+    @QtCore.Slot(QtCore.QPoint)
+    def on_csm_requested(self, p_point: QtCore.QPoint):
+        index = self.indexAt(p_point)
+
+        menu = table_csm(self, self.model(), index)
+        menu.popup(self.viewport().mapToGlobal(p_point))
 
     def set_header_stretch(self, p_section_size:int):
         for i in range(p_section_size - 1):
@@ -139,9 +190,8 @@ class table_widget(QW.QWidget):
 
         self.table_view = table_view(self)
         self.table_model = table_model(self)
-        self.sort_filter_model = table_sort_filter_proxy(self)
+        self.sort_filter_model = table_sort_filter_proxy(self, self.table_model)
 
-        self.sort_filter_model.setSourceModel(self.table_model)
         self.table_view.setModel(self.sort_filter_model)
 
         self.table_view.set_header_stretch(self.table_model.columnCount(None))

@@ -187,6 +187,7 @@ class options_dialog(QW.QDialog):
             path = str(pathlib.Path(qdir.absolutePath()))
         else:
             path = str(file_list[0])
+        path = os.path.normpath(path)
         self.save_directory_input.setText(path)
         self.config['General']['save_dir'] = path
 
