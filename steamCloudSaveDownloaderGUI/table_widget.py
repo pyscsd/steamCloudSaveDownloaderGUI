@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets as QW
 from PySide6 import QtCore, QtGui
 from . import data_provider
+from .game_info_dialog import game_info_dialog
 
 import webbrowser
 import os
@@ -114,6 +115,33 @@ class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
         super().__init__(p_parent)
         self.setSourceModel(p_source_model)
 
+def get_game_info_dialog(p_model: table_sort_filter_proxy, p_index: QtCore.QModelIndex):
+    app_id_index = p_model.index(p_index.row(), 2)
+    app_id = \
+        p_model.data(app_id_index, QtCore.Qt.ItemDataRole.DisplayRole)
+
+    game_name_index = p_model.index(p_index.row(), 3)
+    game_name = p_model.data(
+        game_name_index,
+        QtCore.Qt.ItemDataRole.DisplayRole)
+
+    dialog = game_info_dialog(app_id, game_name)
+    result:QW.QDialog.DialogCode = dialog.exec()
+
+class view_files_action(QtGui.QAction):
+    def __init__(self,
+                p_model: table_sort_filter_proxy,
+                p_index: QtCore.QModelIndex):
+        super().__init__("View Save Files")
+
+        self.model = p_model
+        self.index = p_index
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot(bool)
+    def execute(self, p_b: bool):
+        get_game_info_dialog(self.model, self.index)
+
 class open_saves_directory_action(QtGui.QAction):
     def __init__(self,
                 p_model: table_sort_filter_proxy,
@@ -145,9 +173,11 @@ class table_csm(QW.QMenu):
                 p_index: QtCore.QModelIndex):
         super().__init__(p_parent)
 
+        self.game_info_action = view_files_action(p_model, p_index)
+        self.addAction(self.game_info_action)
+
         self.open_saves_directory_action = open_saves_directory_action(p_model, p_index)
         self.addAction(self.open_saves_directory_action)
-
 
 class table_view(QW.QTableView):
     def __init__(self, p_parent:QtCore.QObject):
@@ -164,6 +194,12 @@ class table_view(QW.QTableView):
 
         self.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.on_csm_requested)
+
+        self.doubleClicked.connect(self.on_double_clicked)
+
+    @QtCore.Slot(QtCore.QModelIndex)
+    def on_double_clicked(self, p_index: QtCore.QModelIndex):
+        get_game_info_dialog(self.model(), p_index)
 
     @QtCore.Slot(QtCore.QPoint)
     def on_csm_requested(self, p_point: QtCore.QPoint):
