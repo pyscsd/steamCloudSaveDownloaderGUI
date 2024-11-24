@@ -27,6 +27,21 @@ class table_model(QtCore.QAbstractTableModel):
         else:
             return flags
 
+    def setData(self,
+            p_index: QtCore.QModelIndex,
+            p_value,
+            p_role: QtCore.Qt.ItemDataRole) -> bool:
+        item = self.raw_list[p_index.row()]
+        if (p_role == QtCore.Qt.ItemDataRole.CheckStateRole and
+            p_index.column() == 0):
+                self.data_provider.set_enable_app_id(
+                    item['app_id'],
+                    QtCore.Qt.CheckState(p_value) == QtCore.Qt.CheckState.Checked)
+                self.dataChanged.emit(p_index, p_index)
+                return True
+        else:
+            return self.super().setData(p_index, p_value, p_role)
+
 
     def data(self,
             p_index: QtCore.QModelIndex,
