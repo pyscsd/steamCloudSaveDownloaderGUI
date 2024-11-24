@@ -1,6 +1,6 @@
 from PySide6 import QtWidgets as QW
 from PySide6 import QtCore, QtGui
-from .data_provider import data_provider
+from . import data_provider
 
 import webbrowser
 import os
@@ -10,8 +10,7 @@ class table_model(QtCore.QAbstractTableModel):
         self.parent = p_parent
         super().__init__(p_parent)
         self.raw_list = list()
-        self.data_provider = data_provider()
-        self.update_data(self.data_provider.load_existing_from_db())
+        self.update_data(data_provider.load_existing_from_db())
 
     def rowCount(self, p_index: QtCore.QModelIndex):
         return len(self.raw_list)
@@ -37,7 +36,7 @@ class table_model(QtCore.QAbstractTableModel):
         item = self.raw_list[p_index.row()]
         if (p_role == QtCore.Qt.ItemDataRole.CheckStateRole and
             p_index.column() == 0):
-                self.data_provider.set_enable_app_id(
+                data_provider.set_enable_app_id(
                     item['app_id'],
                     QtCore.Qt.CheckState(p_value) == QtCore.Qt.CheckState.Checked)
                 self.dataChanged.emit(p_index, p_index)
@@ -55,7 +54,7 @@ class table_model(QtCore.QAbstractTableModel):
 
         if p_role == QtCore.Qt.ItemDataRole.CheckStateRole:
             if column == 0:
-                if self.data_provider.should_download_appid(item['app_id']):
+                if data_provider.should_download_appid(item['app_id']):
                     return QtCore.Qt.CheckState.Checked
                 else:
                     return QtCore.Qt.CheckState.Unchecked
@@ -114,7 +113,6 @@ class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
                  p_source_model: table_model):
         super().__init__(p_parent)
         self.setSourceModel(p_source_model)
-        self.data_provider = p_source_model.data_provider
 
 class open_saves_directory_action(QtGui.QAction):
     def __init__(self,
@@ -132,7 +130,7 @@ class open_saves_directory_action(QtGui.QAction):
         app_id = \
             self.model.data(app_id_index, QtCore.Qt.ItemDataRole.DisplayRole)
 
-        save_dir = self.model.data_provider.get_save_dir(app_id)
+        save_dir = data_provider.get_save_dir(app_id)
         if (not os.path.isdir(save_dir)):
             # TODO: Handle This
             print(f"Error {save_dir} not exit")
@@ -201,7 +199,7 @@ class table_widget(QW.QWidget):
         self.v_layout.addWidget(self.table_view)
 
         # TODO: On press load
-        #game_list = data_provider_.get_game_list_from_web()
+        #game_list = data_provider.get_game_list_from_web()
 
     @QtCore.Slot(list)
     def on_data_change(self, p_data: list):

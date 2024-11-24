@@ -1,8 +1,9 @@
 from PySide6 import QtCore, QtGui
 from PySide6 import QtWidgets as QW
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
-from .steamCloudSaveDownloader.steamCloudSaveDownloader.config import config
 from .core import core
+from . import data_provider
+import copy
 import pathlib
 import os
 
@@ -121,7 +122,7 @@ class options_dialog(QW.QDialog):
         self.setMinimumSize(600, 500)
 
     def load_from_config_file(self):
-        self.config = config(core.s_config_file).get_conf()
+        self.config = data_provider.get_config_copy()
 
     def create_widgets(self):
         self.save_directory_label = QW.QLabel("Save directory:")
@@ -167,7 +168,7 @@ class options_dialog(QW.QDialog):
 
     @QtCore.Slot()
     def save(self):
-        config.export_to_file(self.config, core.s_config_file)
+        data_provider.commit(self.config)
         self.accept()
 
     @QtCore.Slot()
