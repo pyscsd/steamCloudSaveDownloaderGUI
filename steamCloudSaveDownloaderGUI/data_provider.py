@@ -55,6 +55,10 @@ def get_game_list_from_web():
         pickle.dump(self.web.get_list(), f)
     '''
 
+def get_files_from_app_id(p_app_id: int):
+    # file_id, filename, location in files_info:
+    return db.get_files_info_by_appid(p_app_id)
+
 def should_download_appid(app_id: int) -> bool:
     return app_id not in exclude_set
 
