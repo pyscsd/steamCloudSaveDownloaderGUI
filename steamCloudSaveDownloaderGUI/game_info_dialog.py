@@ -27,7 +27,7 @@ class tree_model(QtGui.QStandardItemModel):
             p_file_name)
         item.setEditable(False)
         item.setCheckable(False)
-        item.setData(self.file_id_role, p_file_id)
+        item.setData(p_file_id, tree_model.file_id_role)
         return item
 
     def setup_directories_and_files(self):
