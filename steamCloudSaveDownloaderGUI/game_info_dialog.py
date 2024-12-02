@@ -11,29 +11,33 @@ class tree_model(QtGui.QStandardItemModel):
     def __init__(self, p_parent:QtCore.QObject, p_app_id: int):
         super().__init__(p_parent)
         self.app_id = p_app_id
+        self.file_icon = QW.QFileIconProvider().icon(QW.QFileIconProvider.IconType.File)
+        self.dir_icon = QW.QFileIconProvider().icon(QW.QFileIconProvider.IconType.Folder)
         self.setup_directories_and_files()
+
+    def create_directory_item(self, p_directory_name: str) -> QtGui.QStandardItem:
+        item = QtGui.QStandardItem(self.dir_icon, p_directory_name)
+        item.setEditable(False)
+        item.setCheckable(False)
+        return item
+
+    def create_file_item(self, p_file_name: str, p_file_id: int) -> QtGui.QStandardItem:
+        item = QtGui.QStandardItem(
+            self.file_icon,
+            p_file_name)
+        item.setEditable(False)
+        item.setCheckable(False)
+        item.setData(self.file_id_role, p_file_id)
+        return item
 
     def setup_directories_and_files(self):
         #file_id, filename, location
         sorted_by_location_filename = \
             sorted(data_provider.get_files_from_app_id(self.app_id), key=itemgetter(2, 1))
 
-        def create_directory_item(p_directory_name: str) -> QtGui.QStandardItem:
-            item = QtGui.QStandardItem(p_directory_name)
-            item.setEditable(False)
-            item.setCheckable(False)
-            return item
-
-        def createa_file_item(p_file_name: str, p_file_id: int) -> QtGui.QStandardItem:
-            item = QtGui.QStandardItem(p_file_name)
-            item.setEditable(False)
-            item.setCheckable(False)
-            item.setData(self.file_id_role, p_file_id)
-            return item
-
         # Dictionary hierarchy, each node is a folder/item
         # Directory and file cannot be same name in Windows/Linux
-        actual_root = create_directory_item('/')
+        actual_root = self.create_directory_item('/')
         self.invisibleRootItem().appendRow(actual_root)
         self.hierarchy_dict = {'/': {'.': actual_root}}
         for file_id, filename, location in sorted_by_location_filename:
@@ -42,15 +46,14 @@ class tree_model(QtGui.QStandardItemModel):
             if len(location) != 0:
                 for level in location.split('/'):
                     if level not in current_node:
-                        dir_item = create_directory_item(level)
+                        dir_item = self.create_directory_item(level)
                         current_node[level] = {'.': dir_item}
                         current_node['.'].appendRow(dir_item)
                     current_node = current_node[level]
 
-            file_item = createa_file_item(filename, file_id)
+            file_item = self.create_file_item(filename, file_id)
             current_node[filename] = {'.': file_item}
             current_node['.'].appendRow(file_item)
-        pprint.pprint(self.hierarchy_dict)
 
 class tree_view(QW.QTreeView):
     def __init__(self, p_parent:QtCore.QObject):
