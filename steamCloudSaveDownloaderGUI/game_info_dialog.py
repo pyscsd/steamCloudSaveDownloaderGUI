@@ -4,19 +4,33 @@ from . import data_provider
 
 from operator import itemgetter
 import pprint # TODO Remove
+from enum import Enum
+
+class item_type_e(Enum):
+    dir_type = 0
+    file_type = 1
+    version_type = 2
 
 class tree_model(QtGui.QStandardItemModel):
-    file_id_role = QtCore.Qt.ItemDataRole.UserRole + 1
+    item_type_role = QtCore.Qt.ItemDataRole.UserRole + 1
+    file_id_role = QtCore.Qt.ItemDataRole.UserRole + 2
+    revision_loaded_role = QtCore.Qt.ItemDataRole.UserRole + 3
+    header_labels = ["Name/Version", "Date Written"]
+    column_count = len(header_labels)
 
     def __init__(self, p_parent:QtCore.QObject, p_app_id: int):
         super().__init__(p_parent)
+        self.setHorizontalHeaderLabels(tree_model.header_labels)
         self.app_id = p_app_id
         self.file_icon = QW.QFileIconProvider().icon(QW.QFileIconProvider.IconType.File)
         self.dir_icon = QW.QFileIconProvider().icon(QW.QFileIconProvider.IconType.Folder)
         self.setup_directories_and_files()
 
+
     def create_directory_item(self, p_directory_name: str) -> QtGui.QStandardItem:
         item = QtGui.QStandardItem(self.dir_icon, p_directory_name)
+        item.setColumnCount(tree_model.column_count)
+        item.setData(item_type_e.dir_type, tree_model.item_type_role)
         item.setEditable(False)
         item.setCheckable(False)
         return item
@@ -25,9 +39,17 @@ class tree_model(QtGui.QStandardItemModel):
         item = QtGui.QStandardItem(
             self.file_icon,
             p_file_name)
+        item.setColumnCount(tree_model.column_count)
         item.setEditable(False)
         item.setCheckable(False)
+        item.setData(item_type_e.file_type, tree_model.item_type_role)
         item.setData(p_file_id, tree_model.file_id_role)
+        item.setData(False, tree_model.revision_loaded_role)
+
+        placeholder_item = QtGui.QStandardItem("Placeholder")
+        placeholder_item.setData(item_type_e.version_type, tree_model.item_type_role)
+        item.appendRow(placeholder_item)
+
         return item
 
     def setup_directories_and_files(self):
@@ -55,10 +77,51 @@ class tree_model(QtGui.QStandardItemModel):
             current_node[filename] = {'.': file_item}
             current_node['.'].appendRow(file_item)
 
+    def populate_file_version(self, p_item: QtGui.QStandardItem):
+        if p_item.rowCount() != 0:
+            p_item.removeRows(0, p_item.rowCount())
+        file_id: int = p_item.data(tree_model.file_id_role)
+
+        version_info = data_provider.get_file_version_by_file_id(file_id)
+        for version_date, version_num in version_info:
+            name_item = QtGui.QStandardItem(f"Version {version_num}")
+            version_date_item = QtGui.QStandardItem(str(version_date))
+            p_item.appendRow([name_item, version_date_item])
+        p_item.setData(True, tree_model.revision_loaded_role)
+
+    def on_item_expanded(self, p_index: QtCore.QModelIndex):
+        item: QtGui.QStandardItem = self.itemFromIndex(p_index)
+
+        item_type: item_type_e = item.data(tree_model.item_type_role)
+        list_loaded: bool = item.data(tree_model.revision_loaded_role)
+
+        if item_type != item_type_e.file_type:
+            return
+
+        if list_loaded:
+            return
+
+        self.populate_file_version(item)
+
 class tree_view(QW.QTreeView):
-    def __init__(self, p_parent:QtCore.QObject):
+    def __init__(
+            self,
+            p_parent:QtCore.QObject,
+            p_model: QtGui.QStandardItemModel):
         super().__init__(p_parent)
+        self.setModel(p_model)
         self.setMinimumSize(800, 400)
+        self.setRootIndex(self.model().invisibleRootItem().child(0, 0).index())
+        self.expanded.connect(self.on_item_expanded)
+        self.header().setStretchLastSection(False)
+        self.header().setSectionResizeMode(0, QW.QHeaderView.ResizeMode.Stretch)
+        self.header().setSectionResizeMode(1, QW.QHeaderView.ResizeMode.ResizeToContents)
+        self.header().setMinimumSectionSize(120)
+
+    @QtCore.Slot(QtCore.QModelIndex)
+    def on_item_expanded(self, p_index: QtCore.QModelIndex):
+        self.model().on_item_expanded(p_index)
+
 
 class game_info_dialog(QW.QDialog):
     def __init__(self, p_app_id: int, game_name: str):
@@ -73,9 +136,7 @@ class game_info_dialog(QW.QDialog):
 
     def create_widgets(self):
         self.tree_model = tree_model(self, self.app_id)
-        self.tree_view = tree_view(self)
-        self.tree_view.setModel(self.tree_model)
-        self.tree_view.setRootIndex(self.tree_model.invisibleRootItem().child(0, 0).index())
+        self.tree_view = tree_view(self, self.tree_model)
 
     def layout_widgets(self):
         self.v_layout = QW.QVBoxLayout(self)

@@ -59,6 +59,9 @@ def get_files_from_app_id(p_app_id: int):
     # file_id, filename, location in files_info:
     return db.get_files_info_by_appid(p_app_id)
 
+def get_file_version_by_file_id(p_file_id: int):
+    return db.get_file_version_by_file_id(p_file_id)
+
 def should_download_appid(app_id: int) -> bool:
     return app_id not in exclude_set
 
