@@ -188,6 +188,7 @@ class tree_view(QW.QTreeView):
         self.setRootIndex(self.model().invisibleRootItem().child(0, 0).index())
 
         self.expanded.connect(self.on_item_expanded)
+        self.doubleClicked.connect(self.on_double_clicked)
 
         self.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.on_csm_requested)
@@ -207,6 +208,13 @@ class tree_view(QW.QTreeView):
     @QtCore.Slot(QtCore.QModelIndex)
     def on_item_expanded(self, p_index: QtCore.QModelIndex):
         self.model().on_item_expanded(p_index)
+
+    @QtCore.Slot(QtCore.QModelIndex)
+    def on_double_clicked(self, p_index: QtCore.QModelIndex):
+        item = self.model().itemFromIndex(p_index)
+        if item.data(tree_model.item_type_role) != item_type_e.version_type:
+            return
+        self.model().open_file_location(p_index)
 
 
 class game_info_dialog(QW.QDialog):
