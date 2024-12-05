@@ -2,9 +2,12 @@ from PySide6 import QtCore, QtGui
 from PySide6 import QtWidgets as QW
 from . import data_provider
 
-from operator import itemgetter
-import pprint # TODO Remove
 from enum import Enum
+from operator import itemgetter
+import os
+import platform
+import webbrowser
+import pprint # TODO Remove
 
 class item_type_e(Enum):
     dir_type = 0
@@ -15,6 +18,8 @@ class tree_model(QtGui.QStandardItemModel):
     item_type_role = QtCore.Qt.ItemDataRole.UserRole + 1
     file_id_role = QtCore.Qt.ItemDataRole.UserRole + 2
     revision_loaded_role = QtCore.Qt.ItemDataRole.UserRole + 3
+    versioned_name_role = QtCore.Qt.ItemDataRole.UserRole + 4
+
     header_labels = ["Name/Version", "Date Written"]
     column_count = len(header_labels)
 
@@ -63,7 +68,6 @@ class tree_model(QtGui.QStandardItemModel):
         self.invisibleRootItem().appendRow(actual_root)
         self.hierarchy_dict = {'/': {'.': actual_root}}
         for file_id, filename, location in sorted_by_location_filename:
-            print(f'{location} :: {filename}')
             current_node = self.hierarchy_dict['/']
             if len(location) != 0:
                 for level in location.split('/'):
@@ -82,10 +86,23 @@ class tree_model(QtGui.QStandardItemModel):
             p_item.removeRows(0, p_item.rowCount())
         file_id: int = p_item.data(tree_model.file_id_role)
 
+        file_name = p_item.text()
+
         version_info = data_provider.get_file_version_by_file_id(file_id)
         for version_date, version_num in version_info:
-            name_item = QtGui.QStandardItem(f"Version {version_num}")
+            versioned_name = f"{file_name}.scsd_{version_num}"
+            name_item = QtGui.QStandardItem(f"Ver.{version_num} ({versioned_name})")
+            name_item.setData(item_type_e.version_type, tree_model.item_type_role)
+            name_item.setData(versioned_name, tree_model.versioned_name_role)
+            name_item.setCheckable(False)
+            name_item.setEditable(False)
+
             version_date_item = QtGui.QStandardItem(str(version_date))
+            version_date_item.setData(item_type_e.version_type, tree_model.item_type_role)
+            version_date_item.setData(versioned_name, tree_model.versioned_name_role)
+            version_date_item.setCheckable(False)
+            version_date_item.setEditable(False)
+
             p_item.appendRow([name_item, version_date_item])
         p_item.setData(True, tree_model.revision_loaded_role)
 
@@ -103,6 +120,63 @@ class tree_model(QtGui.QStandardItemModel):
 
         self.populate_file_version(item)
 
+    def open_file_location(self, p_index: QtCore.QModelIndex):
+        location_list = []
+        item = self.itemFromIndex(p_index)
+        if item.data(tree_model.item_type_role) == item_type_e.version_type:
+            location_list.append(item.data(tree_model.versioned_name_role))
+            item = item.parent() # Skip file name part
+        elif item.data(tree_model.item_type_role) == item_type_e.dir_type:
+            location_list.append(item.text())
+        while True:
+            parent = item.parent()
+            if parent is None:
+                break
+            if parent.text() != '/':
+                location_list.append(parent.text())
+            item = parent
+
+        location_list.append(str(self.app_id))
+        location_list.append(data_provider.config['General']['save_dir'])
+        location_list.reverse()
+
+        location = os.path.join(*location_list)
+
+        if os.path.isdir(location):
+            webbrowser.open("file:///" + str(location))
+        elif os.path.isfile(location):
+            if platform.system() == "Windows":
+                import subprocess
+                subprocess.Popen('explorer /select,"' + str(location) + '"')
+            else:
+                print("TODO")
+        else:
+            print(f" {location} not exist")
+            return
+
+class open_saves_directory_action(QtGui.QAction):
+    def __init__(self,
+                p_model: tree_model,
+                p_index: QtCore.QModelIndex):
+        super().__init__("Open File Location")
+
+        self.model = p_model
+        self.index = p_index
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot(bool)
+    def execute(self, p_b: bool):
+        self.model.open_file_location(self.index)
+
+class tree_csm(QW.QMenu):
+    def __init__(self,
+                p_parent: QW.QWidget,
+                p_model: tree_model,
+                p_index: QtCore.QModelIndex):
+        super().__init__(p_parent)
+        self.open_location_action = open_saves_directory_action(p_model, p_index)
+        self.addAction(self.open_location_action)
+
 class tree_view(QW.QTreeView):
     def __init__(
             self,
@@ -112,11 +186,23 @@ class tree_view(QW.QTreeView):
         self.setModel(p_model)
         self.setMinimumSize(800, 400)
         self.setRootIndex(self.model().invisibleRootItem().child(0, 0).index())
+
         self.expanded.connect(self.on_item_expanded)
+
+        self.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.on_csm_requested)
+
         self.header().setStretchLastSection(False)
         self.header().setSectionResizeMode(0, QW.QHeaderView.ResizeMode.Stretch)
         self.header().setSectionResizeMode(1, QW.QHeaderView.ResizeMode.ResizeToContents)
         self.header().setMinimumSectionSize(120)
+
+    @QtCore.Slot(QtCore.QPoint)
+    def on_csm_requested(self, p_point: QtCore.QPoint):
+        index = self.indexAt(p_point)
+
+        menu = tree_csm(self, self.model(), index)
+        menu.popup(self.viewport().mapToGlobal(p_point))
 
     @QtCore.Slot(QtCore.QModelIndex)
     def on_item_expanded(self, p_index: QtCore.QModelIndex):
