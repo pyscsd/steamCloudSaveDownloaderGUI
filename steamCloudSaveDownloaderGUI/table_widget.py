@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets as QW
 from PySide6 import QtCore, QtGui
 from . import data_provider
+from . import thread_controller
 from .game_info_dialog import game_info_dialog
 
 import webbrowser
@@ -236,6 +237,7 @@ class table_widget(QW.QWidget):
 
         # TODO: On press load
         #game_list = data_provider.get_game_list_from_web()
+        self.thread_controller = thread_controller.thread_controller()
 
     @QtCore.Slot(list)
     def on_data_change(self, p_data: list):
