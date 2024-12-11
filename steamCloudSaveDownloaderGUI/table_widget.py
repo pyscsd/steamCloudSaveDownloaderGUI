@@ -1,11 +1,79 @@
 from PySide6 import QtWidgets as QW
 from PySide6 import QtCore, QtGui
+from .core import core
 from . import data_provider
 from . import thread_controller
 from .game_info_dialog import game_info_dialog
 
-import webbrowser
 import os
+import requests
+import shutil
+import time
+import webbrowser
+
+class game_header_downloader(QtCore.QObject):
+    result_ready = QtCore.Signal()
+    notification = QtCore.Signal(int)
+    def __init__(self, p_app_id_list: list):
+        super().__init__()
+        self.app_id_list = p_app_id_list
+
+    @QtCore.Slot()
+    def do_job(self):
+        for app_id in self.app_id_list:
+            if self.download_game_header_image(app_id):
+                self.notification.emit(app_id)
+                time.sleep(3)
+
+        self.result_ready.emit()
+
+    # Return true, if notification required, false if not
+    def download_game_header_image(self, p_app_id: int) -> bool:
+        url_prefix = 'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/'
+
+        header_name = f'{p_app_id}.jpg'
+        cached_image_location = os.path.join(core.s_cache_header_dir, header_name)
+
+        if os.path.isfile(header_name):
+            print(f"Already downloaded {p_app_id} header")
+            return False
+
+        not_availible_header_name = f'{p_app_id}.404'
+        not_availible_cached_image_location = os.path.join(core.s_cache_header_dir, not_availible_header_name)
+
+        if os.path.isfile(not_availible_cached_image_location):
+            print(f"Already 404 {p_app_id} header")
+            return False
+
+        header_link = f'{url_prefix}/{p_app_id}/header.jpg'
+        print(cached_image_location)
+
+        # TODO: Test
+        return True
+
+        with requests.Session().get(header_link, stream=True) as r:
+            if r.status_code == 404:
+                with open(not_availible_cached_image_location, 'a'):
+                    pass
+
+            if r.status_code != 200:
+                return False
+
+            with open(cached_image_location, 'wb') as f:
+                shutil.copyfileobj(r.raw, f)
+        return True
+
+
+    # 741140/header.jpg
+    # collect all from table_widget
+    # Return 404 and show not availible
+    # load existing from header
+
+    # Return status code to notify, or show as complete
+    # Maybe need to create as class and inherit
+    # Pure class (metaclass
+    # https://stackoverflow.com/questions/26458618/are-python-pure-virtual-functions-possible-and-or-worth-it
+
 
 class table_model(QtCore.QAbstractTableModel):
     def __init__(self, p_parent:QtCore.QObject):
@@ -108,6 +176,9 @@ class table_model(QtCore.QAbstractTableModel):
         #start = self.createIndex(0, 0)
         #end = self.createIndex(self.rowCount(self.parent) - 1, self.columnCount(self.parent) - 1)
         #self.dataChanged.emit(start, end)
+
+    def get_app_id_list(self) -> list :
+        return sorted([item['app_id'] for item in self.raw_list])
 
 class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
     def __init__(self,
@@ -237,7 +308,21 @@ class table_widget(QW.QWidget):
 
         # TODO: On press load
         #game_list = data_provider.get_game_list_from_web()
-        self.thread_controller = thread_controller.thread_controller()
+
+        self.start_download_header()
+
+    def start_download_header(self):
+        self.header_downloader = \
+            game_header_downloader(self.table_model.get_app_id_list())
+        self.header_download_controller = thread_controller.thread_controller(self.header_downloader)
+
+        self.header_download_controller.job_notified.connect(self.on_header_download_notify)
+
+        self.header_download_controller.start()
+
+    @QtCore.Slot(int)
+    def on_header_download_notify(self, p_int: int):
+        print(f"Header {p_int} download notify")
 
     @QtCore.Slot(list)
     def on_data_change(self, p_data: list):

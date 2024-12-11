@@ -10,6 +10,7 @@ class core:
     s_config_dir = os.path.join(pathlib.Path.home(), "scsd")
     s_config_file = os.path.join(s_config_dir, "scsd.conf")
     s_cache_dir = os.path.join(s_config_dir, ".cache")
+    s_cache_header_dir = os.path.join(s_cache_dir, "header")
     s_default_save_dir = os.path.join(pathlib.Path.home(), "scsd", "saves")
     s_session_file = os.path.join(s_config_dir, auth.auth.s_session_filename)
 
@@ -19,6 +20,10 @@ class core:
             os.mkdir(core.s_config_dir)
         if not os.path.isdir(core.s_default_save_dir):
             os.mkdir(core.s_default_save_dir)
+        if not os.path.isdir(core.s_cache_dir):
+            os.mkdir(core.s_cache_dir)
+        if not os.path.isdir(core.s_cache_header_dir):
+            os.mkdir(core.s_cache_header_dir)
         if not os.path.isfile(core.s_config_file):
             initial_config = {
                 'General': {
