@@ -21,11 +21,15 @@ class game_header_downloader(QtCore.QObject):
     @QtCore.Slot()
     def do_job(self):
         for app_id in self.app_id_list:
+            if QtCore.QThread.currentThread().isInterruptionRequested():
+                break
+
             if self.download_game_header_image(app_id):
                 self.notification.emit(app_id)
-                time.sleep(3)
+            time.sleep(3)
 
         self.result_ready.emit()
+        QtCore.QThread.currentThread().quit()
 
     # Return true, if notification required, false if not
     def download_game_header_image(self, p_app_id: int) -> bool:
@@ -310,6 +314,9 @@ class table_widget(QW.QWidget):
         #game_list = data_provider.get_game_list_from_web()
 
         self.start_download_header()
+
+    def on_main_window_closed(self):
+        self.header_download_controller.stop()
 
     def start_download_header(self):
         self.header_downloader = \

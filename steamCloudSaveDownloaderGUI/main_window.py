@@ -1,4 +1,4 @@
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtGui
 from . import menu
 from . import status_bar
 from . import table_widget
@@ -21,3 +21,6 @@ class main_window(QtWidgets.QMainWindow):
 
     def connect_signals(self):
         self.menu_bar.start_stop_action.data_updated_signal.connect(self.table_widget.on_data_change)
+
+    def closeEvent(self, p_close_event: QtGui.QCloseEvent):
+        self.table_widget.on_main_window_closed()

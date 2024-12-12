@@ -3,7 +3,7 @@ from PySide6 import QtWidgets as QW
 
 import sys
 
-# Example do not inherit this class
+# Example. do not inherit this class
 class thread_worker(QtCore.QObject):
     result_ready = QtCore.Signal()
     notification = QtCore.Signal(int)
@@ -20,6 +20,8 @@ class thread_worker(QtCore.QObject):
         # Should emit this when done
         #self.result_ready.emit()
 
+        # Should check isInterruptionRequested and stop
+
 class thread_controller(QtCore.QObject):
     start_thread = QtCore.Signal()
     job_notified = QtCore.Signal(int)
@@ -28,6 +30,7 @@ class thread_controller(QtCore.QObject):
     def __init__(self, p_worker: thread_worker):
         assert(hasattr(p_worker, "result_ready") and type(p_worker.result_ready) == QtCore.SignalInstance)
         assert(hasattr(p_worker, "notification") and type(p_worker.notification) == QtCore.SignalInstance)
+        assert(hasattr(p_worker, "do_job"))
 
         super().__init__()
         self.q_thread = QtCore.QThread()
@@ -42,9 +45,8 @@ class thread_controller(QtCore.QObject):
     def start(self):
         self.q_thread.start()
 
-    # TODO Handle on mainwindow exit
-    def __del__(self):
-        self.q_thread.quit()
+    def stop(self):
+        self.q_thread.requestInterruption()
         self.q_thread.wait()
 
     @QtCore.Slot()
