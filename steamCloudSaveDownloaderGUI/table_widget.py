@@ -11,6 +11,23 @@ import shutil
 import time
 import webbrowser
 
+# Return 0 if not checked yet
+# Retrun 1 if 404
+# Retrun 2 if found
+def game_header_availible(p_app_id: int) -> int:
+    header_name = f'{p_app_id}.jpg'
+    cached_image_location = os.path.join(core.s_cache_header_dir, header_name)
+
+    if os.path.isfile(cached_image_location):
+        return 2
+
+    not_availible_header_name = f'{p_app_id}.404'
+    not_availible_cached_image_location = os.path.join(core.s_cache_header_dir, not_availible_header_name)
+
+    if os.path.isfile(not_availible_cached_image_location):
+        return 1
+    return 0
+
 class game_header_downloader(QtCore.QObject):
     result_ready = QtCore.Signal()
     notification = QtCore.Signal(int)
@@ -35,24 +52,17 @@ class game_header_downloader(QtCore.QObject):
     def download_game_header_image(self, p_app_id: int) -> bool:
         url_prefix = 'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/'
 
-        header_name = f'{p_app_id}.jpg'
-        cached_image_location = os.path.join(core.s_cache_header_dir, header_name)
-
-        if os.path.isfile(header_name):
-            print(f"Already downloaded {p_app_id} header")
-            return False
-
-        not_availible_header_name = f'{p_app_id}.404'
-        not_availible_cached_image_location = os.path.join(core.s_cache_header_dir, not_availible_header_name)
-
-        if os.path.isfile(not_availible_cached_image_location):
-            print(f"Already 404 {p_app_id} header")
+        # Return 0 if not checked yet
+        # Retrun 1 if 404
+        # Retrun 2 if found
+        if game_header_availible(p_app_id) != 0:
+            print(f"Already done {p_app_id}")
             return False
 
         header_link = f'{url_prefix}/{p_app_id}/header.jpg'
-        print(cached_image_location)
 
         # TODO: Test
+        print("Not checked")
         return True
 
         with requests.Session().get(header_link, stream=True) as r:
@@ -132,6 +142,14 @@ class table_model(QtCore.QAbstractTableModel):
                     return QtCore.Qt.CheckState.Checked
                 else:
                     return QtCore.Qt.CheckState.Unchecked
+        if p_role == QtCore.Qt.ItemDataRole.DecorationRole:
+            if column == 1:
+                if game_header_availible(item['app_id']) == 2:
+                    header_name = f"{item['app_id']}.jpg"
+                    cached_image_location = os.path.join(core.s_cache_header_dir, header_name)
+                    return QtGui.QIcon(cached_image_location)
+            else:
+                return None
 
         if p_role != QtCore.Qt.ItemDataRole.DisplayRole:
             return None
@@ -139,8 +157,16 @@ class table_model(QtCore.QAbstractTableModel):
         if column == 0:
             pass
         elif column == 1:
-            # TODO: Pic
-            return "Placeholder"
+            # Return 0 if not checked yet
+            # Retrun 1 if 404
+            # Retrun 2 if found
+            availibility = game_header_availible(item['app_id'])
+            if availibility == 0:
+                return "Loading"
+            elif availibility == 1:
+                return "N/A"
+            elif availibility == 2:
+                return None
         elif column == 2:
             return item['app_id']
         elif column == 3:
@@ -159,7 +185,7 @@ class table_model(QtCore.QAbstractTableModel):
             if p_section == 0:
                 return 'Enabled'
             elif p_section == 1:
-                return 'Capsule'
+                return 'Header'
             elif p_section == 2:
                 return 'App ID'
             elif p_section == 3:
@@ -267,11 +293,14 @@ class table_view(QW.QTableView):
 
         self.setSortingEnabled(True)
         self.horizontalHeader().setSortIndicatorShown(True)
+        self.verticalHeader().setSectionResizeMode(QW.QHeaderView.ResizeMode.Fixed)
+        self.verticalHeader().setDefaultSectionSize(43)
 
         self.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.on_csm_requested)
 
         self.doubleClicked.connect(self.on_double_clicked)
+        self.setIconSize(QtCore.QSize(92, 43))
 
     @QtCore.Slot(QtCore.QModelIndex)
     def on_double_clicked(self, p_index: QtCore.QModelIndex):
