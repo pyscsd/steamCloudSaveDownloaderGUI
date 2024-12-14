@@ -41,6 +41,12 @@ class game_header_downloader(QtCore.QObject):
             if QtCore.QThread.currentThread().isInterruptionRequested():
                 break
 
+            # Return 0 if not checked yet
+            # Retrun 1 if 404
+            # Retrun 2 if found
+            if game_header_availible(app_id) != 0:
+                continue
+
             if self.download_game_header_image(app_id):
                 self.notification.emit(app_id)
             time.sleep(3)
@@ -52,18 +58,16 @@ class game_header_downloader(QtCore.QObject):
     def download_game_header_image(self, p_app_id: int) -> bool:
         url_prefix = 'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/'
 
-        # Return 0 if not checked yet
-        # Retrun 1 if 404
-        # Retrun 2 if found
-        if game_header_availible(p_app_id) != 0:
-            print(f"Already done {p_app_id}")
-            return False
-
         header_link = f'{url_prefix}/{p_app_id}/header.jpg'
 
-        # TODO: Test
-        print("Not checked")
-        return True
+        header_name = f'{p_app_id}.jpg'
+        cached_image_location = os.path.join(core.s_cache_header_dir, header_name)
+
+        if os.path.isfile(cached_image_location):
+            return 2
+
+        not_availible_header_name = f'{p_app_id}.404'
+        not_availible_cached_image_location = os.path.join(core.s_cache_header_dir, not_availible_header_name)
 
         with requests.Session().get(header_link, stream=True) as r:
             if r.status_code == 404:
@@ -77,24 +81,17 @@ class game_header_downloader(QtCore.QObject):
                 shutil.copyfileobj(r.raw, f)
         return True
 
-
-    # 741140/header.jpg
-    # collect all from table_widget
-    # Return 404 and show not availible
-    # load existing from header
-
-    # Return status code to notify, or show as complete
-    # Maybe need to create as class and inherit
-    # Pure class (metaclass
-    # https://stackoverflow.com/questions/26458618/are-python-pure-virtual-functions-possible-and-or-worth-it
-
-
 class table_model(QtCore.QAbstractTableModel):
     def __init__(self, p_parent:QtCore.QObject):
         self.parent = p_parent
         super().__init__(p_parent)
         self.raw_list = list()
         self.update_data(data_provider.load_existing_from_db())
+        self.app_id_to_row = dict()
+
+    def get_index_from_app_id(self, p_app_id: int, p_col: int) -> QtCore.QModelIndex:
+        row = self.app_id_to_row[p_app_id]
+        return self.createIndex(row, p_col)
 
     def rowCount(self, p_index: QtCore.QModelIndex):
         return len(self.raw_list)
@@ -125,8 +122,11 @@ class table_model(QtCore.QAbstractTableModel):
                     QtCore.Qt.CheckState(p_value) == QtCore.Qt.CheckState.Checked)
                 self.dataChanged.emit(p_index, p_index)
                 return True
+        elif (p_role == QtCore.Qt.ItemDataRole.DecorationRole and p_index.column() == 1):
+            self.dataChanged.emit(p_index, p_index, [QtCore.Qt.ItemDataRole.DecorationRole])
+            return True
         else:
-            return self.super().setData(p_index, p_value, p_role)
+            return super().setData(p_index, p_value, p_role)
 
 
     def data(self,
@@ -153,6 +153,8 @@ class table_model(QtCore.QAbstractTableModel):
 
         if p_role != QtCore.Qt.ItemDataRole.DisplayRole:
             return None
+
+        self.app_id_to_row[item['app_id']] = p_index.row()
 
         if column == 0:
             pass
@@ -358,7 +360,8 @@ class table_widget(QW.QWidget):
 
     @QtCore.Slot(int)
     def on_header_download_notify(self, p_int: int):
-        print(f"Header {p_int} download notify")
+        index = self.table_model.get_index_from_app_id(p_int, 1)
+        self.table_model.setData(index, None, QtCore.Qt.ItemDataRole.DecorationRole)
 
     @QtCore.Slot(list)
     def on_data_change(self, p_data: list):
