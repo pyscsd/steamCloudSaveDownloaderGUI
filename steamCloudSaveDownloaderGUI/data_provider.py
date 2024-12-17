@@ -37,8 +37,8 @@ def commit(p_config=None):
     reload_config()
 
 def load_existing_from_db():
-    id_and_names = db.get_stored_game_names([])
-    return [{'app_id': app_id, 'name': name} for app_id, name in id_and_names]
+    info = db.get_all_stored_game_infos()
+    return [{'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time} for app_id, name, last_checked_time in info]
 
 
 def load_from_pkl():

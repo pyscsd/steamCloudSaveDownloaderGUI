@@ -174,7 +174,10 @@ class table_model(QtCore.QAbstractTableModel):
         elif column == 3:
             return item['name']
         elif column == 4:
-            return "Placeholder"
+            if item['last_checked_time'] is None:
+                return 'N/A'
+            else:
+                return str(item['last_checked_time'])
         else:
             assert(False)
 
@@ -204,10 +207,6 @@ class table_model(QtCore.QAbstractTableModel):
         self.beginResetModel()
         self.raw_list = p_list
         self.endResetModel()
-
-        #start = self.createIndex(0, 0)
-        #end = self.createIndex(self.rowCount(self.parent) - 1, self.columnCount(self.parent) - 1)
-        #self.dataChanged.emit(start, end)
 
     def get_app_id_list(self) -> list :
         return sorted([item['app_id'] for item in self.raw_list])
