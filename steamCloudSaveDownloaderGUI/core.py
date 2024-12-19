@@ -9,6 +9,7 @@ class core:
     # TODO: COnfig, save, .cache,
     s_config_dir = os.path.join(pathlib.Path.home(), "scsd")
     s_config_file = os.path.join(s_config_dir, "scsd.conf")
+    s_log_file = os.path.join(s_config_dir, "scsd.log")
     s_cache_dir = os.path.join(s_config_dir, ".cache")
     s_cache_header_dir = os.path.join(s_cache_dir, "header")
     s_default_save_dir = os.path.join(pathlib.Path.home(), "scsd", "saves")
