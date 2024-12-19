@@ -1,6 +1,7 @@
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.config import config as config_c
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.db import db as db_c
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger, set_level
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.web import web
 from .core import core
 import copy
@@ -12,7 +13,6 @@ import os # TODO: Remove
 config_client = config_c(core.s_config_file)
 config = config_client.get_conf()
 exclude_set = set(config['Target']['list'])
-db = db_c(core.s_config_dir, config['Rotation']['rotation'])
 
 # TODO: Uncomment when mock finished
 # TODO: Refresh session whenever do it
@@ -35,8 +35,12 @@ def commit(p_config=None):
     else:
         config_client.export_to_file(p_config, core.s_config_file)
     reload_config()
+    set_level(config['Log']['log_level'])
+
+    logger.debug(f'Options: {config}')
 
 def load_existing_from_db():
+    db = db_c(core.s_config_dir, config['Rotation']['rotation'])
     info = db.get_all_stored_game_infos()
     return [{'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time} for app_id, name, last_checked_time in info]
 
@@ -56,10 +60,12 @@ def get_game_list_from_web():
     '''
 
 def get_files_from_app_id(p_app_id: int):
+    db = db_c(core.s_config_dir, config['Rotation']['rotation'])
     # file_id, filename, location in files_info:
     return db.get_files_info_by_appid(p_app_id)
 
 def get_file_version_by_file_id(p_file_id: int):
+    db = db_c(core.s_config_dir, config['Rotation']['rotation'])
     return db.get_file_version_by_file_id(p_file_id)
 
 def should_download_appid(app_id: int) -> bool:

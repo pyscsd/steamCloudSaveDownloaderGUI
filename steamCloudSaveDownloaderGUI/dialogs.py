@@ -3,7 +3,6 @@ from PySide6 import QtWidgets as QW
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
 from .core import core
 from . import data_provider
-import copy
 import pathlib
 import os
 
@@ -146,6 +145,12 @@ class options_dialog(QW.QDialog):
             "Cancel",
              QW.QDialogButtonBox.ButtonRole.RejectRole)
 
+        self.log_level_label = QW.QLabel("Log Level:")
+        self.log_level_value = QW.QSpinBox()
+        self.log_level_value.setMinimum(0)
+        self.log_level_value.setMaximum(3)
+        self.log_level_value.setValue(self.config['Log']['log_level'])
+
     def layout_widgets(self):
         right_align = QtCore.Qt.AlignmentFlag.AlignRight
         left_align = QtCore.Qt.AlignmentFlag.AlignLeft
@@ -160,6 +165,8 @@ class options_dialog(QW.QDialog):
         self.grid_layout.addWidget(self.browse_button, 0, 2, left_align)
         self.grid_layout.addWidget(self.rotation_label, 1, 0, right_align)
         self.grid_layout.addWidget(self.rotation_value, 1, 1, left_align)
+        self.grid_layout.addWidget(self.log_level_label, 2, 0, right_align)
+        self.grid_layout.addWidget(self.log_level_value, 2, 1, left_align)
 
         # TODO setRowStretch, setColStretch
         # https://stackoverflow.com/a/69884434
@@ -196,8 +203,13 @@ class options_dialog(QW.QDialog):
     def on_rotation_value_change(self, p_value: int):
         self.config['Rotation']['rotation'] = p_value
 
+    @QtCore.Slot()
+    def on_log_level_value_change(self, p_value: int):
+        self.config['Log']['log_level'] = p_value
+
     def connect_signals(self):
         self.button_box.save_button.clicked.connect(self.save)
         self.button_box.cancel_button.clicked.connect(self.reject)
         self.browse_button.clicked.connect(self.browse)
         self.rotation_value.valueChanged.connect(self.on_rotation_value_change)
+        self.log_level_value.valueChanged.connect(self.on_log_level_value_change)

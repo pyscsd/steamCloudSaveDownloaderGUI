@@ -3,6 +3,7 @@ from PySide6 import QtCore, QtGui
 from .core import core
 from . import data_provider
 from . import thread_controller
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
 from .game_info_dialog import game_info_dialog
 
 import os
@@ -35,10 +36,18 @@ class game_header_downloader(QtCore.QObject):
         super().__init__()
         self.app_id_list = p_app_id_list
 
+    def check_interrupt(self):
+        interrupt = QtCore.QThread.currentThread().isInterruptionRequested()
+        if interrupt:
+            logger.debug("game_header_downloader interrupt recieved")
+        return interrupt
+
+
     @QtCore.Slot()
     def do_job(self):
         for app_id in self.app_id_list:
-            if QtCore.QThread.currentThread().isInterruptionRequested():
+            if self.check_interrupt():
+                self.end_routine()
                 break
 
             # Return 0 if not checked yet
@@ -47,9 +56,18 @@ class game_header_downloader(QtCore.QObject):
             if game_header_availible(app_id) != 0:
                 continue
 
+            logger.debug(f"game_header_downloader download {app_id}")
             if self.download_game_header_image(app_id):
                 self.notification.emit(app_id)
-            time.sleep(3)
+
+            # Increase responsive
+            for i in range(3):
+                if self.check_interrupt():
+                    break
+                time.sleep(1)
+            else:
+                continue
+            break
 
         self.result_ready.emit()
         QtCore.QThread.currentThread().quit()
