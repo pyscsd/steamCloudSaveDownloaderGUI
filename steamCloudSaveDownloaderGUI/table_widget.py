@@ -47,7 +47,6 @@ class game_header_downloader(QtCore.QObject):
     def do_job(self):
         for app_id in self.app_id_list:
             if self.check_interrupt():
-                self.end_routine()
                 break
 
             # Return 0 if not checked yet
