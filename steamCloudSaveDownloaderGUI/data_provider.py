@@ -1,8 +1,7 @@
-from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.config import config as config_c
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.db import db as db_c
+from .steamCloudSaveDownloader.steamCloudSaveDownloader import downloader
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger, set_level
-from .steamCloudSaveDownloader.steamCloudSaveDownloader.web import web
 from .core import core
 import copy
 import pickle # TODO: Remove
@@ -43,6 +42,24 @@ def load_existing_from_db():
     db = db_c(core.s_config_dir, config['Rotation']['rotation'])
     info = db.get_all_stored_game_infos()
     return [{'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time} for app_id, name, last_checked_time in info]
+
+def load_from_db_and_web():
+    db_list = load_existing_from_db()
+    existing_app_id_dict = {item['app_id'] for item in db_list}
+    web_list = downloader.get_game_list_and_update(config)
+
+    new_list = copy.copy(db_list)
+
+    for item in web_list:
+        if item['app_id'] not in existing_app_id_dict:
+            logger.debug(f'app_id {item["app_id"]} not found in DB')
+            new_list.append(
+                {
+                    'app_id': item['app_id'],
+                    'name': item['name'],
+                    'last_checked_time': None
+                })
+    return new_list
 
 
 def load_from_pkl():
