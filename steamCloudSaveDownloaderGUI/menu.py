@@ -79,7 +79,7 @@ class options_action(QtGui.QAction):
         self.dialog.exec()
 
 class refresh_action(QtGui.QAction):
-    data_updated_signal = QtCore.Signal(list)
+    data_updated_signal = QtCore.Signal()
 
     def __init__(self):
         super().__init__("Refresh")
@@ -88,7 +88,7 @@ class refresh_action(QtGui.QAction):
     @QtCore.Slot()
     def execute(self, p_action):
         logger.info("Refresh")
-        self.data_updated_signal.emit(data_provider.load_from_db_and_web())
+        self.data_updated_signal.emit()
 
     def set_enable(self, p_b: bool):
         self.setEnabled(p_b)

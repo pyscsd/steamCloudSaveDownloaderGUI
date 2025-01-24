@@ -12,7 +12,7 @@ class main_window(QtWidgets.QMainWindow):
         self.menu_bar = menu.menu_bar(self, self.status_bar)
         self.setMenuBar(self.menu_bar)
 
-        self.table_widget = table_widget.table_widget(self)
+        self.table_widget = table_widget.table_widget(self, self.status_bar)
         self.setCentralWidget(self.table_widget)
 
         self.setWindowTitle("scsd-gui")
@@ -20,7 +20,7 @@ class main_window(QtWidgets.QMainWindow):
         self.connect_signals()
 
     def connect_signals(self):
-        self.menu_bar.start_stop_action.data_updated_signal.connect(self.table_widget.on_data_change)
+        #self.menu_bar.start_stop_action.data_updated_signal.connect(self.table_widget.on_data_change)
         self.menu_bar.refresh_action.data_updated_signal.connect(self.table_widget.on_data_change)
 
     def closeEvent(self, p_close_event: QtGui.QCloseEvent):

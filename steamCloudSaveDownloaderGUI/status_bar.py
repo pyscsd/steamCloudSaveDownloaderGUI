@@ -11,7 +11,16 @@ class status_bar(QW.QStatusBar):
         self.label = QW.QLabel()
         self.addWidget(self.label)
 
+        self.progress_bar = QW.QProgressBar()
+        self.set_progress_bar_value(100)
+        self.progress_bar.setTextVisible(False)
+        self.addPermanentWidget(self.progress_bar)
+
         self.set_ready()
+
+    @QtCore.Slot(int)
+    def set_progress_bar_value(self, p_val: int):
+        self.progress_bar.setValue(p_val)
 
 
     # TODO: Pass to Menu

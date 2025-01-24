@@ -2,6 +2,7 @@ from PySide6 import QtWidgets as QW
 from PySide6 import QtCore, QtGui
 from .core import core
 from . import data_provider
+from . import status_bar
 from . import thread_controller
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
 from .game_info_dialog import game_info_dialog
@@ -39,7 +40,7 @@ class game_header_downloader(QtCore.QObject):
     def check_interrupt(self):
         interrupt = QtCore.QThread.currentThread().isInterruptionRequested()
         if interrupt:
-            logger.debug("game_header_downloader interrupt recieved")
+            logger.debug("(game_header_downloader) interrupt recieved")
         return interrupt
 
 
@@ -55,7 +56,7 @@ class game_header_downloader(QtCore.QObject):
             if game_header_availible(app_id) != 0:
                 continue
 
-            logger.debug(f"game_header_downloader download {app_id}")
+            logger.debug(f"(game_header_downloader) download {app_id}")
             if self.download_game_header_image(app_id):
                 self.notification.emit(app_id)
 
@@ -68,6 +69,7 @@ class game_header_downloader(QtCore.QObject):
                 continue
             break
 
+        logger.debug("(game_header_downloader) download complete")
         self.result_ready.emit()
         QtCore.QThread.currentThread().quit()
 
@@ -97,6 +99,27 @@ class game_header_downloader(QtCore.QObject):
             with open(cached_image_location, 'wb') as f:
                 shutil.copyfileobj(r.raw, f)
         return True
+
+class table_refresher(QtCore.QObject):
+    result_ready = QtCore.Signal()
+    notification = QtCore.Signal(int)
+
+    def __init__(self, p_table_widget):
+        super().__init__()
+        self.table_widget = p_table_widget
+
+    def check_interrupt(self):
+        interrupt = QtCore.QThread.currentThread().isInterruptionRequested()
+        if interrupt:
+            pass
+
+    @QtCore.Slot()
+    def do_job(self):
+        self.table_widget.status_bar.set_progress_bar_value(30)
+        self.table_widget.table_model.update_data(data_provider.load_from_db_and_web())
+        self.table_widget.status_bar.set_progress_bar_value(100)
+        self.result_ready.emit()
+        QtCore.QThread.currentThread().quit()
 
 class table_model(QtCore.QAbstractTableModel):
     def __init__(self, p_parent:QtCore.QObject):
@@ -342,8 +365,9 @@ class table_view(QW.QTableView):
 
 
 class table_widget(QW.QWidget):
-    def __init__(self, p_parent: QtCore.QObject):
+    def __init__(self, p_parent: QtCore.QObject, p_status_bar: status_bar):
         super().__init__(p_parent)
+        self.status_bar = p_status_bar
 
         self.table_view = table_view(self)
         self.table_model = table_model(self)
@@ -380,5 +404,15 @@ class table_widget(QW.QWidget):
         self.table_model.setData(index, None, QtCore.Qt.ItemDataRole.DecorationRole)
 
     @QtCore.Slot(list)
-    def on_data_change(self, p_data: list):
-        self.table_model.update_data(p_data)
+    def on_data_change(self):
+        # Refresh
+        self.refresher = \
+            table_refresher(self)
+        self.refresher_controller = thread_controller.thread_controller(self.refresher)
+        self.refresher_controller.job_finished.connect(self.on_refresh_complete)
+        self.refresher_controller.start()
+
+    @QtCore.Slot()
+    def on_refresh_complete(self):
+        logger.debug("(refresher) Refresh complete")
+        self.start_download_header()
