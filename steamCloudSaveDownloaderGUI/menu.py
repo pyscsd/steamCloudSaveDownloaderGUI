@@ -85,6 +85,9 @@ class refresh_action(QtGui.QAction):
         super().__init__("Refresh")
         self.triggered.connect(self.execute)
 
+        has_session:bool = core.has_session()
+        self.setEnabled(has_session)
+
     @QtCore.Slot()
     def execute(self, p_action):
         logger.info("Refresh")
@@ -110,6 +113,9 @@ class download_menu(QtWidgets.QMenu):
         self.addAction(self.download)
         self.download_all = download_all_menu_action()
         self.addAction(self.download_all)
+
+        has_session:bool = core.has_session()
+        self.setEnabled(has_session)
 
 class start_stop_action(QtGui.QAction):
     data_updated_signal = QtCore.Signal(list)
