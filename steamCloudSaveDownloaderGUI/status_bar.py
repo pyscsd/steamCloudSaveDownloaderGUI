@@ -22,8 +22,10 @@ class status_bar(QW.QStatusBar):
     def set_progress_bar_value(self, p_val: int):
         self.progress_bar.setValue(p_val)
 
+    def set_refreshing(self):
+        self.label.setText("Refreshing.")
+        self.label.setStyleSheet("")
 
-    # TODO: Pass to Menu
     @QtCore.Slot()
     def set_ready(self):
         if core.has_session():

@@ -4,8 +4,10 @@ from .steamCloudSaveDownloader.steamCloudSaveDownloader import downloader
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger, set_level
 from .core import core
 import copy
+from datetime import datetime
 import pickle # TODO: Remove
-import os # TODO: Remove
+import os
+import vdf
 
 # This file is a singleton
 
@@ -38,10 +40,42 @@ def commit(p_config=None):
 
     logger.debug(f'Options: {config}')
 
+def get_games_last_played_time_locally() -> dict:
+    global account_id
+    account_id = downloader.get_account_id(config)
+    logger.debug(f"Account_id: {account_id}")
+
+    vdf_location = os.path.join(core.s_steam_location, "userdata", str(account_id), 'config', "localconfig.vdf")
+    if not os.path.isfile(vdf_location):
+        return
+    local_vdf = vdf.load(open(vdf_location, encoding='utf-8'))
+
+    played_time = {}
+
+    for key, value in local_vdf['UserLocalConfigStore']['Software']['valve']['Steam']['apps'].items():
+        if 'LastPlayed' not in value:
+            continue
+        played_time[int(key)] = datetime.fromtimestamp(int(value['LastPlayed']))
+    return played_time
+
+
 def load_existing_from_db():
+    global account_id
+    if not core.has_session():
+        return []
     db = db_c(core.s_config_dir, config['Rotation']['rotation'])
     info = db.get_all_stored_game_infos()
-    return [{'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time} for app_id, name, last_checked_time in info]
+
+    last_played = get_games_last_played_time_locally()
+
+    data = list()
+
+    for app_id, name, last_checked_time in info:
+        if app_id in last_played:
+            data.append({'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time, 'last_played': last_played[app_id]})
+        else:
+            data.append({'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time, 'last_played': None})
+    return data
 
 def load_from_db_and_web():
     db_list = load_existing_from_db()
@@ -50,6 +84,8 @@ def load_from_db_and_web():
 
     new_list = copy.copy(db_list)
 
+    last_played = get_games_last_played_time_locally()
+
     for item in web_list:
         if item['app_id'] not in existing_app_id_dict:
             logger.debug(f'app_id {item["app_id"]} not found in DB')
@@ -57,7 +93,8 @@ def load_from_db_and_web():
                 {
                     'app_id': item['app_id'],
                     'name': item['name'],
-                    'last_checked_time': None
+                    'last_checked_time': None,
+                    'last_played': last_played[item['app_id']] if item['app_id'] in last_played else None
                 })
     return new_list
 

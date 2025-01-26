@@ -5,3 +5,4 @@ beautifulsoup4>=4.12.2,<5
 discord-webhook>=1.1.0,<2
 tzdata>=2023.3
 pyside6>=6.4.1,<7
+vdf>=3.4,<4

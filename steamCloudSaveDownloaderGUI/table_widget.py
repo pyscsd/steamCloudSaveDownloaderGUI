@@ -115,9 +115,11 @@ class table_refresher(QtCore.QObject):
 
     @QtCore.Slot()
     def do_job(self):
+        self.table_widget.status_bar.set_refreshing()
         self.table_widget.status_bar.set_progress_bar_value(30)
         self.table_widget.table_model.update_data(data_provider.load_from_db_and_web())
         self.table_widget.status_bar.set_progress_bar_value(100)
+        self.table_widget.status_bar.set_ready()
         self.result_ready.emit()
         QtCore.QThread.currentThread().quit()
 
@@ -137,8 +139,8 @@ class table_model(QtCore.QAbstractTableModel):
         return len(self.raw_list)
 
     def columnCount(self, p_index: QtCore.QModelIndex):
-        # Enabled, Preview(Capsule), appID, name, last updated
-        return 5
+        # Enabled, Preview(Capsule), appID, name, last updated, last played
+        return 6
 
     def flags(self, p_index: QtCore.QModelIndex):
         column = p_index.column()
@@ -218,6 +220,11 @@ class table_model(QtCore.QAbstractTableModel):
                 return 'N/A'
             else:
                 return str(item['last_checked_time'])
+        elif column == 5:
+            if item['last_played'] is None:
+                return 'N/A'
+            else:
+                return str(item['last_played'])
         else:
             assert(False)
 
@@ -237,6 +244,8 @@ class table_model(QtCore.QAbstractTableModel):
                 return 'Name'
             elif p_section == 4:
                 return 'Last Updated'
+            elif p_section == 5:
+                return 'Last Played'
             else:
                 assert(False)
         else:

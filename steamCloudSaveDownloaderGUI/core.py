@@ -1,9 +1,34 @@
-import pathlib
 import os
+import pathlib
+import platform
 from .steamCloudSaveDownloader.steamCloudSaveDownloader import auth
 from .steamCloudSaveDownloader.steamCloudSaveDownloader import config
 from .steamCloudSaveDownloader.steamCloudSaveDownloader import db
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
+
+def get_windows_steam_install_location():
+    import winreg
+    try:
+        uninstall_info = winreg.OpenKey(
+            winreg.HKEY_LOCAL_MACHINE,
+            r"SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Steam")
+    except FileNotFoundError:
+        logger.info("Steam Win Reg Key Not found")
+        return ""
+    try:
+        location = winreg.QueryValueEx(uninstall_info, "UninstallString")
+    except FileNotFoundError:
+        logger.info("UninstallString Not found")
+        return ""
+    location = location[0]
+    location = pathlib.Path(location)
+    location = os.path.join(*location.parts[0:-1])
+    return location
+
+def get_steam_install_location():
+    if platform.system() == 'Windows':
+        return get_windows_steam_install_location()
+    return ""
 
 class core:
     def __init__(self):
@@ -14,9 +39,11 @@ class core:
     s_db_file = os.path.join(s_config_dir, "scsd.sqlite3")
     s_log_file = os.path.join(s_config_dir, "scsd.log")
     s_cache_dir = os.path.join(s_config_dir, ".cache")
+    s_account_id_file = os.path.join(s_config_dir, "account_id")
     s_cache_header_dir = os.path.join(s_cache_dir, "header")
     s_default_save_dir = os.path.join(pathlib.Path.home(), "scsd", "saves")
     s_session_file = os.path.join(s_config_dir, auth.auth.s_session_filename)
+    s_steam_location = get_steam_install_location()
 
     @staticmethod
     def init():
