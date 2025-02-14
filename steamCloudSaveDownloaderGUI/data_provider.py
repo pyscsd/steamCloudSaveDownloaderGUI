@@ -5,7 +5,6 @@ from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger, se
 from .core import core
 import copy
 from datetime import datetime
-import pickle # TODO: Remove
 import os
 import vdf
 
@@ -14,14 +13,6 @@ import vdf
 config_client = config_c(core.s_config_file)
 config = config_client.get_conf()
 exclude_set = set(config['Target']['list'])
-
-# TODO: Uncomment when mock finished
-# TODO: Refresh session whenever do it
-'''
-self.auth = auth(core.s_config_dir, '')
-self.auth.refresh_session()
-self.web = web(self.auth.get_session_path(), self.config['Danger Zone']['wait_interval'])
-'''
 
 def reload_config():
     global config_client, config, exclude_set
@@ -98,20 +89,6 @@ def load_from_db_and_web():
                 })
     return new_list
 
-
-def load_from_pkl():
-    with open(os.path.join(core.s_config_dir, 'game_list.pkl'), 'rb') as f:
-        game_list = pickle.load(f)
-    return game_list
-
-def get_game_list_from_web():
-    data = load_from_pkl()
-    return data
-    #self.web.get_list()
-    '''
-    with open(os.path.join(core.s_config_dir, 'game_list.pkl'), 'wb') as f:
-        pickle.dump(self.web.get_list(), f)
-    '''
 
 def get_files_from_app_id(p_app_id: int):
     db = db_c(core.s_config_dir, config['Rotation']['rotation'])

@@ -103,6 +103,8 @@ class game_header_downloader(QtCore.QObject):
 class table_refresher(QtCore.QObject):
     result_ready = QtCore.Signal()
     notification = QtCore.Signal(int)
+    set_status_bar_text = QtCore.Signal(str)
+    set_status_bar_percent = QtCore.Signal(int)
 
     def __init__(self, p_table_widget):
         super().__init__()
@@ -115,11 +117,14 @@ class table_refresher(QtCore.QObject):
 
     @QtCore.Slot()
     def do_job(self):
-        self.table_widget.status_bar.set_refreshing()
-        self.table_widget.status_bar.set_progress_bar_value(30)
+        self.set_status_bar_text.emit("Refreshing...")
+        self.set_status_bar_percent.emit(30)
+
         self.table_widget.table_model.update_data(data_provider.load_from_db_and_web())
-        self.table_widget.status_bar.set_progress_bar_value(100)
-        self.table_widget.status_bar.set_ready()
+
+        self.set_status_bar_text.emit("")
+        self.set_status_bar_percent.emit(100)
+
         self.result_ready.emit()
         QtCore.QThread.currentThread().quit()
 
@@ -390,9 +395,6 @@ class table_widget(QW.QWidget):
         self.v_layout = QW.QVBoxLayout(self)
         self.v_layout.addWidget(self.table_view)
 
-        # TODO: On press load
-        #game_list = data_provider.get_game_list_from_web()
-
         self.start_download_header()
 
     def on_main_window_closed(self):
@@ -417,7 +419,7 @@ class table_widget(QW.QWidget):
         # Refresh
         self.refresher = \
             table_refresher(self)
-        self.refresher_controller = thread_controller.thread_controller(self.refresher)
+        self.refresher_controller = thread_controller.thread_controller(self.refresher, self.status_bar)
         self.refresher_controller.job_finished.connect(self.on_refresh_complete)
         self.refresher_controller.start()
 

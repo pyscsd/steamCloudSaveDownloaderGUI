@@ -3,6 +3,7 @@ from PySide6 import QtWidgets as QW
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
 from .core import core
 from . import data_provider
+from .status_bar import status_bar
 import pathlib
 import os
 
@@ -15,8 +16,9 @@ class login_fail_message_box(QW.QMessageBox):
             QW.QMessageBox.StandardButton.Close)
 
 class login_dialog(QW.QDialog):
-    def __init__(self):
+    def __init__(self, p_status_bar: status_bar):
         super().__init__()
+        self.status_bar = p_status_bar
         self.setWindowTitle("Login")
 
         self.create_widgets()
@@ -96,6 +98,7 @@ class login_dialog(QW.QDialog):
         return user and password and two_factor
 
     def login(self) -> bool:
+        self.status_bar.set_authenticating()
         auth_ = auth(core.s_config_dir, '')
         try:
             auth_.new_session(

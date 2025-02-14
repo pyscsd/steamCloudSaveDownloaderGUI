@@ -22,14 +22,18 @@ class status_bar(QW.QStatusBar):
     def set_progress_bar_value(self, p_val: int):
         self.progress_bar.setValue(p_val)
 
-    def set_refreshing(self):
-        self.label.setText("Refreshing.")
+    def set_authenticating(self):
+        self.label.setText("Authenticating...")
+        self.label.setStyleSheet("")
+
+    def set_text(self, p_text: str):
+        self.label.setText(p_text)
         self.label.setStyleSheet("")
 
     @QtCore.Slot()
     def set_ready(self):
         if core.has_session():
-            self.label.setText("Ready. Press Start to start downloading.")
+            self.label.setText("Ready. Press 'Refresh' to populate list or 'Start' to start downloading.")
             self.label.setStyleSheet("")
         else:
             self.label.setText("No session. Please create session with Session > Login.")
