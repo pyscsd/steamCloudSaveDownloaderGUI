@@ -61,6 +61,8 @@ class save_downloader(QtCore.QObject):
             pass
         self.set_status_bar_percent.emit(100)
         self.result_ready.emit()
+
+        del self.downloader
         QtCore.QThread.currentThread().quit()
 
         # TODO: Check interrupt
