@@ -36,6 +36,7 @@ class save_downloader(QtCore.QObject):
             self.set_status_bar_percent.emit(current_progress)
 
             self.downloader.download_game(game)
+            self.notification.emit(game['app_id'])
 
             current_progress += progress_step
             count += 1
@@ -116,6 +117,3 @@ class save_downloader(QtCore.QObject):
 
         del self.downloader
         QtCore.QThread.currentThread().quit()
-
-        # TODO: Check interrupt
-        # TODO: Deeper callback

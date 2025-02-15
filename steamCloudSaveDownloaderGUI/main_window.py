@@ -32,6 +32,8 @@ class main_window(QW.QMainWindow):
 
     def connect_signals(self):
         self.menu_bar.refresh_action.data_updated_signal.connect(self.table_widget.on_data_change)
+        self.menu_bar.download_action.row_updated_signal.connect(self.table_widget.on_row_change)
+        self.menu_bar.download_all_action.row_updated_signal.connect(self.table_widget.on_row_change)
 
     def closeEvent(self, p_close_event: QtGui.QCloseEvent):
         self.exit_dialog.show()

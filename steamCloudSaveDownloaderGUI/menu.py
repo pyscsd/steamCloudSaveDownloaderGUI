@@ -98,6 +98,8 @@ class refresh_action(QtGui.QAction):
         self.setEnabled(p_b)
 
 class download_all_action(QtGui.QAction):
+    row_updated_signal = QtCore.Signal(int)
+
     def __init__(self, p_status_bar:status_bar):
         super().__init__()
         self.setText("Download All")
@@ -108,6 +110,9 @@ class download_all_action(QtGui.QAction):
 
         self.triggered.connect(self.execute)
 
+    @QtCore.Slot()
+    def app_id_updated(self, p_int: int):
+        self.row_updated_signal.emit(p_int)
 
     @QtCore.Slot()
     def download_complete(self):
@@ -120,6 +125,7 @@ class download_all_action(QtGui.QAction):
         self.downloader_controller = \
             thread_controller.thread_controller(self.downloader, self.status_bar)
         self.downloader_controller.job_finished.connect(self.download_complete)
+        self.downloader_controller.job_notified.connect(self.app_id_updated)
         self.downloader_controller.start()
 
     @QtCore.Slot()
@@ -128,6 +134,7 @@ class download_all_action(QtGui.QAction):
             self.downloader_controller.stop()
 
 class download_action(QtGui.QAction):
+    row_updated_signal = QtCore.Signal(int)
     def __init__(self, p_status_bar:status_bar):
         super().__init__()
         self.setText("Download")
@@ -144,12 +151,17 @@ class download_action(QtGui.QAction):
         self.status_bar.set_ready()
 
     @QtCore.Slot()
+    def app_id_updated(self, p_int: int):
+        self.row_updated_signal.emit(p_int)
+
+    @QtCore.Slot()
     def execute(self, p_action):
         logger.debug("Download Executed")
         self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated)
         self.downloader_controller = \
             thread_controller.thread_controller(self.downloader, self.status_bar)
         self.downloader_controller.job_finished.connect(self.download_complete)
+        self.downloader_controller.job_notified.connect(self.app_id_updated)
         self.downloader_controller.start()
 
     @QtCore.Slot()

@@ -423,6 +423,10 @@ class table_widget(QW.QWidget):
         self.refresher_controller.job_finished.connect(self.on_refresh_complete)
         self.refresher_controller.start()
 
+    @QtCore.Slot(int)
+    def on_row_change(self, p_int):
+        pass
+
     @QtCore.Slot()
     def on_refresh_complete(self):
         logger.debug("(refresher) Refresh complete")
