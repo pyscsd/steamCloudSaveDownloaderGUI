@@ -49,6 +49,11 @@ def get_games_last_played_time_locally() -> dict:
         played_time[int(key)] = datetime.fromtimestamp(int(value['LastPlayed']))
     return played_time
 
+def get_last_checked_time_from_db():
+    db = db_c(core.s_config_dir, config['Rotation']['rotation'])
+    infos = db.get_all_stored_game_infos()
+    info_dict = {info[0]: info[2] for info in infos}
+    return info_dict
 
 def load_existing_from_db():
     global account_id

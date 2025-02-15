@@ -20,19 +20,15 @@ class save_downloader(QtCore.QObject):
         super().__init__()
         self.mode = p_mode
 
-    def download_all(self):
-        target_game_list = [game for game in self.downloader.game_list if data_provider.should_download_appid(game['app_id'])]
-
-        progress_step = 100 / len(target_game_list)
-        logger.debug(f"Game list count: {len(target_game_list)}")
-
+    def download_games(self, p_target_game_list: list):
+        progress_step = 100 / len(p_target_game_list)
         current_progress = 0
         count = 1
-        for game in self.downloader.game_list:
+        for game in p_target_game_list:
             if self.check_interrupt():
                 break
             logger.info(f"Downlading {game['name']}")
-            self.set_status_bar_text.emit(f"Downlading {game['name']} ({count} / {len(target_game_list)})")
+            self.set_status_bar_text.emit(f"Downlading {game['name']} ({count} / {len(p_target_game_list)})")
             self.set_status_bar_percent.emit(current_progress)
 
             self.downloader.download_game(game)
@@ -41,6 +37,42 @@ class save_downloader(QtCore.QObject):
             count += 1
 
             # TODO: Update table
+
+
+    def download_local_outdated(self):
+
+        # TODO: Handle timezone issue
+        last_played = data_provider.get_games_last_played_time_locally()
+        db_info = data_provider.get_last_checked_time_from_db()
+
+        target_game_list = list()
+        for game in self.downloader.game_list:
+            app_id = game['app_id']
+            if app_id not in db_info:
+                target_game_list.append(game)
+                continue
+
+            if app_id not in last_played:
+                target_game_list.append(game)
+                continue
+
+            last_checked_time = db_info[app_id]
+            last_played_time = last_played[app_id]
+
+            if last_checked_time < last_played_time:
+                target_game_list.append(game)
+            else:
+                logger.debug(f"{game['app_id']} skipped. DB Time: {last_checked_time}. Last played time: {last_played_time}")
+
+        self.download_games(target_game_list)
+
+    def download_all(self):
+        target_game_list = \
+            [game for game in self.downloader.game_list if data_provider.should_download_appid(game['app_id'])]
+
+        logger.debug(f"Download All Game list count: {len(target_game_list)}")
+
+        self.download_games(target_game_list)
 
 
     def check_interrupt(self):
@@ -58,7 +90,7 @@ class save_downloader(QtCore.QObject):
         if (self.mode == mode_e.download_all):
             self.download_all()
         elif (self.mode == mode_e.download_local_outdated):
-            pass
+            self.download_local_outdated()
         self.set_status_bar_percent.emit(100)
         self.result_ready.emit()
 

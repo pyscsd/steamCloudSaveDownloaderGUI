@@ -137,6 +137,26 @@ class download_action(QtGui.QAction):
         has_session:bool = core.has_session()
         self.setEnabled(has_session)
 
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot()
+    def download_complete(self):
+        self.status_bar.set_ready()
+
+    @QtCore.Slot()
+    def execute(self, p_action):
+        logger.debug("Download Executed")
+        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated)
+        self.downloader_controller = \
+            thread_controller.thread_controller(self.downloader, self.status_bar)
+        self.downloader_controller.job_finished.connect(self.download_complete)
+        self.downloader_controller.start()
+
+    @QtCore.Slot()
+    def on_main_window_closed(self):
+        if hasattr(self, "downloader_controller"):
+            self.downloader_controller.stop()
+
 class start_stop_action(QtGui.QAction):
     data_updated_signal = QtCore.Signal(list)
 
