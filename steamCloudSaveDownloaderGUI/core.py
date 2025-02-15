@@ -75,6 +75,9 @@ class core:
                 },
                 'Rotation': {
                     "rotation": config.Defaults['Rotation']['rotation'][1]
+                },
+                'Target': {
+                    "mode": "exclude"
                 }
             }
             config.config.export_to_file(initial_config, core.s_config_file)

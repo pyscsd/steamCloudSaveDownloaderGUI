@@ -339,7 +339,7 @@ class table_csm(QW.QMenu):
 class table_view(QW.QTableView):
     def __init__(self, p_parent:QtCore.QObject):
         super().__init__(p_parent)
-        self.setMinimumSize(800, 400)
+        self.setMinimumSize(800, 500)
 
         self.verticalHeader().hide()
 

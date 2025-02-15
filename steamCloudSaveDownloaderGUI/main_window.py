@@ -24,3 +24,4 @@ class main_window(QtWidgets.QMainWindow):
 
     def closeEvent(self, p_close_event: QtGui.QCloseEvent):
         self.table_widget.on_main_window_closed()
+        self.menu_bar.download_all_action.on_main_window_closed()

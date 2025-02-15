@@ -1,6 +1,7 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from .core import core
-from . import data_provider
+from . import save_downloader
+from . import thread_controller
 from .dialogs import login_dialog, options_dialog
 from .status_bar import status_bar
 
@@ -96,23 +97,42 @@ class refresh_action(QtGui.QAction):
     def set_enable(self, p_b: bool):
         self.setEnabled(p_b)
 
-class download_all_menu_action(QtGui.QAction):
-    def __init__(self):
+class download_all_action(QtGui.QAction):
+    def __init__(self, p_status_bar:status_bar):
         super().__init__()
         self.setText("Download All")
+        self.status_bar = p_status_bar
 
-class download_menu_action(QtGui.QAction):
-    def __init__(self):
+        has_session:bool = core.has_session()
+        self.setEnabled(has_session)
+
+        self.triggered.connect(self.execute)
+
+
+    @QtCore.Slot()
+    def download_complete(self):
+        self.status_bar.set_ready()
+
+    @QtCore.Slot()
+    def execute(self, p_action):
+        logger.debug("Download All Executed")
+        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all)
+        self.downloader_controller = \
+            thread_controller.thread_controller(self.downloader, self.status_bar)
+        self.downloader_controller.job_finished.connect(self.download_complete)
+        self.downloader_controller.start()
+
+    @QtCore.Slot()
+    def on_main_window_closed(self):
+        if hasattr(self, "downloader_controller"):
+            self.downloader_controller.stop()
+
+class download_action(QtGui.QAction):
+    def __init__(self, p_status_bar:status_bar):
         super().__init__()
         self.setText("Download")
 
-class download_menu(QtWidgets.QMenu):
-    def __init__(self):
-        super().__init__("Download")
-        self.download = download_menu_action()
-        self.addAction(self.download)
-        self.download_all = download_all_menu_action()
-        self.addAction(self.download_all)
+        self.status_bar = p_status_bar
 
         has_session:bool = core.has_session()
         self.setEnabled(has_session)
@@ -161,13 +181,15 @@ class menu_bar(QtWidgets.QMenuBar):
         self.session_menu = session_menu(p_status_bar)
         self.options_action = options_action()
         self.start_stop_action = start_stop_action()
-        self.download_menu = download_menu()
+        self.download_action = download_action(p_status_bar)
+        self.download_all_action = download_all_action(p_status_bar)
         self.refresh_action = refresh_action()
         self.addMenu(self.session_menu)
         self.addAction(self.options_action)
         self.addAction(self.refresh_action)
         self.addAction(self.start_stop_action)
-        self.addMenu(self.download_menu)
+        self.addAction(self.download_action)
+        self.addAction(self.download_all_action)
 
         self.connect_signals()
 
@@ -178,5 +200,5 @@ class menu_bar(QtWidgets.QMenuBar):
     @QtCore.Slot()
     def session_change(self):
         has_session: bool = core.has_session()
-        self.refresh_action.set_can_enable(has_session)
+        self.refresh_action.set_enable(has_session)
         self.start_stop_action.set_can_enable()
