@@ -90,7 +90,10 @@ class tree_model(QtGui.QStandardItemModel):
 
         version_info = data_provider.get_file_version_by_file_id(file_id)
         for version_date, version_num in version_info:
-            versioned_name = f"{file_name}.scsd_{version_num}"
+            if version_num == 0:
+                versioned_name = f"{file_name}"
+            else:
+                versioned_name = f"{file_name}.scsd_{version_num}"
             name_item = QtGui.QStandardItem(f"Ver.{version_num} ({versioned_name})")
             name_item.setData(item_type_e.version_type, tree_model.item_type_role)
             name_item.setData(versioned_name, tree_model.versioned_name_role)
