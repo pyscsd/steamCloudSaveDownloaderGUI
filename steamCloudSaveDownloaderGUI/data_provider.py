@@ -105,24 +105,32 @@ def get_file_version_by_file_id(p_file_id: int):
     return db.get_file_version_by_file_id(p_file_id)
 
 def should_download_appid(app_id: int) -> bool:
+    global exclude_set
     return app_id not in exclude_set
 
-# Return True if modified, False otherwise
-def set_enable_app_id(app_id: int, enable: bool) -> bool:
-    if app_id in exclude_set:
-        if enable:
-            exclude_set.remove(app_id)
-            config['Target']['list'] = list(exclude_set)
-        else:
-            return False
-    else:
-        if enable:
-            return False
-        else:
-            config['Target']['list'].append(app_id)
+def set_enable_all_app_id():
+    global exclude_set
 
+    exclude_set.clear()
+    config['Target']['list'] = list(exclude_set)
     commit()
-    return True
+
+def set_enable_app_id(p_app_id_list: list, p_enable: bool):
+    global exclude_set
+
+    for app_id in p_app_id_list:
+        if app_id in exclude_set:
+            if p_enable:
+                exclude_set.remove(app_id)
+            else:
+                continue
+        else:
+            if p_enable:
+                continue
+            else:
+                exclude_set.add(app_id)
+    config['Target']['list'] = list(exclude_set)
+    commit()
 
 def get_save_dir(app_id: int) -> os.path:
     return os.path.join(config['General']["save_dir"], str(app_id))

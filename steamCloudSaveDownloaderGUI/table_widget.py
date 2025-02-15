@@ -165,9 +165,8 @@ class table_model(QtCore.QAbstractTableModel):
         if (p_role == QtCore.Qt.ItemDataRole.CheckStateRole and
             p_index.column() == 0):
                 data_provider.set_enable_app_id(
-                    item['app_id'],
+                    [item['app_id']],
                     QtCore.Qt.CheckState(p_value) == QtCore.Qt.CheckState.Checked)
-                self.dataChanged.emit(p_index, p_index)
                 return True
         elif (p_role == QtCore.Qt.ItemDataRole.DecorationRole and p_index.column() == 1):
             self.dataChanged.emit(p_index, p_index, [QtCore.Qt.ItemDataRole.DecorationRole])
@@ -285,6 +284,30 @@ def get_game_info_dialog(p_model: table_sort_filter_proxy, p_index: QtCore.QMode
     dialog = game_info_dialog(app_id, game_name)
     result:QW.QDialog.DialogCode = dialog.exec()
 
+class enable_all_action(QtGui.QAction):
+    def __init__(self):
+        super().__init__("Enable All")
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot(bool)
+    def execute(self, p_b: bool):
+        data_provider.set_enable_all_app_id()
+
+class disable_all_action(QtGui.QAction):
+    def __init__(self, p_table_model: table_sort_filter_proxy):
+        super().__init__("Disable All")
+        self.table_model = p_table_model
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot(bool)
+    def execute(self, p_b: bool):
+        exclude_list = list()
+        for i in range(self.table_model.rowCount()):
+            index = self.table_model.index(i, 2)
+            data = self.table_model.data(index)
+            exclude_list.append(data)
+        data_provider.set_enable_app_id(exclude_list, False)
+
 class view_files_action(QtGui.QAction):
     def __init__(self,
                 p_model: table_sort_filter_proxy,
@@ -335,6 +358,11 @@ class table_csm(QW.QMenu):
 
         self.open_saves_directory_action = open_saves_directory_action(p_model, p_index)
         self.addAction(self.open_saves_directory_action)
+
+        self.enable_all_action = enable_all_action()
+        self.addAction(self.enable_all_action)
+        self.disable_all_action = disable_all_action(p_model)
+        self.addAction(self.disable_all_action)
 
 class table_view(QW.QTableView):
     def __init__(self, p_parent:QtCore.QObject):
