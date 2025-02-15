@@ -40,6 +40,8 @@ class save_downloader(QtCore.QObject):
             current_progress += progress_step
             count += 1
 
+            # TODO: Update table
+
 
     def check_interrupt(self):
         interrupt = QtCore.QThread.currentThread().isInterruptionRequested()
