@@ -3,6 +3,7 @@ from PySide6 import QtWidgets as QW
 from PySide6 import QtCore, QtGui
 
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.downloader import downloader as core_downloader
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.downloader import callback_method_e
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
 
 from . import data_provider
@@ -10,6 +11,9 @@ from . import data_provider
 class mode_e(Enum):
     download_all = 1
     download_local_outdated = 2
+
+class interupt_exception(Exception):
+    pass
 
 class save_downloader(QtCore.QObject):
     result_ready = QtCore.Signal()
@@ -81,16 +85,32 @@ class save_downloader(QtCore.QObject):
             logger.debug("(save_downloader) interrupt recieved")
         return interrupt
 
+    def downloading_game_file_callback(self, p_game_name: str, p_file_name: str):
+        if self.check_interrupt():
+            logger.debug("Interrupt in file download callback")
+            raise interupt_exception
+        self.set_status_bar_text.emit(f"Downlading {p_game_name}: {p_file_name}")
+
     @QtCore.Slot()
     def do_job(self):
         self.set_status_bar_text.emit("Initializing...")
         self.set_status_bar_percent.emit(0)
+
         self.downloader = core_downloader(data_provider.config)
+        self.downloader.set_callback(
+            self.downloading_game_file_callback,
+            callback_method_e.download_game_file)
+
         logger.debug("(save_downloader) do_job")
-        if (self.mode == mode_e.download_all):
-            self.download_all()
-        elif (self.mode == mode_e.download_local_outdated):
-            self.download_local_outdated()
+
+        try:
+            if (self.mode == mode_e.download_all):
+                self.download_all()
+            elif (self.mode == mode_e.download_local_outdated):
+                self.download_local_outdated()
+        except interupt_exception:
+            pass
+
         self.set_status_bar_percent.emit(100)
         self.result_ready.emit()
 
