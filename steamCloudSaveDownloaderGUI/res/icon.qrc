@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/">
+    <file>scsd_256.jpg</file>
+  </qresource>
+</RCC>
