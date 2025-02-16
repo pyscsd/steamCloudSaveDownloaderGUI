@@ -135,7 +135,7 @@ class options_dialog(QW.QDialog):
         self.browse_button = QW.QToolButton()
         self.browse_button.setIcon(QtGui.QIcon.fromTheme(QtGui.QIcon.ThemeIcon.FolderOpen))
 
-        self.rotation_label = QW.QLabel("Rotation:")
+        self.rotation_label = QW.QLabel("Save Rotation:")
         self.rotation_value = QW.QSpinBox()
         self.rotation_value.setMinimum(1)
         self.rotation_value.setValue(self.config['Rotation']['rotation'])
@@ -154,6 +154,10 @@ class options_dialog(QW.QDialog):
         self.log_level_value.setMaximum(3)
         self.log_level_value.setValue(self.config['Log']['log_level'])
 
+        self.minimze_to_tray_label = QW.QLabel("Minimize to Tray:")
+        self.minimze_to_tray = QW.QCheckBox()
+        self.minimze_to_tray.setChecked(self.config['GUI']['minimize_to_tray'])
+
     def layout_widgets(self):
         right_align = QtCore.Qt.AlignmentFlag.AlignRight
         left_align = QtCore.Qt.AlignmentFlag.AlignLeft
@@ -170,6 +174,9 @@ class options_dialog(QW.QDialog):
         self.grid_layout.addWidget(self.rotation_value, 1, 1, left_align)
         self.grid_layout.addWidget(self.log_level_label, 2, 0, right_align)
         self.grid_layout.addWidget(self.log_level_value, 2, 1, left_align)
+        self.grid_layout.addWidget(self.minimze_to_tray_label, 3, 0, right_align)
+        self.grid_layout.addWidget(self.minimze_to_tray, 3, 1, left_align)
+
 
         # TODO setRowStretch, setColStretch
         # https://stackoverflow.com/a/69884434
@@ -210,9 +217,14 @@ class options_dialog(QW.QDialog):
     def on_log_level_value_change(self, p_value: int):
         self.config['Log']['log_level'] = p_value
 
+    @QtCore.Slot(bool)
+    def on_minimize_to_tray_change(self, p_value: bool):
+        self.config['GUI']['minimize_to_tray'] = p_value
+
     def connect_signals(self):
         self.button_box.save_button.clicked.connect(self.save)
         self.button_box.cancel_button.clicked.connect(self.reject)
         self.browse_button.clicked.connect(self.browse)
         self.rotation_value.valueChanged.connect(self.on_rotation_value_change)
         self.log_level_value.valueChanged.connect(self.on_log_level_value_change)
+        self.minimze_to_tray.toggled.connect(self.on_minimize_to_tray_change)
