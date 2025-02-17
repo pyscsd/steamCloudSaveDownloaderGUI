@@ -57,6 +57,9 @@ class _save_downloader(QtCore.QObject):
         self.mode = p_mode
 
     def download_games(self, p_target_game_list: list):
+        if len(p_target_game_list) == 0:
+            return
+
         progress_step = 100 / len(p_target_game_list)
         current_progress = 0
         count = 1
