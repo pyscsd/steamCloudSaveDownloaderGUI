@@ -7,6 +7,8 @@ from .steamCloudSaveDownloader.steamCloudSaveDownloader.downloader import callba
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
 
 from . import data_provider
+from . import status_bar
+from . import thread_controller
 
 class mode_e(Enum):
     download_all = 1
@@ -15,7 +17,34 @@ class mode_e(Enum):
 class interupt_exception(Exception):
     pass
 
+# TODO: Check lock before download
+
 class save_downloader(QtCore.QObject):
+    job_finished = QtCore.Signal()
+    job_notified = QtCore.Signal(int)
+
+    def __init__(self, p_mode: mode_e, p_status_bar: status_bar.status_bar | None):
+        super().__init__()
+        self.status_bar = p_status_bar
+        self.downloader = _save_downloader(p_mode)
+        self.downloader_controller = \
+            thread_controller.thread_controller(self.downloader, self.status_bar)
+        self.downloader_controller.job_finished.connect(self.download_complete)
+        self.downloader_controller.job_notified.connect(self.app_id_updated)
+
+    def download_complete(self):
+        self.job_finished.emit()
+
+    def app_id_updated(self, p_value: int):
+        self.job_notified.emit(p_value)
+
+    def one_shot_download(self):
+        self.downloader_controller.start()
+
+    def periodic_download(self):
+        pass
+
+class _save_downloader(QtCore.QObject):
     result_ready = QtCore.Signal()
     notification = QtCore.Signal(int)
     set_status_bar_text = QtCore.Signal(str)

@@ -121,12 +121,10 @@ class download_all_action(QtGui.QAction):
     @QtCore.Slot()
     def execute(self, p_action):
         logger.debug("Download All Executed")
-        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all)
-        self.downloader_controller = \
-            thread_controller.thread_controller(self.downloader, self.status_bar)
-        self.downloader_controller.job_finished.connect(self.download_complete)
-        self.downloader_controller.job_notified.connect(self.app_id_updated)
-        self.downloader_controller.start()
+        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all, self.status_bar)
+        self.downloader.job_finished.connect(self.download_complete)
+        self.downloader.job_notified.connect(self.app_id_updated)
+        self.downloader.one_shot_download()
 
     @QtCore.Slot()
     def on_main_window_closed(self):
@@ -157,12 +155,10 @@ class download_action(QtGui.QAction):
     @QtCore.Slot()
     def execute(self, p_action):
         logger.debug("Download Executed")
-        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated)
-        self.downloader_controller = \
-            thread_controller.thread_controller(self.downloader, self.status_bar)
-        self.downloader_controller.job_finished.connect(self.download_complete)
-        self.downloader_controller.job_notified.connect(self.app_id_updated)
-        self.downloader_controller.start()
+        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated, self.status_bar)
+        self.downloader.job_finished.connect(self.download_complete)
+        self.downloader.job_notified.connect(self.app_id_updated)
+        self.downloader.one_shot_download()
 
     @QtCore.Slot()
     def on_main_window_closed(self):
