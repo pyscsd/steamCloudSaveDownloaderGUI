@@ -158,7 +158,7 @@ class options_dialog(QW.QDialog):
         self.minimze_to_tray = QW.QCheckBox()
         self.minimze_to_tray.setChecked(self.config['GUI']['minimize_to_tray'])
 
-        self.download_interval_label = QW.QLabel("Auto Download Interval:")
+        self.download_interval_label = QW.QLabel("Auto Download Interval (Minutes):")
         self.download_interval_spinbox = QW.QSpinBox()
         self.download_interval_spinbox.setMinimum(1)
         self.download_interval_spinbox.setValue(self.config['GUI']['download_interval'])
