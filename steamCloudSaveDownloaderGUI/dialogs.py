@@ -158,6 +158,11 @@ class options_dialog(QW.QDialog):
         self.minimze_to_tray = QW.QCheckBox()
         self.minimze_to_tray.setChecked(self.config['GUI']['minimize_to_tray'])
 
+        self.download_interval_label = QW.QLabel("Auto Download Interval:")
+        self.download_interval_spinbox = QW.QSpinBox()
+        self.download_interval_spinbox.setMinimum(1)
+        self.download_interval_spinbox.setValue(self.config['GUI']['download_interval'])
+
     def layout_widgets(self):
         right_align = QtCore.Qt.AlignmentFlag.AlignRight
         left_align = QtCore.Qt.AlignmentFlag.AlignLeft
@@ -176,6 +181,8 @@ class options_dialog(QW.QDialog):
         self.grid_layout.addWidget(self.log_level_value, 2, 1, left_align)
         self.grid_layout.addWidget(self.minimze_to_tray_label, 3, 0, right_align)
         self.grid_layout.addWidget(self.minimze_to_tray, 3, 1, left_align)
+        self.grid_layout.addWidget(self.download_interval_label, 4, 0, right_align)
+        self.grid_layout.addWidget(self.download_interval_spinbox, 4, 1, left_align)
 
 
         # TODO setRowStretch, setColStretch
@@ -221,6 +228,10 @@ class options_dialog(QW.QDialog):
     def on_minimize_to_tray_change(self, p_value: bool):
         self.config['GUI']['minimize_to_tray'] = p_value
 
+    @QtCore.Slot(int)
+    def on_download_interval_change(self, p_value: int):
+        self.config['GUI']['download_interval'] = p_value
+
     def connect_signals(self):
         self.button_box.save_button.clicked.connect(self.save)
         self.button_box.cancel_button.clicked.connect(self.reject)
@@ -228,3 +239,4 @@ class options_dialog(QW.QDialog):
         self.rotation_value.valueChanged.connect(self.on_rotation_value_change)
         self.log_level_value.valueChanged.connect(self.on_log_level_value_change)
         self.minimze_to_tray.toggled.connect(self.on_minimize_to_tray_change)
+        self.download_interval_spinbox.valueChanged.connect(self.on_download_interval_change)
