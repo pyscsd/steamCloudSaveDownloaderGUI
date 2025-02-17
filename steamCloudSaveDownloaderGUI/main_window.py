@@ -1,7 +1,9 @@
 from PySide6 import QtWidgets as QW
-from PySide6 import QtGui
+from PySide6 import QtGui, QtCore
+from . import data_provider
 from . import menu
 from . import status_bar
+from . import system_tray
 from . import table_widget
 
 class exit_dialog(QW.QMessageBox):
@@ -15,6 +17,9 @@ class exit_dialog(QW.QMessageBox):
 class main_window(QW.QMainWindow):
     def __init__(self):
         super().__init__()
+
+        self.system_tray = system_tray.system_tray(self)
+
         self.status_bar = status_bar.status_bar()
         self.setStatusBar(self.status_bar)
 
@@ -30,14 +35,32 @@ class main_window(QW.QMainWindow):
         self.exit_dialog = exit_dialog()
 
 
+
     def connect_signals(self):
         self.menu_bar.refresh_action.data_updated_signal.connect(self.table_widget.on_data_change)
         self.menu_bar.download_action.row_updated_signal.connect(self.table_widget.on_row_change)
         self.menu_bar.download_all_action.row_updated_signal.connect(self.table_widget.on_row_change)
+        self.system_tray.activated.connect(self.system_tray_activated)
+        self.system_tray.show_signal.connect(self.show)
+        self.system_tray.quit_signal.connect(self.close)
 
-    def closeEvent(self, p_close_event: QtGui.QCloseEvent):
+    def finalize(self):
         self.exit_dialog.show()
         self.table_widget.on_main_window_closed()
         self.menu_bar.download_action.on_main_window_closed()
         self.menu_bar.download_all_action.on_main_window_closed()
         self.exit_dialog.close()
+
+    def closeEvent(self, p_close_event: QtGui.QCloseEvent):
+        if (data_provider.config['GUI']['minimize_to_tray'] and not self.system_tray.quit_flag):
+            p_close_event.ignore()
+            self.hide()
+            self.system_tray.show_hide_message()
+            return
+        self.finalize()
+        super().closeEvent(p_close_event)
+
+    @QtCore.Slot(QW.QSystemTrayIcon.ActivationReason)
+    def system_tray_activated(self, p_reason: QW.QSystemTrayIcon.ActivationReason):
+        if p_reason == QW.QSystemTrayIcon.ActivationReason.DoubleClick:
+            self.show()
