@@ -128,8 +128,8 @@ class download_all_action(QtGui.QAction):
 
     @QtCore.Slot()
     def on_main_window_closed(self):
-        if hasattr(self, "downloader_controller"):
-            self.downloader_controller.stop()
+        if hasattr(self, "downloader"):
+            self.downloader.stop()
 
 class download_action(QtGui.QAction):
     row_updated_signal = QtCore.Signal(int)
@@ -162,8 +162,8 @@ class download_action(QtGui.QAction):
 
     @QtCore.Slot()
     def on_main_window_closed(self):
-        if hasattr(self, "downloader_controller"):
-            self.downloader_controller.stop()
+        if hasattr(self, "downloader"):
+            self.downloader.stop()
 
 class start_stop_action(QtGui.QAction):
     data_updated_signal = QtCore.Signal(list)

@@ -32,6 +32,9 @@ class save_downloader(QtCore.QObject):
         self.downloader_controller.job_finished.connect(self.download_complete)
         self.downloader_controller.job_notified.connect(self.app_id_updated)
 
+    def stop(self):
+        self.downloader_controller.stop()
+
     def download_complete(self):
         self.job_finished.emit()
 
