@@ -23,17 +23,30 @@ class save_downloader(QtCore.QObject):
     job_finished = QtCore.Signal()
     job_notified = QtCore.Signal(int)
 
+    @staticmethod
+    def can_download() -> bool:
+        return not core_downloader.has_lock_file(data_provider.config)
+
     def __init__(self, p_mode: mode_e, p_status_bar: status_bar.status_bar | None):
         super().__init__()
         self.status_bar = p_status_bar
-        self.downloader = _save_downloader(p_mode)
+        self.mode = p_mode
+
+    def setup(self) -> bool:
+        if not self.can_download():
+            return False
+
+        self.downloader = _save_downloader(self.mode)
         self.downloader_controller = \
             thread_controller.thread_controller(self.downloader, self.status_bar)
         self.downloader_controller.job_finished.connect(self.download_complete)
         self.downloader_controller.job_notified.connect(self.app_id_updated)
 
+        return True
+
     def stop(self):
-        self.downloader_controller.stop()
+        if hasattr(self, "download_controller"):
+            self.downloader_controller.stop()
 
     def download_complete(self):
         self.job_finished.emit()
@@ -42,10 +55,14 @@ class save_downloader(QtCore.QObject):
         self.job_notified.emit(p_value)
 
     def one_shot_download(self):
+        if not self.setup():
+            return
         self.downloader_controller.start()
 
     def periodic_download(self):
-        pass
+        if not self.setup():
+            return
+        # TODO
 
 class _save_downloader(QtCore.QObject):
     result_ready = QtCore.Signal()

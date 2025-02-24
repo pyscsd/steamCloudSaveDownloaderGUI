@@ -121,6 +121,11 @@ class download_all_action(QtGui.QAction):
     @QtCore.Slot()
     def execute(self, p_action):
         logger.debug("Download All Executed")
+
+        if not save_downloader.save_downloader.can_download():
+            self.status_bar.set_text("Already downloading")
+            return
+
         self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all, self.status_bar)
         self.downloader.job_finished.connect(self.download_complete)
         self.downloader.job_notified.connect(self.app_id_updated)
@@ -155,6 +160,11 @@ class download_action(QtGui.QAction):
     @QtCore.Slot()
     def execute(self, p_action):
         logger.debug("Download Executed")
+
+        if not save_downloader.save_downloader.can_download():
+            self.status_bar.set_text("Already downloading")
+            return
+
         self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated, self.status_bar)
         self.downloader.job_finished.connect(self.download_complete)
         self.downloader.job_notified.connect(self.app_id_updated)
