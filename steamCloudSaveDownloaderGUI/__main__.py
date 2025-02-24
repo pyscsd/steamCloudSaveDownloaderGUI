@@ -1,4 +1,3 @@
-import os
 import sys
 from PySide6 import QtWidgets, QtGui
 from . import main_window

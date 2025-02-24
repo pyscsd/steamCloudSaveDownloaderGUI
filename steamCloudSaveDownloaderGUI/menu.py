@@ -1,7 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from .core import core
 from . import save_downloader
-from . import thread_controller
 from .dialogs import login_dialog, options_dialog
 from .status_bar import status_bar
 
@@ -94,11 +93,11 @@ class refresh_action(QtGui.QAction):
         logger.info("Refresh")
         self.data_updated_signal.emit()
 
-    def set_enable(self, p_b: bool):
-        self.setEnabled(p_b)
 
 class download_all_action(QtGui.QAction):
     row_updated_signal = QtCore.Signal(int)
+    download_started_signal = QtCore.Signal()
+    download_complete_signal = QtCore.Signal()
 
     def __init__(self, p_status_bar:status_bar):
         super().__init__()
@@ -117,6 +116,7 @@ class download_all_action(QtGui.QAction):
     @QtCore.Slot()
     def download_complete(self):
         self.status_bar.set_ready()
+        self.download_complete_signal.emit()
 
     @QtCore.Slot()
     def execute(self, p_action):
@@ -130,14 +130,18 @@ class download_all_action(QtGui.QAction):
         self.downloader.job_finished.connect(self.download_complete)
         self.downloader.job_notified.connect(self.app_id_updated)
         self.downloader.one_shot_download()
+        self.download_started_signal.emit()
 
     @QtCore.Slot()
-    def on_main_window_closed(self):
+    def stop_download(self):
         if hasattr(self, "downloader"):
             self.downloader.stop()
 
 class download_action(QtGui.QAction):
     row_updated_signal = QtCore.Signal(int)
+    download_started_signal = QtCore.Signal()
+    download_complete_signal = QtCore.Signal()
+
     def __init__(self, p_status_bar:status_bar):
         super().__init__()
         self.setText("Download")
@@ -152,6 +156,7 @@ class download_action(QtGui.QAction):
     @QtCore.Slot()
     def download_complete(self):
         self.status_bar.set_ready()
+        self.download_complete_signal.emit()
 
     @QtCore.Slot()
     def app_id_updated(self, p_int: int):
@@ -169,46 +174,32 @@ class download_action(QtGui.QAction):
         self.downloader.job_finished.connect(self.download_complete)
         self.downloader.job_notified.connect(self.app_id_updated)
         self.downloader.one_shot_download()
+        self.download_started_signal.emit()
 
     @QtCore.Slot()
-    def on_main_window_closed(self):
+    def stop_download(self):
         if hasattr(self, "downloader"):
             self.downloader.stop()
 
-class start_stop_action(QtGui.QAction):
-    data_updated_signal = QtCore.Signal(list)
-
+class stop_action(QtGui.QAction):
+    stop_download_signal = QtCore.Signal()
     def __init__(self):
         super().__init__()
-        self.start_state = True
+        self.setText("Stop")
         self.triggered.connect(self.execute)
-        self.set_text()
-        self.set_can_enable()
-
-    def set_can_enable(self):
-        has_session:bool = core.has_session()
-        self.setEnabled(has_session)
-
-        if not has_session:
-            self.start_state = True
-        self.set_text()
-
-    def set_text(self):
-        if self.start_state:
-            self.setText("Start (TODO)")
-        else:
-            self.setText("Stop (TODO)")
+        self.setVisible(False)
 
     @QtCore.Slot()
     def execute(self, p_action):
-        if self.start_state:
-            self.start_state = False
-            self.set_text()
+        self.stop_download_signal.emit()
 
-            self.data_updated_signal.emit(list())
-        else:
-            self.start_state = True
-            self.set_text()
+    @QtCore.Slot()
+    def show_widget(self):
+        self.setVisible(True)
+
+    @QtCore.Slot()
+    def hide_widget(self):
+        self.setVisible(False)
 
 class menu_bar(QtWidgets.QMenuBar):
     def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):
@@ -218,16 +209,16 @@ class menu_bar(QtWidgets.QMenuBar):
 
         self.session_menu = session_menu(p_status_bar)
         self.options_action = options_action()
-        self.start_stop_action = start_stop_action()
         self.download_action = download_action(p_status_bar)
         self.download_all_action = download_all_action(p_status_bar)
         self.refresh_action = refresh_action()
+        self.stop_action = stop_action()
         self.addMenu(self.session_menu)
         self.addAction(self.options_action)
         self.addAction(self.refresh_action)
-        self.addAction(self.start_stop_action)
         self.addAction(self.download_action)
         self.addAction(self.download_all_action)
+        self.addAction(self.stop_action)
 
         self.connect_signals()
 
@@ -235,8 +226,16 @@ class menu_bar(QtWidgets.QMenuBar):
         self.session_menu.login_success_signal.connect(self.session_change)
         self.session_menu.logout_signal.connect(self.session_change)
 
-    @QtCore.Slot()
+        self.download_action.download_started_signal.connect(self.stop_action.show_widget)
+        self.download_all_action.download_started_signal.connect(self.stop_action.show_widget)
+        self.download_action.download_complete_signal.connect(self.stop_action.hide_widget)
+        self.download_all_action.download_complete_signal.connect(self.stop_action.hide_widget)
+
+        self.stop_action.stop_download_signal.connect(self.download_action.stop_download)
+        self.stop_action.stop_download_signal.connect(self.download_all_action.stop_download)
+
     def session_change(self):
         has_session: bool = core.has_session()
-        self.refresh_action.set_enable(has_session)
-        self.start_stop_action.set_can_enable()
+        self.refresh_action.setEnabled(has_session)
+        self.download_action.setEnabled(has_session)
+        self.download_all_action.setEnabled(has_session)
