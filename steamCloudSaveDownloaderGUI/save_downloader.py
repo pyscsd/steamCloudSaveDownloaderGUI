@@ -45,7 +45,7 @@ class save_downloader(QtCore.QObject):
         return True
 
     def stop(self):
-        if hasattr(self, "download_controller"):
+        if hasattr(self, "downloader_controller"):
             self.downloader_controller.stop()
 
     def download_complete(self):
