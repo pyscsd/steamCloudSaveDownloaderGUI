@@ -270,6 +270,26 @@ class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
                  p_source_model: table_model):
         super().__init__(p_parent)
         self.setSourceModel(p_source_model)
+        self.filter = ""
+
+    def filterAcceptsRow(self, p_source_row: int, p_source_parent: QtCore.QModelIndex) -> bool:
+        app_id_index = \
+            self.sourceModel().index(p_source_row, 2, p_source_parent)
+        name_index = \
+            self.sourceModel().index(p_source_row, 3, p_source_parent)
+        app_id = \
+            self.sourceModel().data(
+                app_id_index, QtCore.Qt.ItemDataRole.DisplayRole)
+        name = \
+            self.sourceModel().data(
+                name_index, QtCore.Qt.ItemDataRole.DisplayRole)
+
+        return (self.filter in str(app_id)) or (self.filter.lower() in name.lower())
+
+    @QtCore.Slot(str)
+    def set_filter_text(self, p_filter: str):
+        self.filter = p_filter
+        self.invalidateFilter()
 
 def get_game_info_dialog(p_model: table_sort_filter_proxy, p_index: QtCore.QModelIndex):
     app_id_index = p_model.index(p_index.row(), 2)
@@ -420,10 +440,19 @@ class table_widget(QW.QWidget):
         self.table_view.set_header_stretch(self.table_model.columnCount(None))
         self.sort_filter_model.sort(2, QtCore.Qt.SortOrder.AscendingOrder)
 
+        self.create_search_box()
+
         self.v_layout = QW.QVBoxLayout(self)
+        self.v_layout.addWidget(self.search_box)
         self.v_layout.addWidget(self.table_view)
 
         self.start_download_header()
+
+    def create_search_box(self):
+        self.search_box = QW.QLineEdit()
+        self.search_box.setClearButtonEnabled(True)
+        self.search_box.setPlaceholderText("Search App ID / Name")
+        self.search_box.textChanged.connect(self.sort_filter_model.set_filter_text)
 
     def on_main_window_closed(self):
         self.header_download_controller.stop()
@@ -443,7 +472,7 @@ class table_widget(QW.QWidget):
         self.table_model.setData(index, None, QtCore.Qt.ItemDataRole.DecorationRole)
 
     @QtCore.Slot(list)
-    def on_data_change(self):
+    def refresh(self):
         # Refresh
         self.refresher = \
             table_refresher(self)
