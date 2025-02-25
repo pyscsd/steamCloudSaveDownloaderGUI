@@ -4,7 +4,7 @@ from .steamCloudSaveDownloader.steamCloudSaveDownloader import downloader
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger, set_level
 from .core import core
 import copy
-from datetime import datetime
+import datetime
 import os
 import vdf
 
@@ -46,7 +46,8 @@ def get_games_last_played_time_locally() -> dict:
     for key, value in local_vdf['UserLocalConfigStore']['Software']['valve']['Steam']['apps'].items():
         if 'LastPlayed' not in value:
             continue
-        played_time[int(key)] = datetime.fromtimestamp(int(value['LastPlayed']))
+        played_time[int(key)] = \
+            datetime.datetime.fromtimestamp(int(value['LastPlayed']))
     return played_time
 
 def get_last_checked_time_from_db():
@@ -55,22 +56,38 @@ def get_last_checked_time_from_db():
     info_dict = {info[0]: info[2] for info in infos}
     return info_dict
 
+g_local_timezone = \
+    datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
+def _set_time_to_local_timezone(p_datetime: datetime.datetime):
+    global g_local_timezone
+
+    if p_datetime.tzinfo != None:
+        return
+    dt = p_datetime.replace(tzinfo=datetime.timezone.utc)
+    dt = dt.astimezone(g_local_timezone)
+    dt = dt.replace(tzinfo=None)
+    return dt
+
 def load_existing_from_db():
     global account_id
     if not core.has_session():
         return []
     db = db_c(core.s_config_dir, config['Rotation']['rotation'])
-    info = db.get_all_stored_game_infos()
+    infos = db.get_all_stored_game_infos()
 
     last_played = get_games_last_played_time_locally()
 
     data = list()
 
-    for app_id, name, last_checked_time in info:
+    for app_id, name, last_checked_time in infos:
         if app_id in last_played:
             data.append({'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time, 'last_played': last_played[app_id]})
         else:
             data.append({'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time, 'last_played': None})
+
+    for item in data:
+        item['last_checked_time'] = _set_time_to_local_timezone(item['last_checked_time'])
+
     return data
 
 def load_from_db_and_web():
