@@ -93,8 +93,6 @@ class _save_downloader(QtCore.QObject):
 
 
     def download_local_outdated(self):
-
-        # TODO: Handle timezone issue
         last_played = data_provider.get_games_last_played_time_locally()
         db_info = data_provider.get_last_checked_time_from_db()
 
@@ -116,6 +114,7 @@ class _save_downloader(QtCore.QObject):
                 target_game_list.append(game)
             else:
                 logger.debug(f"{game['app_id']} skipped. DB Time: {last_checked_time}. Last played time: {last_played_time}")
+        target_game_list.sort(key=lambda x: x['app_id'])
 
         self.download_games(target_game_list)
 
