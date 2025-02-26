@@ -34,6 +34,7 @@ class save_downloader(QtCore.QObject):
 
     def setup(self) -> bool:
         if not self.can_download():
+            logger.debug("Cannot download")
             return False
 
         self.downloader = _save_downloader(self.mode)
@@ -58,11 +59,6 @@ class save_downloader(QtCore.QObject):
         if not self.setup():
             return
         self.downloader_controller.start()
-
-    def periodic_download(self):
-        if not self.setup():
-            return
-        # TODO
 
 class _save_downloader(QtCore.QObject):
     result_ready = QtCore.Signal()

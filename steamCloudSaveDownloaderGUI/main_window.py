@@ -49,6 +49,7 @@ class main_window(QW.QMainWindow):
         self.table_widget.on_main_window_closed()
         self.menu_bar.download_action.stop_download()
         self.menu_bar.download_all_action.stop_download()
+        self.menu_bar.corner_bar.downloader_timer.stop_download()
         self.exit_dialog.close()
 
     def closeEvent(self, p_close_event: QtGui.QCloseEvent):

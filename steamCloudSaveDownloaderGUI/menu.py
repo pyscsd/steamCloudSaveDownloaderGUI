@@ -1,5 +1,6 @@
 from PySide6 import QtCore, QtGui, QtWidgets
 from .core import core
+from . import data_provider
 from . import save_downloader
 from .dialogs import login_dialog, options_dialog
 from .status_bar import status_bar
@@ -201,6 +202,86 @@ class stop_action(QtGui.QAction):
     def hide_widget(self):
         self.setVisible(False)
 
+class scheduled_downloader_timer(QtGui.QAction):
+    row_updated_signal = QtCore.Signal(int)
+    download_started_signal = QtCore.Signal()
+    download_complete_signal = QtCore.Signal()
+
+    def __init__(self, p_status_bar):
+        super().__init__()
+        self.setEnabled(False)
+        self.status_bar = p_status_bar
+
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.minute_passed)
+
+        self.restart_timer()
+
+    @QtCore.Slot()
+    def app_id_updated(self, p_int: int):
+        self.row_updated_signal.emit(p_int)
+
+    @QtCore.Slot()
+    def download_complete(self):
+        self.status_bar.set_ready()
+        self.download_complete_signal.emit()
+        self.restart_timer()
+
+    @QtCore.Slot()
+    def stop_download(self):
+        if hasattr(self, "downloader"):
+            self.downloader.stop()
+        # Download complete signal will restart timer
+
+    @QtCore.Slot()
+    def minute_passed(self):
+        self.count_down = self.count_down - 1
+
+        if self.count_down != 0:
+            self.setText(f"Auto Download ({self.count_down})")
+            return
+
+        self.timer.stop()
+
+        self.setText(f"Auto Downloading")
+        self.downloader = \
+            save_downloader.save_downloader(
+                save_downloader.mode_e.download_local_outdated,
+                self.status_bar)
+        self.downloader.job_finished.connect(self.download_complete)
+        self.downloader.job_notified.connect(self.app_id_updated)
+        self.downloader.one_shot_download()
+        self.download_started_signal.emit()
+
+    def restart_timer(self):
+        logger.debug("Timer Restart")
+        self.download_interval = \
+            data_provider.config['GUI']['download_interval']
+
+        if self.download_interval == 0:
+            return
+
+        self.count_down = self.download_interval
+        self.setText(f"Auto Download ({self.count_down})")
+
+        self.timer.start(60 * 1000) # Update every minute
+
+
+class corner_bar(QtWidgets.QMenuBar):
+    def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):
+        super().__init__()
+        self.parent = p_parent
+        self.status_bar = p_status_bar
+
+        self.downloader_timer = \
+            scheduled_downloader_timer(p_status_bar)
+        self.addAction(self.downloader_timer)
+
+        self.downloader_timer.download_started_signal.connect(self.parent.stop_action.show_widget)
+        self.downloader_timer.download_complete_signal.connect(self.parent.stop_action.hide_widget)
+        self.parent.stop_action.stop_download_signal.connect(self.downloader_timer.stop_download)
+
+
 class menu_bar(QtWidgets.QMenuBar):
     def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):
         super().__init__()
@@ -219,6 +300,9 @@ class menu_bar(QtWidgets.QMenuBar):
         self.addAction(self.download_action)
         self.addAction(self.download_all_action)
         self.addAction(self.stop_action)
+
+        self.corner_bar = corner_bar(self, p_status_bar)
+        self.setCornerWidget(self.corner_bar)
 
         self.connect_signals()
 
