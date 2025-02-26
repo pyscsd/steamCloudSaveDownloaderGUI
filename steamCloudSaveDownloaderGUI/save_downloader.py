@@ -99,6 +99,8 @@ class _save_downloader(QtCore.QObject):
         target_game_list = list()
         for game in self.downloader.game_list:
             app_id = game['app_id']
+            if not data_provider.should_download_appid(app_id):
+                continue
             if app_id not in db_info:
                 target_game_list.append(game)
                 continue
