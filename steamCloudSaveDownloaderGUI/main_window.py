@@ -9,7 +9,7 @@ from . import table_widget
 class exit_dialog(QW.QMessageBox):
     def __init__(self):
         super().__init__(
-            QW.QMessageBox.Icon.Information,
+            QW.QMessageBox.Icon.NoIcon,
             "Close in progress",
             "Please wait for the program to close gracefully.")
 
