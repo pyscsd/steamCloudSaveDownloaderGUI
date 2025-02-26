@@ -261,6 +261,16 @@ class table_model(QtCore.QAbstractTableModel):
         self.raw_list = p_list
         self.endResetModel()
 
+    def update_app_id(self, p_app_id: int):
+        new_app_id_info = data_provider.get_game_info_from_app_id(p_app_id)
+        assert(len(new_app_id_info) == 1)
+        # game name, dir name, last_checked_time
+        row = self.app_id_to_row[p_app_id]
+        self.raw_list[row]['last_checked_time'] = new_app_id_info[0][2]
+        index = self.get_index_from_app_id(p_app_id, 4)
+
+        self.dataChanged.emit(index, index, [QtCore.Qt.ItemDataRole.DisplayRole])
+
     def get_app_id_list(self) -> list :
         return sorted([item['app_id'] for item in self.raw_list])
 
@@ -481,8 +491,8 @@ class table_widget(QW.QWidget):
         self.refresher_controller.start()
 
     @QtCore.Slot(int)
-    def on_row_change(self, p_int):
-        pass
+    def on_app_id_change(self, p_app_id: int):
+        self.table_model.update_app_id(p_app_id)
 
     @QtCore.Slot()
     def on_refresh_complete(self):

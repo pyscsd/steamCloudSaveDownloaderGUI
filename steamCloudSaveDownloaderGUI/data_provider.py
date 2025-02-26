@@ -111,6 +111,15 @@ def load_from_db_and_web():
                 })
     return new_list
 
+def get_game_info_from_app_id(p_app_id: int):
+    db = db_c(core.s_config_dir, config['Rotation']['rotation'])
+    # game name, dir name, last_checked_time
+    game_info = db.get_game_info_by_appid(p_app_id)
+    local_time_game_info = list()
+    for item in game_info:
+        local_time_game_info.append(
+            (item[0], item[1], _set_time_to_local_timezone(item[2])))
+    return local_time_game_info
 
 def get_files_from_app_id(p_app_id: int):
     db = db_c(core.s_config_dir, config['Rotation']['rotation'])
