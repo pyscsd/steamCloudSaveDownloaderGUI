@@ -70,13 +70,20 @@ class session_menu(QtWidgets.QMenu):
         self.logout_signal.emit()
 
 class options_action(QtGui.QAction):
+    config_reloaded_signal = QtCore.Signal()
     def __init__(self):
         super().__init__("Options")
         self.triggered.connect(self.execute)
 
     @QtCore.Slot()
+    def on_config_reload(self):
+        self.config_reloaded_signal.emit()
+
+    @QtCore.Slot()
     def execute(self, p_action):
         self.dialog = options_dialog()
+
+        self.dialog.config_reloaded_signal.connect(self.on_config_reload)
         self.dialog.exec()
 
 class refresh_action(QtGui.QAction):
@@ -254,6 +261,7 @@ class scheduled_downloader_timer(QtGui.QAction):
         self.download_started_signal.emit()
 
     def restart_timer(self):
+        self.timer.stop()
         logger.debug("Timer Restart")
         self.download_interval = \
             data_provider.config['GUI']['download_interval']
@@ -317,6 +325,8 @@ class menu_bar(QtWidgets.QMenuBar):
 
         self.stop_action.stop_download_signal.connect(self.download_action.stop_download)
         self.stop_action.stop_download_signal.connect(self.download_all_action.stop_download)
+
+        self.options_action.config_reloaded_signal.connect(self.corner_bar.downloader_timer.restart_timer)
 
     def session_change(self):
         has_session: bool = core.has_session()

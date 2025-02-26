@@ -112,6 +112,7 @@ class login_dialog(QW.QDialog):
         return True
 
 class options_dialog(QW.QDialog):
+    config_reloaded_signal = QtCore.Signal()
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Options")
@@ -194,6 +195,7 @@ class options_dialog(QW.QDialog):
     def save(self):
         data_provider.commit(self.config)
         self.accept()
+        self.config_reloaded_signal.emit()
 
     @QtCore.Slot()
     def browse(self):
