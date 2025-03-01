@@ -18,7 +18,7 @@ class login_action(QtGui.QAction):
 
     @QtCore.Slot()
     def execute(self, p_action):
-        self.dialog = login_dialog()
+        self.dialog = login_dialog(self.status_bar)
         result:QtWidgets.QDialog.DialogCode = self.dialog.exec()
 
         if result == QtWidgets.QDialog.DialogCode.Accepted:
@@ -266,6 +266,9 @@ class scheduled_downloader_timer(QtGui.QAction):
         self.download_interval = \
             data_provider.config['GUI']['download_interval']
 
+        if not core.has_session():
+            return
+
         if self.download_interval == 0:
             return
 
@@ -333,3 +336,4 @@ class menu_bar(QtWidgets.QMenuBar):
         self.refresh_action.setEnabled(has_session)
         self.download_action.setEnabled(has_session)
         self.download_all_action.setEnabled(has_session)
+        self.corner_bar.downloader_timer.restart_timer()
