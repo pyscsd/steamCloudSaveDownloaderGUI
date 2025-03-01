@@ -5,6 +5,7 @@ from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger, se
 from .core import core
 import copy
 import datetime
+from dateutil import tz
 import os
 import vdf
 
@@ -56,14 +57,28 @@ def get_last_checked_time_from_db():
     info_dict = {info[0]: info[2] for info in infos}
     return info_dict
 
+# DB Time zone is PST(?)
+# Last Checked is UTC(?)
+
 g_local_timezone = \
     datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
-def _set_time_to_local_timezone(p_datetime: datetime.datetime):
+def _set_local_time_as_local_timezone(p_datetime: datetime.datetime):
     global g_local_timezone
 
     if p_datetime.tzinfo != None:
         return
     dt = p_datetime.replace(tzinfo=datetime.timezone.utc)
+    dt = dt.astimezone(g_local_timezone)
+    dt = dt.replace(tzinfo=None)
+    return dt
+
+g_server_timezone = tz.gettz('America/Los_Angeles')
+def _set_server_time_as_local_timezone(p_datetime: datetime.datetime):
+    global g_server_timezone, g_local_timezone
+
+    if p_datetime.tzinfo != None:
+        return
+    dt = p_datetime.replace(tzinfo=g_server_timezone)
     dt = dt.astimezone(g_local_timezone)
     dt = dt.replace(tzinfo=None)
     return dt
@@ -86,7 +101,7 @@ def load_existing_from_db():
             data.append({'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time, 'last_played': None})
 
     for item in data:
-        item['last_checked_time'] = _set_time_to_local_timezone(item['last_checked_time'])
+        item['last_checked_time'] = _set_local_time_as_local_timezone(item['last_checked_time'])
 
     return data
 
@@ -118,7 +133,7 @@ def get_game_info_from_app_id(p_app_id: int):
     local_time_game_info = list()
     for item in game_info:
         local_time_game_info.append(
-            (item[0], item[1], _set_time_to_local_timezone(item[2])))
+            (item[0], item[1], _set_local_time_as_local_timezone(item[2])))
     return local_time_game_info
 
 def get_files_from_app_id(p_app_id: int):
@@ -128,7 +143,8 @@ def get_files_from_app_id(p_app_id: int):
 
 def get_file_version_by_file_id(p_file_id: int):
     db = db_c(core.s_config_dir, config['Rotation']['rotation'])
-    return db.get_file_version_by_file_id(p_file_id)
+    version_info = db.get_file_version_by_file_id(p_file_id)
+    return [(_set_server_time_as_local_timezone(date), num) for date, num in version_info]
 
 def should_download_appid(app_id: int) -> bool:
     global exclude_set
