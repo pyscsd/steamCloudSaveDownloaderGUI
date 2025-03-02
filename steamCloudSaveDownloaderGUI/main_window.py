@@ -39,7 +39,6 @@ class main_window(QW.QMainWindow):
     def connect_signals(self):
         self.menu_bar.refresh_action.data_updated_signal.connect(self.table_widget.refresh)
         self.menu_bar.download_action.row_updated_signal.connect(self.table_widget.on_app_id_change)
-        self.menu_bar.download_all_action.row_updated_signal.connect(self.table_widget.on_app_id_change)
         self.menu_bar.corner_bar.downloader_timer.row_updated_signal.connect(self.table_widget.on_app_id_change)
         self.system_tray.activated.connect(self.system_tray_activated)
         self.system_tray.show_signal.connect(self.show)
@@ -49,7 +48,6 @@ class main_window(QW.QMainWindow):
         self.exit_dialog.show()
         self.table_widget.on_main_window_closed()
         self.menu_bar.download_action.stop_download()
-        self.menu_bar.download_all_action.stop_download()
         self.menu_bar.corner_bar.downloader_timer.stop_download()
         self.exit_dialog.close()
 

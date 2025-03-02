@@ -101,50 +101,6 @@ class refresh_action(QtGui.QAction):
         logger.info("Refresh")
         self.data_updated_signal.emit()
 
-
-class download_all_action(QtGui.QAction):
-    row_updated_signal = QtCore.Signal(int)
-    download_started_signal = QtCore.Signal()
-    download_complete_signal = QtCore.Signal()
-
-    def __init__(self, p_status_bar:status_bar):
-        super().__init__()
-        self.setText("Download All")
-        self.status_bar = p_status_bar
-
-        has_session:bool = core.has_session()
-        self.setEnabled(has_session)
-
-        self.triggered.connect(self.execute)
-
-    @QtCore.Slot()
-    def app_id_updated(self, p_int: int):
-        self.row_updated_signal.emit(p_int)
-
-    @QtCore.Slot()
-    def download_complete(self):
-        self.status_bar.set_ready()
-        self.download_complete_signal.emit()
-
-    @QtCore.Slot()
-    def execute(self, p_action):
-        logger.debug("Download All Executed")
-
-        if not save_downloader.save_downloader.can_download():
-            self.status_bar.set_text("Already downloading")
-            return
-
-        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all, self.status_bar)
-        self.downloader.job_finished.connect(self.download_complete)
-        self.downloader.job_notified.connect(self.app_id_updated)
-        self.downloader.one_shot_download()
-        self.download_started_signal.emit()
-
-    @QtCore.Slot()
-    def stop_download(self):
-        if hasattr(self, "downloader"):
-            self.downloader.stop()
-
 class download_action(QtGui.QAction):
     row_updated_signal = QtCore.Signal(int)
     download_started_signal = QtCore.Signal()
@@ -172,13 +128,17 @@ class download_action(QtGui.QAction):
 
     @QtCore.Slot()
     def execute(self, p_action):
-        logger.debug("Download Executed")
-
         if not save_downloader.save_downloader.can_download():
             self.status_bar.set_text("Already downloading")
             return
 
-        self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated, self.status_bar)
+        if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.KeyboardModifier.ShiftModifier:
+            logger.debug("Download All Executed")
+            self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all, self.status_bar)
+        else:
+            logger.debug("Download Outdated Executed")
+            self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated, self.status_bar)
+
         self.downloader.job_finished.connect(self.download_complete)
         self.downloader.job_notified.connect(self.app_id_updated)
         self.downloader.one_shot_download()
@@ -302,14 +262,12 @@ class menu_bar(QtWidgets.QMenuBar):
         self.session_menu = session_menu(p_status_bar)
         self.options_action = options_action()
         self.download_action = download_action(p_status_bar)
-        self.download_all_action = download_all_action(p_status_bar)
         self.refresh_action = refresh_action()
         self.stop_action = stop_action()
         self.addMenu(self.session_menu)
         self.addAction(self.options_action)
         self.addAction(self.refresh_action)
         self.addAction(self.download_action)
-        self.addAction(self.download_all_action)
         self.addAction(self.stop_action)
 
         self.corner_bar = corner_bar(self, p_status_bar)
@@ -322,12 +280,9 @@ class menu_bar(QtWidgets.QMenuBar):
         self.session_menu.logout_signal.connect(self.session_change)
 
         self.download_action.download_started_signal.connect(self.stop_action.show_widget)
-        self.download_all_action.download_started_signal.connect(self.stop_action.show_widget)
         self.download_action.download_complete_signal.connect(self.stop_action.hide_widget)
-        self.download_all_action.download_complete_signal.connect(self.stop_action.hide_widget)
 
         self.stop_action.stop_download_signal.connect(self.download_action.stop_download)
-        self.stop_action.stop_download_signal.connect(self.download_all_action.stop_download)
 
         self.options_action.config_reloaded_signal.connect(self.corner_bar.downloader_timer.restart_timer)
 
@@ -335,5 +290,4 @@ class menu_bar(QtWidgets.QMenuBar):
         has_session: bool = core.has_session()
         self.refresh_action.setEnabled(has_session)
         self.download_action.setEnabled(has_session)
-        self.download_all_action.setEnabled(has_session)
         self.corner_bar.downloader_timer.restart_timer()
