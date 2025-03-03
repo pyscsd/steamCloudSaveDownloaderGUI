@@ -3,6 +3,7 @@ from PySide6 import QtWidgets as QW
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
 from .core import core
 from . import data_provider
+from .res import icon
 from .status_bar import status_bar
 import pathlib
 import os
@@ -242,3 +243,112 @@ class options_dialog(QW.QDialog):
         self.log_level_value.valueChanged.connect(self.on_log_level_value_change)
         self.minimze_to_tray.toggled.connect(self.on_minimize_to_tray_change)
         self.download_interval_spinbox.valueChanged.connect(self.on_download_interval_change)
+
+class about_dialog(QW.QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("About")
+
+        self.set_icon()
+        self.set_version()
+        self.set_repo()
+        self.set_author()
+        self.set_submit_issue()
+        self.set_disclaimer()
+        self.set_license()
+        self.set_button_box()
+        self.layout_widgets()
+        # TODO: Version
+        # TODO: Size Hint
+
+    def layout_widgets(self):
+        self.main_vlayout = QW.QVBoxLayout()
+        self.setLayout(self.main_vlayout)
+
+        self.icon_layout = QW.QHBoxLayout()
+        self.icon_layout.addStretch()
+        self.icon_layout.addWidget(self.icon_label)
+        self.icon_layout.addStretch()
+        self.main_vlayout.addLayout(self.icon_layout)
+
+        self.version_layout = QW.QHBoxLayout()
+        self.version_layout.addStretch()
+        self.version_layout.addWidget(self.version_label)
+        self.version_layout.addStretch()
+        self.main_vlayout.addLayout(self.version_layout)
+
+        self.repo_layout = QW.QHBoxLayout()
+        self.repo_layout.addStretch()
+        self.repo_layout.addWidget(self.repo_label)
+        self.repo_layout.addStretch()
+        self.main_vlayout.addLayout(self.repo_layout)
+
+        self.author_layout = QW.QHBoxLayout()
+        self.author_layout.addStretch()
+        self.author_layout.addWidget(self.author_label)
+        self.author_layout.addStretch()
+        self.main_vlayout.addLayout(self.author_layout)
+
+        self.issue_layout = QW.QHBoxLayout()
+        self.issue_layout.addStretch()
+        self.issue_layout.addWidget(self.issue_label)
+        self.issue_layout.addStretch()
+        self.main_vlayout.addLayout(self.issue_layout)
+
+        self.license_layout = QW.QHBoxLayout()
+        self.license_layout.addStretch()
+        self.license_layout.addWidget(self.license_label)
+        self.license_layout.addStretch()
+        self.main_vlayout.addLayout(self.license_layout)
+
+        self.disclaimer_layout = QW.QHBoxLayout()
+        self.disclaimer_layout.addStretch()
+        self.disclaimer_layout.addWidget(self.disclaimer_label)
+        self.disclaimer_layout.addStretch()
+        self.main_vlayout.addLayout(self.disclaimer_layout)
+
+        self.button_box_layout = QW.QHBoxLayout()
+        self.button_box_layout.addStretch()
+        self.button_box_layout.addWidget(self.button_box)
+        self.button_box_layout.addStretch()
+        self.main_vlayout.addLayout(self.button_box_layout)
+
+    def set_icon(self):
+        self.icon_label = QW.QLabel()
+        pixmap = QtGui.QPixmap(":/scsd_256.jpg")
+        pixmap = pixmap.scaled(128, 128)
+        self.icon_label.setPixmap(pixmap)
+
+    def set_version(self):
+        self.version_label = QW.QLabel("Version: x.x.x")
+
+    def set_repo(self):
+        self.repo_label = QW.QLabel("<a href='https://github.com/pyscsd/steamCloudSaveDownloaderGUI'>pyscsd/steamCloudSaveDownloaderGUI</a>")
+        self.repo_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        self.repo_label.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
+        self.repo_label.setOpenExternalLinks(True)
+
+    def set_author(self):
+        self.author_label = QW.QLabel("Author: <a href='https://github.com/hhhhhojeihsu'>hhhhhojeihsu</a>")
+        self.author_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        self.author_label.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
+        self.author_label.setOpenExternalLinks(True)
+
+    def set_submit_issue(self):
+        self.issue_label = QW.QLabel("<a href='https://github.com/pyscsd/steamCloudSaveDownloader/issues'>Submit Issue</a>")
+        self.issue_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        self.issue_label.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
+        self.issue_label.setOpenExternalLinks(True)
+
+    def set_license(self):
+        self.license_label = QW.QLabel("Released under MIT License")
+
+    def set_disclaimer(self):
+        self.disclaimer_label = QW.QLabel("This program is not affiliated with Valve or Steam.\nSteam is a trademark of Valve Corporation.")
+
+    def set_button_box(self):
+        self.button_box = QW.QDialogButtonBox(self)
+        self.button_box.close_button = self.button_box.addButton(
+            "Close",
+             QW.QDialogButtonBox.ButtonRole.AcceptRole)
+        self.button_box.close_button.clicked.connect(self.accept)

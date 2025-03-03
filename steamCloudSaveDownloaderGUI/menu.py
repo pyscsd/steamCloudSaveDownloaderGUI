@@ -2,7 +2,7 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from .core import core
 from . import data_provider
 from . import save_downloader
-from .dialogs import login_dialog, options_dialog
+from .dialogs import about_dialog, login_dialog, options_dialog
 from .status_bar import status_bar
 
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
@@ -237,6 +237,15 @@ class scheduled_downloader_timer(QtGui.QAction):
 
         self.timer.start(60 * 1000) # Update every minute
 
+class about_action(QtGui.QAction):
+    def __init__(self):
+        super().__init__("About")
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot()
+    def execute(self, p_action):
+        self.dialog = about_dialog()
+        self.dialog.exec()
 
 class corner_bar(QtWidgets.QMenuBar):
     def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):
@@ -247,6 +256,9 @@ class corner_bar(QtWidgets.QMenuBar):
         self.downloader_timer = \
             scheduled_downloader_timer(p_status_bar)
         self.addAction(self.downloader_timer)
+
+        self.about_action = about_action()
+        self.addAction(self.about_action)
 
         self.downloader_timer.download_started_signal.connect(self.parent.stop_action.show_widget)
         self.downloader_timer.download_complete_signal.connect(self.parent.stop_action.hide_widget)
