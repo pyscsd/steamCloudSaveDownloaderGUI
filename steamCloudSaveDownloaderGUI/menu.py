@@ -210,6 +210,7 @@ class scheduled_downloader_timer(QtGui.QAction):
 
         self.timer.stop()
 
+        logger.info("Scheduled Download Start")
         self.setText(f"Auto Downloading")
         self.downloader = \
             save_downloader.save_downloader(
@@ -222,9 +223,10 @@ class scheduled_downloader_timer(QtGui.QAction):
 
     def restart_timer(self):
         self.timer.stop()
-        logger.debug("Timer Restart")
         self.download_interval = \
             data_provider.config['GUI']['download_interval']
+
+        logger.info(f"Timer Restart. Execute in {self.download_interval}")
 
         if not core.has_session():
             return

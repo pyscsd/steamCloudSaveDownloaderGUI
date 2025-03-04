@@ -46,9 +46,10 @@ class system_tray(QW.QSystemTrayIcon):
     show_signal = QtCore.Signal()
     quit_signal = QtCore.Signal()
 
-    def __init__(self, p_parent):
+    def __init__(self, p_parent: QW.QMainWindow):
         self.quit_flag = False
         super().__init__()
+        self.main_window = p_parent
         self.setIcon(QtGui.QIcon(QtGui.QPixmap(":/scsd_256.jpg")))
         self.setToolTip("scsd-gui")
         self.menu = system_tray_menu()
@@ -71,5 +72,15 @@ class system_tray(QW.QSystemTrayIcon):
         self.showMessage(
             "scsd-gui is now running in background",
             "",
+            QW.QSystemTrayIcon.MessageIcon.Information,
+            3000)
+
+    @QtCore.Slot()
+    def download_complete(self):
+        if self.main_window.isVisible() and not self.main_window.isMinimized():
+            return
+        self.showMessage(
+            "scsd-gui",
+            "Download Complete",
             QW.QSystemTrayIcon.MessageIcon.Information,
             3000)
