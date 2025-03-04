@@ -169,7 +169,7 @@ class stop_action(QtGui.QAction):
     def hide_widget(self):
         self.setVisible(False)
 
-class scheduled_downloader_timer(QtGui.QAction):
+class scheduled_downloader_timer(QtWidgets.QLabel):
     row_updated_signal = QtCore.Signal(int)
     download_started_signal = QtCore.Signal()
     download_complete_signal = QtCore.Signal()
@@ -178,6 +178,9 @@ class scheduled_downloader_timer(QtGui.QAction):
         super().__init__()
         self.setEnabled(False)
         self.status_bar = p_status_bar
+        self.setFixedSize(150, 30)
+        self.setContentsMargins(0, 0, 10, 0)
+        self.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignVCenter)
 
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.minute_passed)
@@ -210,7 +213,7 @@ class scheduled_downloader_timer(QtGui.QAction):
 
         self.timer.stop()
 
-        logger.info("Scheduled Download Start")
+        logger.info("(auto_download_timer) Scheduled Start")
         self.setText(f"Auto Downloading")
         self.downloader = \
             save_downloader.save_downloader(
@@ -226,12 +229,14 @@ class scheduled_downloader_timer(QtGui.QAction):
         self.download_interval = \
             data_provider.config['GUI']['download_interval']
 
-        logger.info(f"Timer Restart. Execute in {self.download_interval}")
+        logger.info(f"(auto_download_timer) Restart. Execute in {self.download_interval}")
 
         if not core.has_session():
+            logger.debug("(auto_download_timer) No session.")
             return
 
         if self.download_interval == 0:
+            self.setText("Auto Download Disabled")
             return
 
         self.count_down = self.download_interval
@@ -248,21 +253,6 @@ class about_action(QtGui.QAction):
     def execute(self, p_action):
         self.dialog = about_dialog()
         self.dialog.exec()
-
-class corner_bar(QtWidgets.QMenuBar):
-    def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):
-        super().__init__()
-        self.parent = p_parent
-        self.status_bar = p_status_bar
-
-        self.downloader_timer = \
-            scheduled_downloader_timer(p_status_bar)
-        self.addAction(self.downloader_timer)
-
-        self.downloader_timer.download_started_signal.connect(self.parent.stop_action.show_widget)
-        self.downloader_timer.download_complete_signal.connect(self.parent.stop_action.hide_widget)
-        self.parent.stop_action.stop_download_signal.connect(self.downloader_timer.stop_download)
-
 
 class menu_bar(QtWidgets.QMenuBar):
     def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):
@@ -283,8 +273,9 @@ class menu_bar(QtWidgets.QMenuBar):
         self.addAction(self.about_action)
         self.addAction(self.stop_action)
 
-        self.corner_bar = corner_bar(self, p_status_bar)
-        self.setCornerWidget(self.corner_bar)
+        self.downloader_timer = \
+            scheduled_downloader_timer(p_status_bar)
+        self.setCornerWidget(self.downloader_timer)
 
         self.connect_signals()
 
@@ -296,8 +287,14 @@ class menu_bar(QtWidgets.QMenuBar):
         self.download_action.download_complete_signal.connect(self.stop_action.hide_widget)
 
         self.stop_action.stop_download_signal.connect(self.download_action.stop_download)
+        self.stop_action.stop_download_signal.connect(self.downloader_timer.stop_download)
 
-        self.options_action.config_reloaded_signal.connect(self.corner_bar.downloader_timer.restart_timer)
+        self.options_action.config_reloaded_signal.connect(self.downloader_timer.restart_timer)
+
+        self.downloader_timer.download_started_signal.connect(self.stop_action.show_widget)
+        self.downloader_timer.download_complete_signal.connect(self.stop_action.hide_widget)
+
+
 
     def session_change(self):
         has_session: bool = core.has_session()
