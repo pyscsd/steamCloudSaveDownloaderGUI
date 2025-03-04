@@ -259,9 +259,6 @@ class corner_bar(QtWidgets.QMenuBar):
             scheduled_downloader_timer(p_status_bar)
         self.addAction(self.downloader_timer)
 
-        self.about_action = about_action()
-        self.addAction(self.about_action)
-
         self.downloader_timer.download_started_signal.connect(self.parent.stop_action.show_widget)
         self.downloader_timer.download_complete_signal.connect(self.parent.stop_action.hide_widget)
         self.parent.stop_action.stop_download_signal.connect(self.downloader_timer.stop_download)
@@ -277,11 +274,13 @@ class menu_bar(QtWidgets.QMenuBar):
         self.options_action = options_action()
         self.download_action = download_action(p_status_bar)
         self.refresh_action = refresh_action()
+        self.about_action = about_action()
         self.stop_action = stop_action()
         self.addMenu(self.session_menu)
         self.addAction(self.options_action)
         self.addAction(self.refresh_action)
         self.addAction(self.download_action)
+        self.addAction(self.about_action)
         self.addAction(self.stop_action)
 
         self.corner_bar = corner_bar(self, p_status_bar)
