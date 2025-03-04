@@ -131,14 +131,21 @@ class options_dialog(QW.QDialog):
         self.save_directory_input = QW.QLineEdit()
         self.save_directory_input.setText(self.config['General']['save_dir'])
         self.save_directory_input.setFixedSize(300, self.save_directory_input.sizeHint().height())
+        save_directory_help = "Where to save the saves"
+        self.save_directory_label.setToolTip(save_directory_help)
+        self.save_directory_input.setToolTip(save_directory_help)
 
         self.browse_button = QW.QToolButton()
         self.browse_button.setIcon(QtGui.QIcon.fromTheme(QtGui.QIcon.ThemeIcon.FolderOpen))
+        self.browse_button.setToolTip("Open File Explorer")
 
         self.rotation_label = QW.QLabel("Save Rotation:")
         self.rotation_value = QW.QSpinBox()
         self.rotation_value.setMinimum(1)
         self.rotation_value.setValue(self.config['Rotation']['rotation'])
+        rotation_help = "The number of versions to keep locally. The older ones will have suffix '.scsd_X' append to the original file name."
+        self.rotation_label.setToolTip(rotation_help)
+        self.rotation_value.setToolTip(rotation_help)
 
         self.button_box = QW.QDialogButtonBox(self)
         self.button_box.save_button = self.button_box.addButton(
@@ -153,16 +160,25 @@ class options_dialog(QW.QDialog):
         self.log_level_value.setMinimum(0)
         self.log_level_value.setMaximum(3)
         self.log_level_value.setValue(self.config['Log']['log_level'])
+        log_level_help = "How detail should the log be.\n0: Show Error messages only\n1: Show Error and Warning messages only\n2: Show Error, Warning and Info messages only\n3: Show Error, Warning, Info and Debug messages"
+        self.log_level_label.setToolTip(log_level_help)
+        self.log_level_value.setToolTip(log_level_help)
 
         self.minimze_to_tray_label = QW.QLabel("Minimize to Tray:")
         self.minimze_to_tray = QW.QCheckBox()
         self.minimze_to_tray.setChecked(self.config['GUI']['minimize_to_tray'])
+        minimize_to_tray_help = "Minimize to system tray instead of close"
+        self.minimze_to_tray_label.setToolTip(minimize_to_tray_help)
+        self.minimze_to_tray.setToolTip(minimize_to_tray_help)
 
         self.download_interval_label = QW.QLabel("Auto Download Interval (Minutes):")
         self.download_interval_spinbox = QW.QSpinBox()
         self.download_interval_spinbox.setMinimum(1)
         self.download_interval_spinbox.setMaximum(10000)
         self.download_interval_spinbox.setValue(self.config['GUI']['download_interval'])
+        download_interval_help = "The interval in minutes between each auto download"
+        self.download_interval_label.setToolTip(download_interval_help)
+        self.download_interval_spinbox.setToolTip(download_interval_help)
 
         self.help_icon_label = QW.QLabel()
         help_icon = QtGui.QIcon.fromTheme(QtGui.QIcon.ThemeIcon.DialogQuestion)
