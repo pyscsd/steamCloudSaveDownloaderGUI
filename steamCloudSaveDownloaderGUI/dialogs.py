@@ -123,8 +123,6 @@ class options_dialog(QW.QDialog):
         self.layout_widgets()
         self.connect_signals()
 
-        self.setMinimumSize(600, 500)
-
     def load_from_config_file(self):
         self.config = data_provider.get_config_copy()
 
