@@ -163,6 +163,7 @@ class options_dialog(QW.QDialog):
         self.download_interval_label = QW.QLabel("Auto Download Interval (Minutes):")
         self.download_interval_spinbox = QW.QSpinBox()
         self.download_interval_spinbox.setMinimum(1)
+        self.download_interval_spinbox.setMaximum(10000)
         self.download_interval_spinbox.setValue(self.config['GUI']['download_interval'])
 
     def layout_widgets(self):
