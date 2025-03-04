@@ -166,6 +166,11 @@ class options_dialog(QW.QDialog):
         self.download_interval_spinbox.setMaximum(10000)
         self.download_interval_spinbox.setValue(self.config['GUI']['download_interval'])
 
+        self.help_icon_label = QW.QLabel()
+        help_icon = QtGui.QIcon.fromTheme(QtGui.QIcon.ThemeIcon.DialogQuestion)
+        self.help_icon_label.setPixmap(help_icon.pixmap(help_icon.actualSize(QtCore.QSize(24, 24))))
+        self.help_label = QW.QLabel("Hover onto options for description")
+
     def layout_widgets(self):
         right_align = QtCore.Qt.AlignmentFlag.AlignRight
         left_align = QtCore.Qt.AlignmentFlag.AlignLeft
@@ -186,11 +191,14 @@ class options_dialog(QW.QDialog):
         self.grid_layout.addWidget(self.minimze_to_tray, 3, 1, left_align)
         self.grid_layout.addWidget(self.download_interval_label, 4, 0, right_align)
         self.grid_layout.addWidget(self.download_interval_spinbox, 4, 1, left_align)
+        self.grid_layout.addWidget(self.help_icon_label, 5, 0, right_align)
+        self.grid_layout.addWidget(self.help_label, 5, 1, left_align)
 
 
         # TODO setRowStretch, setColStretch
         # https://stackoverflow.com/a/69884434
 
+        self.main_vlayout.addStretch()
         self.main_vlayout.addWidget(self.button_box)
 
     @QtCore.Slot()
