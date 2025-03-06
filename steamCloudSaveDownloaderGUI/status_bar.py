@@ -30,8 +30,22 @@ class status_bar(QW.QStatusBar):
         self.label.setText(p_text)
         self.label.setStyleSheet("")
 
+    def download_in_progress(self) -> bool:
+        return self.progress_bar.value() != 100
+        # If progress bar is not 0 means download in progress
+
+    def set_table_widget_tips(self):
+        if self.download_in_progress():
+            return
+        self.label.setText("Double-click to view files. Right click for options.")
+
+
+
     @QtCore.Slot()
     def set_ready(self):
+        if self.download_in_progress():
+            return
+
         if core.has_session():
             self.label.setText("Ready. Press 'Refresh' to populate list or 'Start' to start downloading.")
             self.label.setStyleSheet("")

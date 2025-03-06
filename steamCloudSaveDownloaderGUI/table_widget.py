@@ -458,6 +458,14 @@ class table_widget(QW.QWidget):
 
         self.start_download_header()
 
+    def enterEvent(self, p_event):
+        self.status_bar.set_table_widget_tips()
+        return super().enterEvent(p_event)
+
+    def leaveEvent(self, p_event):
+        self.status_bar.set_ready()
+        return super().leaveEvent(p_event)
+
     def create_search_box(self):
         self.search_box = QW.QLineEdit()
         self.search_box.setClearButtonEnabled(True)
