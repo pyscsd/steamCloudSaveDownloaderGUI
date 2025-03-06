@@ -37,8 +37,7 @@ class status_bar(QW.QStatusBar):
     def set_table_widget_tips(self):
         if self.download_in_progress():
             return
-        self.label.setText("Double-click to view files. Right click for options.")
-
+        self.label.setText("Double click to view files. Right click for options.")
 
 
     @QtCore.Slot()

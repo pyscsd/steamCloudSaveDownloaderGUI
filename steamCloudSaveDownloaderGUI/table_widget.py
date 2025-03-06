@@ -7,11 +7,21 @@ from . import thread_controller
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
 from .game_info_dialog import game_info_dialog
 
+from enum import IntEnum
 import os
 import requests
 import shutil
 import time
 import webbrowser
+
+class table_col_e(IntEnum):
+    enable = 0
+    capsule = 1
+    app_id = 2
+    name = 3
+    last_updated = 4
+    last_played = 5
+column_count_g = 6
 
 # Return 0 if not checked yet
 # Retrun 1 if 404
@@ -144,14 +154,15 @@ class table_model(QtCore.QAbstractTableModel):
         return len(self.raw_list)
 
     def columnCount(self, p_index: QtCore.QModelIndex):
+        global column_count_g
         # Enabled, Preview(Capsule), appID, name, last updated, last played
-        return 6
+        return column_count_g
 
     def flags(self, p_index: QtCore.QModelIndex):
         column = p_index.column()
 
         flags = super().flags(p_index)
-        if column == 0:
+        if column == table_col_e.enable:
             flags |= QtCore.Qt.ItemFlag.ItemIsUserCheckable
             return flags
         else:
@@ -163,12 +174,13 @@ class table_model(QtCore.QAbstractTableModel):
             p_role: QtCore.Qt.ItemDataRole) -> bool:
         item = self.raw_list[p_index.row()]
         if (p_role == QtCore.Qt.ItemDataRole.CheckStateRole and
-            p_index.column() == 0):
+            p_index.column() == table_col_e.enable):
                 data_provider.set_enable_app_id(
                     [item['app_id']],
                     QtCore.Qt.CheckState(p_value) == QtCore.Qt.CheckState.Checked)
                 return True
-        elif (p_role == QtCore.Qt.ItemDataRole.DecorationRole and p_index.column() == 1):
+        elif (p_role == QtCore.Qt.ItemDataRole.DecorationRole and
+               p_index.column() == table_col_e.capsule):
             self.dataChanged.emit(p_index, p_index, [QtCore.Qt.ItemDataRole.DecorationRole])
             return True
         else:
@@ -183,13 +195,13 @@ class table_model(QtCore.QAbstractTableModel):
         column = p_index.column()
 
         if p_role == QtCore.Qt.ItemDataRole.CheckStateRole:
-            if column == 0:
+            if column == table_col_e.enable:
                 if data_provider.should_download_appid(item['app_id']):
                     return QtCore.Qt.CheckState.Checked
                 else:
                     return QtCore.Qt.CheckState.Unchecked
         if p_role == QtCore.Qt.ItemDataRole.DecorationRole:
-            if column == 1:
+            if column == table_col_e.capsule:
                 if game_header_availible(item['app_id']) == 2:
                     header_name = f"{item['app_id']}.jpg"
                     cached_image_location = os.path.join(core.s_cache_header_dir, header_name)
@@ -202,35 +214,36 @@ class table_model(QtCore.QAbstractTableModel):
 
         self.app_id_to_row[item['app_id']] = p_index.row()
 
-        if column == 0:
-            pass
-        elif column == 1:
-            # Return 0 if not checked yet
-            # Retrun 1 if 404
-            # Retrun 2 if found
-            availibility = game_header_availible(item['app_id'])
-            if availibility == 0:
-                return "Loading"
-            elif availibility == 1:
-                return "N/A"
-            elif availibility == 2:
-                return None
-        elif column == 2:
-            return item['app_id']
-        elif column == 3:
-            return item['name']
-        elif column == 4:
-            if item['last_checked_time'] is None:
-                return 'N/A'
-            else:
-                return str(item['last_checked_time'])
-        elif column == 5:
-            if item['last_played'] is None:
-                return 'N/A'
-            else:
-                return str(item['last_played'])
-        else:
-            assert(False)
+        match column:
+            case table_col_e.enable:
+                pass
+            case table_col_e.capsule:
+                # Return 0 if not checked yet
+                # Retrun 1 if 404
+                # Retrun 2 if found
+                match game_header_availible(item['app_id']):
+                    case 0:
+                        return "Loading"
+                    case 1:
+                        return "N/A"
+                    case 2:
+                        return None
+            case table_col_e.app_id:
+                return item['app_id']
+            case table_col_e.name:
+                return item['name']
+            case table_col_e.last_updated:
+                if item['last_checked_time'] is None:
+                    return 'N/A'
+                else:
+                    return str(item['last_checked_time'])
+            case table_col_e.last_played:
+                if item['last_played'] is None:
+                    return 'N/A'
+                else:
+                    return str(item['last_played'])
+            case _:
+                assert(False)
 
     def headerData(self,
                 p_section: int,
@@ -238,20 +251,21 @@ class table_model(QtCore.QAbstractTableModel):
                 p_role: QtCore.Qt.ItemDataRole):
         if p_orient == QtCore.Qt.Orientation.Horizontal and \
             p_role == QtCore.Qt.ItemDataRole.DisplayRole:
-            if p_section == 0:
-                return 'Enabled'
-            elif p_section == 1:
-                return 'Header'
-            elif p_section == 2:
-                return 'App ID'
-            elif p_section == 3:
-                return 'Name'
-            elif p_section == 4:
-                return 'Last Updated'
-            elif p_section == 5:
-                return 'Last Played'
-            else:
-                assert(False)
+            match p_section:
+                case table_col_e.enable:
+                    return 'Enabled'
+                case table_col_e.capsule:
+                    return 'Header'
+                case table_col_e.app_id:
+                    return 'App ID'
+                case table_col_e.name:
+                    return 'Name'
+                case table_col_e.last_updated:
+                    return 'Last Updated'
+                case table_col_e.last_played:
+                    return 'Last Played'
+                case _:
+                    assert(False)
         else:
             return super().headerData(p_section, p_orient, p_role)
 
@@ -284,9 +298,11 @@ class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
 
     def filterAcceptsRow(self, p_source_row: int, p_source_parent: QtCore.QModelIndex) -> bool:
         app_id_index = \
-            self.sourceModel().index(p_source_row, 2, p_source_parent)
+            self.sourceModel().index(
+                p_source_row, table_col_e.app_id, p_source_parent)
         name_index = \
-            self.sourceModel().index(p_source_row, 3, p_source_parent)
+            self.sourceModel().index(
+                p_source_row, table_col_e.name, p_source_parent)
         app_id = \
             self.sourceModel().data(
                 app_id_index, QtCore.Qt.ItemDataRole.DisplayRole)
@@ -302,11 +318,11 @@ class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
         self.invalidateFilter()
 
 def get_game_info_dialog(p_model: table_sort_filter_proxy, p_index: QtCore.QModelIndex):
-    app_id_index = p_model.index(p_index.row(), 2)
+    app_id_index = p_model.index(p_index.row(), table_col_e.app_id)
     app_id = \
         p_model.data(app_id_index, QtCore.Qt.ItemDataRole.DisplayRole)
 
-    game_name_index = p_model.index(p_index.row(), 3)
+    game_name_index = p_model.index(p_index.row(), table_col_e.name)
     game_name = p_model.data(
         game_name_index,
         QtCore.Qt.ItemDataRole.DisplayRole)
@@ -333,8 +349,8 @@ class disable_all_action(QtGui.QAction):
     def execute(self, p_b: bool):
         exclude_list = list()
         for i in range(self.table_model.rowCount()):
-            index = self.table_model.index(i, 2)
-            data = self.table_model.data(index)
+            app_id_index = self.table_model.index(i, table_col_e.app_id)
+            data = self.table_model.data(app_id_index)
             exclude_list.append(data)
         data_provider.set_enable_app_id(exclude_list, False)
 
@@ -364,7 +380,7 @@ class open_saves_directory_action(QtGui.QAction):
 
     @QtCore.Slot(bool)
     def execute(self, p_b: bool):
-        app_id_index = self.model.index(self.index.row(), 2)
+        app_id_index = self.model.index(self.index.row(), table_col_e.app_id)
         app_id = \
             self.model.data(app_id_index, QtCore.Qt.ItemDataRole.DisplayRole)
 
@@ -395,6 +411,8 @@ class table_csm(QW.QMenu):
         self.addAction(self.disable_all_action)
 
 class table_view(QW.QTableView):
+    capsule_width = 92
+    capsule_height = 43
     def __init__(self, p_parent:QtCore.QObject):
         super().__init__(p_parent)
         self.setMinimumSize(800, 500)
@@ -407,13 +425,14 @@ class table_view(QW.QTableView):
         self.setSortingEnabled(True)
         self.horizontalHeader().setSortIndicatorShown(True)
         self.verticalHeader().setSectionResizeMode(QW.QHeaderView.ResizeMode.Fixed)
-        self.verticalHeader().setDefaultSectionSize(43)
+        self.verticalHeader().setDefaultSectionSize(table_view.capsule_height)
 
         self.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.on_csm_requested)
 
         self.doubleClicked.connect(self.on_double_clicked)
-        self.setIconSize(QtCore.QSize(92, 43))
+        self.setIconSize(
+            QtCore.QSize(table_view.capsule_width, table_view.capsule_height))
 
     @QtCore.Slot(QtCore.QModelIndex)
     def on_double_clicked(self, p_index: QtCore.QModelIndex):
@@ -448,7 +467,8 @@ class table_widget(QW.QWidget):
         self.table_view.setModel(self.sort_filter_model)
 
         self.table_view.set_header_stretch(self.table_model.columnCount(None))
-        self.sort_filter_model.sort(2, QtCore.Qt.SortOrder.AscendingOrder)
+        self.sort_filter_model.sort(
+            table_col_e.app_id, QtCore.Qt.SortOrder.AscendingOrder)
 
         self.create_search_box()
 
@@ -486,7 +506,7 @@ class table_widget(QW.QWidget):
 
     @QtCore.Slot(int)
     def on_header_download_notify(self, p_int: int):
-        index = self.table_model.get_index_from_app_id(p_int, 1)
+        index = self.table_model.get_index_from_app_id(p_int, table_col_e.capsule)
         self.table_model.setData(index, None, QtCore.Qt.ItemDataRole.DecorationRole)
 
     @QtCore.Slot(list)
