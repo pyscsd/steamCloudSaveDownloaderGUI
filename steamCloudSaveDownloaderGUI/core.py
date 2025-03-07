@@ -34,6 +34,7 @@ class core:
     def __init__(self):
         pass
 
+    s_initial_config_reload_required = False
     s_config_dir = os.path.join(pathlib.Path.home(), "scsd")
     s_config_file = os.path.join(s_config_dir, "scsd.conf")
     s_db_file = os.path.join(s_config_dir, "scsd.sqlite3")
@@ -78,6 +79,7 @@ class core:
                 }
             }
             config.config.export_to_file(initial_config, core.s_config_file)
+            core.s_initial_config_reload_required = True
 
     @staticmethod
     def has_session() -> bool:
