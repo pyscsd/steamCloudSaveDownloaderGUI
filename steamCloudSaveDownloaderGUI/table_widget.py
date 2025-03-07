@@ -424,6 +424,8 @@ class table_view(QW.QTableView):
 
         self.setSortingEnabled(True)
         self.horizontalHeader().setSortIndicatorShown(True)
+        self.horizontalHeader().setDefaultSectionSize(80)
+
         self.verticalHeader().setSectionResizeMode(QW.QHeaderView.ResizeMode.Fixed)
         self.verticalHeader().setDefaultSectionSize(table_view.capsule_height)
 
@@ -445,14 +447,22 @@ class table_view(QW.QTableView):
         menu = table_csm(self, self.model(), index)
         menu.popup(self.viewport().mapToGlobal(p_point))
 
-    def set_header_stretch(self, p_section_size:int):
-        for i in range(p_section_size - 1):
-            self.horizontalHeader().setSectionResizeMode(
-                i,
-                QW.QHeaderView.ResizeMode.ResizeToContents)
-        self.horizontalHeader().setSectionResizeMode(
-            p_section_size - 1,
-            QW.QHeaderView.ResizeMode.Stretch)
+    def set_header_stretch(self):
+        global column_count_g
+        last_column = (column_count_g - 1)
+        for i in range(column_count_g):
+            if i == table_col_e.enable:
+                self.horizontalHeader().setSectionResizeMode(
+                    i,
+                    QW.QHeaderView.ResizeMode.Fixed)
+            elif i == last_column:
+                self.horizontalHeader().setSectionResizeMode(
+                    i,
+                    QW.QHeaderView.ResizeMode.Stretch)
+            else:
+                self.horizontalHeader().setSectionResizeMode(
+                    i,
+                    QW.QHeaderView.ResizeMode.ResizeToContents)
 
 
 class table_widget(QW.QWidget):
@@ -466,7 +476,7 @@ class table_widget(QW.QWidget):
 
         self.table_view.setModel(self.sort_filter_model)
 
-        self.table_view.set_header_stretch(self.table_model.columnCount(None))
+        self.table_view.set_header_stretch()
         self.sort_filter_model.sort(
             table_col_e.app_id, QtCore.Qt.SortOrder.AscendingOrder)
 
