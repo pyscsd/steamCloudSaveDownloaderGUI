@@ -164,12 +164,19 @@ class options_dialog(QW.QDialog):
         self.log_level_label.setToolTip(log_level_help)
         self.log_level_value.setToolTip(log_level_help)
 
-        self.minimze_to_tray_label = QW.QLabel("Minimize to Tray:")
-        self.minimze_to_tray = QW.QCheckBox()
-        self.minimze_to_tray.setChecked(self.config['GUI']['minimize_to_tray'])
+        self.auto_start_label = QW.QLabel("Auto Start on Startup:")
+        self.auto_start = QW.QCheckBox()
+        self.auto_start.setChecked(self.config['GUI']['auto_start'])
+        auto_start_help = "If the program should auto start on startup"
+        self.auto_start_label.setToolTip(auto_start_help)
+        self.auto_start.setToolTip(auto_start_help)
+
+        self.minimize_to_tray_label = QW.QLabel("Minimize to Tray:")
+        self.minimize_to_tray = QW.QCheckBox()
+        self.minimize_to_tray.setChecked(self.config['GUI']['minimize_to_tray'])
         minimize_to_tray_help = "Minimize to system tray instead of close"
-        self.minimze_to_tray_label.setToolTip(minimize_to_tray_help)
-        self.minimze_to_tray.setToolTip(minimize_to_tray_help)
+        self.minimize_to_tray_label.setToolTip(minimize_to_tray_help)
+        self.minimize_to_tray.setToolTip(minimize_to_tray_help)
 
         self.download_interval_label = QW.QLabel("Auto Download Interval (Minutes):")
         self.download_interval_spinbox = QW.QSpinBox()
@@ -201,12 +208,14 @@ class options_dialog(QW.QDialog):
         self.grid_layout.addWidget(self.rotation_value, 1, 1, left_align)
         self.grid_layout.addWidget(self.log_level_label, 2, 0, right_align)
         self.grid_layout.addWidget(self.log_level_value, 2, 1, left_align)
-        self.grid_layout.addWidget(self.minimze_to_tray_label, 3, 0, right_align)
-        self.grid_layout.addWidget(self.minimze_to_tray, 3, 1, left_align)
-        self.grid_layout.addWidget(self.download_interval_label, 4, 0, right_align)
-        self.grid_layout.addWidget(self.download_interval_spinbox, 4, 1, left_align)
-        self.grid_layout.addWidget(self.help_icon_label, 5, 0, right_align)
-        self.grid_layout.addWidget(self.help_label, 5, 1, left_align)
+        self.grid_layout.addWidget(self.auto_start_label, 3, 0, right_align)
+        self.grid_layout.addWidget(self.auto_start, 3, 1, left_align)
+        self.grid_layout.addWidget(self.minimize_to_tray_label, 4, 0, right_align)
+        self.grid_layout.addWidget(self.minimize_to_tray, 4, 1, left_align)
+        self.grid_layout.addWidget(self.download_interval_label, 5, 0, right_align)
+        self.grid_layout.addWidget(self.download_interval_spinbox, 5, 1, left_align)
+        self.grid_layout.addWidget(self.help_icon_label, 6, 0, right_align)
+        self.grid_layout.addWidget(self.help_label, 6, 1, left_align)
 
 
         # TODO setRowStretch, setColStretch
@@ -251,6 +260,10 @@ class options_dialog(QW.QDialog):
         self.config['Log']['log_level'] = p_value
 
     @QtCore.Slot(bool)
+    def on_auto_start_change(self, p_value: bool):
+        self.config['GUI']['auto_start'] = p_value
+
+    @QtCore.Slot(bool)
     def on_minimize_to_tray_change(self, p_value: bool):
         self.config['GUI']['minimize_to_tray'] = p_value
 
@@ -264,7 +277,8 @@ class options_dialog(QW.QDialog):
         self.browse_button.clicked.connect(self.browse)
         self.rotation_value.valueChanged.connect(self.on_rotation_value_change)
         self.log_level_value.valueChanged.connect(self.on_log_level_value_change)
-        self.minimze_to_tray.toggled.connect(self.on_minimize_to_tray_change)
+        self.auto_start.toggled.connect(self.on_auto_start_change)
+        self.minimize_to_tray.toggled.connect(self.on_minimize_to_tray_change)
         self.download_interval_spinbox.valueChanged.connect(self.on_download_interval_change)
 
 class about_dialog(QW.QDialog):

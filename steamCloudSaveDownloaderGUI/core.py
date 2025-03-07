@@ -73,9 +73,6 @@ class core:
                     "save_dir": core.s_default_save_dir,
                     "config_dir": core.s_config_dir
                 },
-                'Rotation': {
-                    "rotation": config.Defaults['Rotation']['rotation'][1]
-                },
                 'Target': {
                     "mode": "exclude"
                 }
