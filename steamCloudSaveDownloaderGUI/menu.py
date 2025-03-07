@@ -294,10 +294,8 @@ class menu_bar(QtWidgets.QMenuBar):
         self.downloader_timer.download_started_signal.connect(self.stop_action.show_widget)
         self.downloader_timer.download_complete_signal.connect(self.stop_action.hide_widget)
 
-
-
     def session_change(self):
         has_session: bool = core.has_session()
         self.refresh_action.setEnabled(has_session)
         self.download_action.setEnabled(has_session)
-        self.corner_bar.downloader_timer.restart_timer()
+        self.downloader_timer.restart_timer()

@@ -1,12 +1,14 @@
 from PySide6 import QtCore, QtGui
 from PySide6 import QtWidgets as QW
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.auth import auth
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
 from .core import core
 from . import data_provider
 from .res import icon
 from .status_bar import status_bar
-import pathlib
 import os
+import pathlib
+import traceback
 
 class login_fail_message_box(QW.QMessageBox):
     def __init__(self):
@@ -106,7 +108,9 @@ class login_dialog(QW.QDialog):
                 self.user_input.text(),
                 self.password_input.text(),
                 self.two_factor_input.text())
-        except:
+        except Exception as e:
+            ec = traceback.format_exc()
+            logger.error(ec)
             fail_box = login_fail_message_box()
             fail_box.exec()
             return False
