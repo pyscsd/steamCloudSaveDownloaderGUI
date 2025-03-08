@@ -57,6 +57,7 @@ class save_downloader(QtCore.QObject):
 
     def one_shot_download(self):
         if not self.setup():
+            self.job_finished.emit()
             return
         self.downloader_controller.start()
 
