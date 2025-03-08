@@ -299,3 +299,6 @@ class menu_bar(QtWidgets.QMenuBar):
         self.refresh_action.setEnabled(has_session)
         self.download_action.setEnabled(has_session)
         self.downloader_timer.restart_timer()
+
+        if has_session:
+            self.refresh_action.execute(None)
