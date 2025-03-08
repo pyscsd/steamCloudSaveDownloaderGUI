@@ -221,8 +221,9 @@ class scheduled_downloader_timer(QtWidgets.QLabel):
                 self.status_bar)
         self.downloader.job_finished.connect(self.download_complete)
         self.downloader.job_notified.connect(self.app_id_updated)
-        if self.downloader.one_shot_download():
+        if not self.downloader.one_shot_download():
             self.restart_timer()
+            return
         self.download_started_signal.emit()
 
     def restart_timer(self):
