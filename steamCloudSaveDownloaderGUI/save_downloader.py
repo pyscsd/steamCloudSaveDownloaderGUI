@@ -55,11 +55,11 @@ class save_downloader(QtCore.QObject):
     def app_id_updated(self, p_value: int):
         self.job_notified.emit(p_value)
 
-    def one_shot_download(self):
+    def one_shot_download(self) -> bool:
         if not self.setup():
-            self.job_finished.emit()
-            return
+            return False
         self.downloader_controller.start()
+        return True
 
 class _save_downloader(QtCore.QObject):
     result_ready = QtCore.Signal()
