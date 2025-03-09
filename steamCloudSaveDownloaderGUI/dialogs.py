@@ -6,6 +6,7 @@ from .core import core
 from . import data_provider
 from .res import icon
 from .status_bar import status_bar
+from . import ver
 import os
 import pathlib
 import traceback
@@ -361,7 +362,7 @@ class about_dialog(QW.QDialog):
         self.icon_label.setPixmap(pixmap)
 
     def set_version(self):
-        self.version_label = QW.QLabel("Version: x.x.x")
+        self.version_label = QW.QLabel(f"Version: {ver.__version__}")
 
     def set_repo(self):
         self.repo_label = QW.QLabel("<a href='https://github.com/pyscsd/steamCloudSaveDownloaderGUI'>pyscsd/steamCloudSaveDownloaderGUI</a>")
