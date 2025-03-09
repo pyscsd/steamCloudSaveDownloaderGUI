@@ -1,4 +1,6 @@
+<p align="center">
 <img src="./steamCloudSaveDownloaderGUI/res/scsd_icon.jpg" width="128">
+</p>
 
 steamCloudSaveDownloaderGUI
 ===========
