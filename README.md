@@ -1,4 +1,4 @@
-![Icon](./steamCloudSaveDownloaderGUI/res/scsd_icon.jpg)
+<img src="./steamCloudSaveDownloaderGUI/res/scsd_icon.jpg" width="128">
 
 steamCloudSaveDownloaderGUI
 ===========
@@ -9,15 +9,17 @@ Download/Backup Saves on Steam Cloud Automatically. An official frontend impleme
 > [!WARNING]
 > This program is in alpha stage. Please expect breaking changes. Use at your own risk.
 
-#### [Documentation]() | [Download](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/releases)
+#### [📄Documentation]() | [⏬Download](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/releases)
 
 ## :warning: DISCLAIMER
 - This program is not affiliated with Valve or Steam. Steam is a trademark of Valve Corporation.
 - Even though this program is thoroughly tested and theoretically does not violate EULA. This program does not come with warranty and use at your own risk.
 
-## Features
+## Screenshots
 TODO
 
+## Features
+TODO
 
 ## How to build
 ```
