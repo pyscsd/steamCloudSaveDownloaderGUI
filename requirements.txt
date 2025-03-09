@@ -7,3 +7,4 @@ tzdata>=2023.3
 pyside6>=6.4.1,<7
 vdf>=3.4,<4
 python-dateutil>=2.9.0,<3
+pywin32>=308,<400; sys_platform == 'win32'

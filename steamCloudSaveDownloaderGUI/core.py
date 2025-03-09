@@ -1,4 +1,5 @@
 import os
+import sys
 import pathlib
 import platform
 from .steamCloudSaveDownloader.steamCloudSaveDownloader import auth
@@ -84,3 +85,41 @@ class core:
     @staticmethod
     def has_session() -> bool:
         return os.path.isfile(core.s_session_file)
+
+    @staticmethod
+    def set_start_on_startup(p_enable: bool):
+        if platform.system() == 'Windows':
+            from win32com.client import Dispatch as win_dispatch
+
+
+            logger.debug(f"Windows env")
+            if hasattr(sys, '_MEIPASS'):
+                app_path = sys.executable
+                logger.debug(f"App path: {app_path}")
+            else:
+                logger.debug(f"Auto startup not supported in script mode")
+                return
+
+            exe_name = os.path.basename(app_path)
+            exe_stem = pathlib.Path(exe_name).stem
+            logger.debug(f"Executable name: {exe_name}")
+            logger.debug(f"Executable stem: {exe_stem}")
+
+            app_data = os.getenv('APPDATA')
+            startup_shortcut = os.path.join(app_data, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup', f"{exe_stem}.lnk")
+
+            logger.debug(f"Startup_location: {startup_shortcut}")
+
+            if p_enable:
+                if os.path.isfile(startup_shortcut):
+                    logger.debug(f"Link exist. Skipped")
+                    return
+                shell = win_dispatch('WScript.Shell')
+                shortcut = shell.CreateShortCut(startup_shortcut)
+                shortcut.Targetpath = str(pathlib.Path(app_path))
+                shortcut.Arguments = '--minimize'
+                shortcut.save()
+            else:
+                if os.path.isfile(startup_shortcut):
+                    os.remove(startup_shortcut)
+                    logger.debug(f"Remove startup link")
