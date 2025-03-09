@@ -232,6 +232,7 @@ class options_dialog(QW.QDialog):
     @QtCore.Slot()
     def save(self):
         data_provider.commit(self.config)
+        core.set_start_on_startup(self.config['GUI']['auto_start'])
         self.accept()
         self.config_reloaded_signal.emit()
 
