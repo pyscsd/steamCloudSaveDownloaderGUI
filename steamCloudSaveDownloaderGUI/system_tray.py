@@ -47,7 +47,6 @@ class system_tray(QW.QSystemTrayIcon):
     quit_signal = QtCore.Signal()
 
     def __init__(self, p_parent: QW.QMainWindow):
-        self.quit_flag = False
         super().__init__()
         self.main_window = p_parent
         self.setIcon(QtGui.QIcon(QtGui.QPixmap(":/scsd_256.jpg")))
@@ -61,7 +60,6 @@ class system_tray(QW.QSystemTrayIcon):
         self.show_signal.emit()
 
     def to_quit(self):
-        self.quit_flag = True
         self.quit_signal.emit()
 
     def connect_signals(self):

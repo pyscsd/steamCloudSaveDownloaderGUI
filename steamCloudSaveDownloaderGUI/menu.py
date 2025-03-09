@@ -256,6 +256,16 @@ class about_action(QtGui.QAction):
         self.dialog = about_dialog()
         self.dialog.exec()
 
+class quit_action(QtGui.QAction):
+    quit_signal = QtCore.Signal()
+    def __init__(self):
+        super().__init__("Quit")
+        self.triggered.connect(self.execute)
+
+    @QtCore.Slot()
+    def execute(self, p_action):
+        self.quit_signal.emit()
+
 class menu_bar(QtWidgets.QMenuBar):
     def __init__(self, p_parent:QtWidgets, p_status_bar:status_bar):
         super().__init__()
@@ -267,12 +277,14 @@ class menu_bar(QtWidgets.QMenuBar):
         self.download_action = download_action(p_status_bar)
         self.refresh_action = refresh_action()
         self.about_action = about_action()
+        self.quit_action = quit_action()
         self.stop_action = stop_action()
         self.addMenu(self.session_menu)
         self.addAction(self.options_action)
         self.addAction(self.refresh_action)
         self.addAction(self.download_action)
         self.addAction(self.about_action)
+        self.addAction(self.quit_action)
         self.addAction(self.stop_action)
 
         self.downloader_timer = \

@@ -7,7 +7,6 @@ from operator import itemgetter
 import os
 import platform
 import webbrowser
-import pprint # TODO Remove
 
 class item_type_e(Enum):
     dir_type = 0
