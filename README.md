@@ -17,8 +17,8 @@ Download/Backup Saves on Steam Cloud Automatically. An official frontend impleme
 
 ## Screenshots
 <p float="left">
-    <img src="./docs/screenshots/main_window.png" width="256" />
-    <img src="./docs/screenshots/file_dialog.png" width="256" />
+    <img src="./docs/screenshots/main_window.png" width="50%" />
+    <img src="./docs/screenshots/file_dialog.png" width="50%" />
 </p>
 
 ## Features
