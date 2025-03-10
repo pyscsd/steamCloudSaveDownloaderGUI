@@ -42,11 +42,13 @@ class main_window(QW.QMainWindow):
         self.menu_bar.refresh_action.data_updated_signal.connect(self.table_widget.refresh)
 
         self.menu_bar.download_action.row_updated_signal.connect(self.table_widget.on_app_id_change)
+        self.menu_bar.download_action.download_started_signal.connect(self.table_widget.download_started)
         self.menu_bar.download_action.download_complete_signal.connect(self.system_tray.download_complete)
 
         self.menu_bar.quit_action.quit_signal.connect(self.formal_quit)
 
         self.menu_bar.downloader_timer.row_updated_signal.connect(self.table_widget.on_app_id_change)
+        self.menu_bar.downloader_timer.download_started_signal.connect(self.table_widget.download_started)
         self.menu_bar.downloader_timer.download_complete_signal.connect(self.system_tray.download_complete)
 
         self.system_tray.activated.connect(self.system_tray_activated)

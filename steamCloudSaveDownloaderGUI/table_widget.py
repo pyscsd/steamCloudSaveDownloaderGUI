@@ -288,6 +288,23 @@ class table_model(QtCore.QAbstractTableModel):
     def get_app_id_list(self) -> list :
         return sorted([item['app_id'] for item in self.raw_list])
 
+    def update_last_played(self):
+        logger.debug("Updating last played")
+        times = data_provider.get_games_last_played_time_locally()
+        for app_id, last_played in times.items():
+            if app_id not in self.app_id_to_row:
+                continue
+            row = self.app_id_to_row[app_id]
+            self.raw_list[row]['last_played'] = last_played
+
+        last_checked_top_index = \
+            self.createIndex(0, table_col_e.last_played)
+        last_checked_bottom_index = \
+            self.createIndex(self.rowCount(None) - 1, table_col_e.last_played)
+
+        self.dataChanged.emit(
+            last_checked_top_index, last_checked_bottom_index, [QtCore.Qt.ItemDataRole.DisplayRole])
+
 class table_sort_filter_proxy(QtCore.QSortFilterProxyModel):
     def __init__(self,
                  p_parent:QtCore.QObject,
@@ -518,6 +535,10 @@ class table_widget(QW.QWidget):
     def on_header_download_notify(self, p_int: int):
         index = self.table_model.get_index_from_app_id(p_int, table_col_e.capsule)
         self.table_model.setData(index, None, QtCore.Qt.ItemDataRole.DecorationRole)
+
+    @QtCore.Slot()
+    def download_started(self):
+        self.table_model.update_last_played()
 
     @QtCore.Slot(list)
     def refresh(self):
