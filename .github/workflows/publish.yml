@@ -1,0 +1,40 @@
+name: Publish
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:
+  build:
+    uses: ./.github/workflows/check-test-build.yml
+  release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download dist
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Download Linux executable
+        uses: actions/download-artifact@v4
+        with:
+          name: linux_executable
+          path: dist/
+      - name: Download Windows executable
+        uses: actions/download-artifact@v4
+        with:
+          name: windows_executable
+          path: dist/
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          fail_on_unmatched_files: true
+          files: |
+            dist/*.whl
+            dist/scsd-gui_*_linux_amd64
+            dist/scsd-gui_*_windows_amd64.exe

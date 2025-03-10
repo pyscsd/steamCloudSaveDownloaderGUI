@@ -1,0 +1,117 @@
+name: check-test-build
+
+on:
+  push:
+  workflow_call:
+
+jobs:
+  get_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get tag version
+        if: ${{ startsWith(github.ref, 'refs/tags') }}
+        run: |
+          echo '${{ github.ref_name }}' >> version.txt
+      - name: Get commit version
+        if: ${{ !startsWith(github.ref, 'refs/tags') }}
+        run: |
+          echo "${GITHUB_SHA:0:7}" >> version.txt
+      - name: Upload version.txt
+        uses: actions/upload-artifact@v4
+        with:
+          name: version.txt
+          path: |
+            version.txt
+
+  build:
+    needs:
+      - get_version
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies (Linux)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+          sudo apt-get install -y patchelf
+      - name: Install dependencies (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+      - name: Install UPX (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: crazy-max/ghaction-upx@v2
+        with:
+          install-only: true
+      - name: Lint with ruff
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          ruff check --select=E9,F63,F7,F82 --target-version=py312 .
+          # default set of ruff rules with GitHub Annotations
+          ruff check --target-version=py312 .
+      - name: Download version.txt
+        uses: actions/download-artifact@v4
+        with:
+          name: version.txt
+          path: .
+
+      - name: Pack (Linux)
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          pyinstaller --add-data "version.txt:."  --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --onefile ./scsd-gui --name "scsd-gui_$(cat ./version.txt)_linux_amd64"
+
+      - name: Pack (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          $version_raw = Get-Content ./version.txt -Raw
+          $version = $version_raw -replace "`n",""  -replace "`r",""
+          $filename = "scsd-gui_${version}_windows_amd64.exe"
+          pyinstaller --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --onefile ./scsd-gui --name $filename
+
+      - name: Build
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          python -m build
+
+      - name: Upload whl
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: |
+            dist/*.tar.gz
+            dist/*.whl
+
+      - name: Upload Linux Executable
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux_executable
+          path: |
+            dist/scsd-gui_*_linux_amd64
+
+      - name: Upload Windows Executable
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows_executable
+          path: |
+            dist/scsd-gui_*_windows_amd64.exe
