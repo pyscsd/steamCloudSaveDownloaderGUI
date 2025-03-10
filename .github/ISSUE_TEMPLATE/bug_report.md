@@ -26,8 +26,8 @@ If applicable, add screenshots to help explain your problem.
     - Log file: `scsd.log`
     - Config file: `scsd.conf`
 - Remember to remove info you don't want to expose. For example:
-- Steam username / Steam ID
-- Games you wish nobody would know you have played
+    - Steam username / Steam ID
+    - Games you wish nobody would know you have played
 
 **Additional context**
 Add any other context about the problem here.
