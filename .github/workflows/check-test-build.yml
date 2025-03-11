@@ -84,7 +84,7 @@ jobs:
           $version_raw = Get-Content ./version.txt -Raw
           $version = $version_raw -replace "`n",""  -replace "`r",""
           $filename = "scsd-gui_${version}_windows_amd64.exe"
-          pyinstaller --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --onefile ./scsd-gui --name $filename
+          pyinstaller --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --paths "./steamCloudSaveDownloaderGUI" --onefile ./scsd-gui --name $filename
 
       - name: Build
         if: ${{ matrix.os == 'ubuntu-latest' }}
