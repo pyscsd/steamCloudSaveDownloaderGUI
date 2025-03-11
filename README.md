@@ -15,7 +15,7 @@ Download/Backup Saves on Steam Cloud Automatically. An official frontend impleme
 
 ## :warning: DISCLAIMER
 - This program is not affiliated with Valve or Steam. Steam is a trademark of Valve Corporation.
-- Even though this program is thoroughly tested and theoretically does not violate EULA. This program does not come with warranty and use at your own risk.
+- This program does not come with warranty and use at your own risk. Even though this program is thoroughly tested and theoretically does not violate EULA.
 
 ## Screenshots
 <p float="left">
@@ -24,7 +24,10 @@ Download/Backup Saves on Steam Cloud Automatically. An official frontend impleme
 </p>
 
 ## Features
-TODO
+- Easy to setup (in less than one minute)
+- Secure
+- Periodically download in background
+- Intuitive interface
 
 ## How to build
 ```
