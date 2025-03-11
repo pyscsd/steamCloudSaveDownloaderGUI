@@ -540,6 +540,13 @@ class table_widget(QW.QWidget):
     def download_started(self):
         self.table_model.update_last_played()
 
+    @QtCore.Slot()
+    def download_complete(self):
+        db_data = data_provider.load_existing_from_db()
+        if len(db_data) > len(self.table_model.raw_list):
+            logger.debug("New games in DB. Reload table.")
+            self.table_model.update_data(db_data)
+
     @QtCore.Slot(list)
     def refresh(self):
         # Refresh
