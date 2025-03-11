@@ -25,6 +25,7 @@ If applicable, add screenshots to help explain your problem.
 - Goto the folder in Windows Explorer by pasting `%userprofile%\scsd` in navigation bar.
     - Log file: `scsd.log`
     - Config file: `scsd.conf`
+    - DO NOT include session file: `session.sb`
 - Remember to remove info you don't want to expose. For example:
     - Steam username / Steam ID
     - Games you wish nobody would know you have played
