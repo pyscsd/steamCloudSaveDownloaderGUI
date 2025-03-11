@@ -11,7 +11,7 @@ Download/Backup Saves on Steam Cloud Automatically. An official frontend impleme
 > [!WARNING]
 > This program is in alpha stage. Expect bugs and breaking changes. Use at your own risk.
 
-#### [📄Documentation]() | [⏬Download](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/releases)
+#### [📄Documentation](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/wiki) | [⏬Download](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/releases)
 
 ## :warning: DISCLAIMER
 - This program is not affiliated with Valve or Steam. Steam is a trademark of Valve Corporation.
