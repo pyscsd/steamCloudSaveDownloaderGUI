@@ -4,7 +4,8 @@
 
 steamCloudSaveDownloaderGUI
 ===========
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)[![GitHub Release](https://img.shields.io/github/v/release/pyscsd/steamCloudSaveDownloaderGUI)]
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Check/Build](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/actions/workflows/check-test-build.yml/badge.svg)](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/actions/workflows/check-test-build.yml/) [![Publish](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/actions/workflows/publish.yml/badge.svg)](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/actions/workflows/publish.yml/) [![GitHub Release](https://img.shields.io/github/v/release/pyscsd/steamCloudSaveDownloaderGUI)](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/releases)
+
 
 Download/Backup Saves on Steam Cloud Automatically. An official frontend implementation to [scsd](https://github.com/pyscsd/steamCloudSaveDownloader) in Python/Qt
 
