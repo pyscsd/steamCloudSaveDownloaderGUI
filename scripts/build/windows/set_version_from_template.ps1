@@ -13,3 +13,7 @@ $version_template = $version_template -replace "ACHAKA2","($($first_ver), $($sec
 $version_template = $version_template -replace "ACHAKA3","v$($first_ver).$($second_ver).$($third_ver)"
 $version_template = $version_template -replace "ACHAKA4","v$($first_ver).$($second_ver).$($third_ver)"
 $version_template | Out-File -Filepath ./version_windows.txt -Encoding "UTF8"
+
+#DBG
+$a = Get-Content ./version_windows.txt -Raw
+Write-Host $a
