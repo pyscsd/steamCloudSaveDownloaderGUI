@@ -6,6 +6,14 @@ $version = $version_raw -replace "`n",""  -replace "`r","" -replace "v",""
 
 $first_ver, $second_ver, $third_ver = $version.split('.')
 
+#DBG
+Write-Host $version_raw
+Write-Host $version
+Write-Host $first_ver
+Write-Host $second_ver
+Write-Host $third_ver
+
+
 $version_template = Get-Content ./scripts/build/windows/version_template.txt -Raw
 
 $version_template = $version_template -replace "ACHAKA1","($($first_ver), $($second_ver), $($third_ver), 0),"
