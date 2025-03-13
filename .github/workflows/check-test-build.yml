@@ -39,6 +39,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - name: Init submodules
+        run: |
+          git submodule update
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -84,7 +87,7 @@ jobs:
           $version_raw = Get-Content ./version.txt -Raw
           $version = $version_raw -replace "`n",""  -replace "`r",""
           $filename = "scsd-gui_${version}_windows_amd64.exe"
-          pyinstaller --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --collect-all steamCloudSaveDownloader --paths "./steamCloudSaveDownloaderGUI" --onefile ./scsd-gui --name $filename
+          pyinstaller --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --collect-all steamCloudSaveDownloader --onefile ./scsd-gui --name $filename
 
       - name: Build
         if: ${{ matrix.os == 'ubuntu-latest' }}
