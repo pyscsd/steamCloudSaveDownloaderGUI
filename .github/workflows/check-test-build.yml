@@ -88,6 +88,19 @@ jobs:
           .\scripts\build\windows\set_version_from_template.ps1
           pyinstaller --version-file "./version_windows.txt" --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --collect-all steamCloudSaveDownloader --onefile ./scsd-gui --name $filename
 
+      - name: Sign (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: skymatic/code-sign-action@v1
+        with:
+          certificate: '${{ secrets.SIGNTOOL_CERT }}'
+          password: '${{ secrets.SIGNTOOL_PASS }}'
+          certificatesha1: '${{ secrets.SIGNTOOL_FINGERPRINT }}'
+          certificatename: '${{ secrets.SIGNTOOL_NAME }}'
+          description: 'scsd-gui'
+          timestampUrl: 'http://timestamp.digicert.com'
+          folder: 'dist'
+          recursive: true
+
       - name: Build
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
