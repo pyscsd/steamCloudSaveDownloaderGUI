@@ -164,3 +164,4 @@ cython_debug/
 #.idea/
 version.txt
 version_windows.txt
+certificate.pfx

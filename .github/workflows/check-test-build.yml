@@ -90,7 +90,11 @@ jobs:
 
       - name: Sign (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
-        uses: skymatic/code-sign-action@v1
+        uses: fawazahmed0/action-debug-vscode@main
+
+      - name: Sign (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: hhhhhojeihsu/code-sign-action@v1
         with:
           certificate: '${{ secrets.SIGNTOOL_CERT }}'
           password: '${{ secrets.SIGNTOOL_PASS }}'
