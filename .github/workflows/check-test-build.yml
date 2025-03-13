@@ -90,10 +90,6 @@ jobs:
 
       - name: Sign (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
-        uses: fawazahmed0/action-debug-vscode@main
-
-      - name: Sign (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
         uses: hhhhhojeihsu/code-sign-action@c4df355f7e6ceee249e6e6d76debded9ff874046
         with:
           certificate: '${{ secrets.SIGNTOOL_CERT }}'
