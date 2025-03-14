@@ -90,8 +90,7 @@ jobs:
 
       - name: Sign (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
-        uses: hhhhhojeihsu/code-sign-action@b3e26bd73c72c2092a060363c5c54e540ad6d918
-        with:
+        run: |
           certificate: '${{ secrets.SIGNTOOL_CERT }}'
           password: '${{ secrets.SIGNTOOL_PASS }}'
           certificatesha1: '${{ secrets.SIGNTOOL_FINGERPRINT }}'
