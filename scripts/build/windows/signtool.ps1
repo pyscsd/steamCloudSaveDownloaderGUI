@@ -37,13 +37,12 @@ foreach ($d in $dir) {
     }
 
     $leaf = $d.FullName.split("\")[-1]
-    Write-Host "Leaf: $leaf"
 
     $version = $leaf -replace ".","" -as [int]
 
     if ($version -gt $newest_version) {
-        $newest_version
-        $newest_version_path = $d
+        $newest_version = $version
+        $newest_version_path = $d.FullName
     }
 }
 
@@ -51,3 +50,13 @@ $signtool = "$($newest_version_path)\x64\signtool.exe"
 
 Write-Host "Signtool: $($signtool)"
 
+$certificate = '.\certificate.pfx'
+
+# Create Cert
+$cert_bytes = [Convert]::FromBase64String($cert_base64)
+[IO.File]::WriteAllBytes($certificate, $cert_bytes)
+
+# Import Cert
+certutil -f -p $cert_passwd -importpfx $certificate
+Set-Location Cert:\CurrentUser\My
+Get-ChildItem | Format-Table FriendlyName, Thumbprint, Subject
