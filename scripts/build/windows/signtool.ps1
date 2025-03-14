@@ -54,5 +54,6 @@ certutil -f -p $cert_passwd -importpfx $certificate
 Set-Location Cert:\CurrentUser\My
 
 # Sign
-$command = "$($signtool) sign /f $($certificate) /p $($cert_passwd) /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $($target)"
+
+$command = "& `"$($signtool)`" sign /f $($certificate) /p $($cert_passwd) /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $($target)"
 Invoke-Expression $command
