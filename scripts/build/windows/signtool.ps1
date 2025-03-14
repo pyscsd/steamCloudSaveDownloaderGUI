@@ -7,14 +7,6 @@ param (
     [Parameter(Mandatory=$true)]
     [String]$cert_passwd,
 
-    #'${{ secrets.SIGNTOOL_FINGERPRINT }}'
-    [Parameter(Mandatory=$true)]
-    [String]$cert_fingerprint,
-
-    #'${{ secrets.SIGNTOOL_NAME }}'
-    [Parameter(Mandatory=$true)]
-    [String]$cert_name,
-
     [Parameter(Mandatory=$true)]
     [String]$target
 )
@@ -63,4 +55,4 @@ Set-Location Cert:\CurrentUser\My
 
 # Sign
 $command = "$($signtool) sign /f $($certificate) /p $($cert_passwd) /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $($target)"
-Invoke-Command $command
+Invoke-Expression $command
