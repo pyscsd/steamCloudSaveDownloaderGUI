@@ -38,7 +38,11 @@ foreach ($d in $dir) {
 
     $leaf = $d.FullName.split("\")[-1]
 
-    $version = $leaf -replace ".","" -as [int]
+    $version = $leaf -replace ".",""
+    Write-Host "Leaf: $($leaf)"
+    Write-Host "Version: $($version)"
+
+    $version = $version -as [int]
     Write-Host "Version: $($version)"
 
     Write-Host "CMP: $($version) $($newest_version)"
