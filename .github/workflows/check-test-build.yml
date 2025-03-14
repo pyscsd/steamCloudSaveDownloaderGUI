@@ -40,6 +40,10 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+      - name: Sign (Windows) # TODO- temporary here
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          .\scripts\build\windows\signtool.ps1 -cert_base64 '${{ secrets.SIGNTOOL_CERT }}' -cert_passwd '${{ secrets.SIGNTOOL_PASS }}' -cert_fingerprint '${{ secrets.SIGNTOOL_FINGERPRINT }}' -cert_name '${{ secrets.SIGNTOOL_NAME }}' -target "Achaka"
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -84,24 +88,9 @@ jobs:
         run: |
           $version_raw = Get-Content ./version.txt -Raw
           $version = $version_raw -replace "`n",""  -replace "`r",""
-          $unsigned_filename = "unsigned_${version}_windows_amd64.exe"
+          $unsigned_filename = "scsd-gui_${version}_windows_amd64.exe"
           .\scripts\build\windows\set_version_from_template.ps1
           pyinstaller --version-file "./version_windows.txt" --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --collect-all steamCloudSaveDownloader --onefile ./scsd-gui --name $unsigned_filename
-
-      - name: Sign (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
-        run: |
-          .\scripts\build\windows\signtool.ps1
-
-      # Rename because signing proecdure will collide filename & certname
-      - name: Rename (Windows)
-        if: ${{ matrix.os == 'windows-latest' }}
-        run: |
-          $version_raw = Get-Content ./version.txt -Raw
-          $version = $version_raw -replace "`n",""  -replace "`r",""
-          $unsigned_filename = "unsigned_${version}_windows_amd64.exe"
-          $signed_filename = "scsd-gui_${version}_windows_amd64.exe"
-          Move-Item $unsigned_filename $signed_filename
 
       - name: Build
         if: ${{ matrix.os == 'ubuntu-latest' }}
