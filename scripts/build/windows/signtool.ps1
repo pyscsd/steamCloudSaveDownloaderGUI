@@ -38,15 +38,9 @@ foreach ($d in $dir) {
 
     $leaf = $d.FullName.split("\")[-1]
 
-    $version = $leaf -replace ".",""
-    Write-Host "Leaf: $($leaf)"
-    Write-Host "Version: $($version)"
+    $version = ($leaf -replace "\.","") -as [int]
+    Write-Host "Leaf: $($leaf) Version: $($version)"
 
-    $version = $version -as [int]
-    Write-Host "Version: $($version)"
-
-    Write-Host "CMP: $($version) $($newest_version)"
-    Write-Host "CMP: $($version.getType()) $($newest_version.getType())"
     if ($version -gt $newest_version) {
         $newest_version = $version
         $newest_version_path = $d.FullName
@@ -66,3 +60,6 @@ $cert_bytes = [Convert]::FromBase64String($cert_base64)
 # Import Cert
 certutil -f -p $cert_passwd -importpfx $certificate
 Set-Location Cert:\CurrentUser\My
+
+# Sign
+$signtool sign /f $certificate /p $cert_passwd /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $target
