@@ -39,7 +39,10 @@ foreach ($d in $dir) {
     $leaf = $d.FullName.split("\")[-1]
 
     $version = $leaf -replace ".","" -as [int]
+    Write-Host "Version: $($version)"
 
+    Write-Host "CMP: $($version) $($newest_version)"
+    Write-Host "CMP: $($version.getType()) $($newest_version.getType())"
     if ($version -gt $newest_version) {
         $newest_version = $version
         $newest_version_path = $d.FullName
@@ -59,4 +62,3 @@ $cert_bytes = [Convert]::FromBase64String($cert_base64)
 # Import Cert
 certutil -f -p $cert_passwd -importpfx $certificate
 Set-Location Cert:\CurrentUser\My
-Get-ChildItem | Format-Table FriendlyName, Thumbprint, Subject
