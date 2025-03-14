@@ -95,7 +95,7 @@ jobs:
           $version = $version_raw -replace "`n",""  -replace "`r",""
           $filename = "scsd-gui_${version}_windows_amd64.exe"
 
-          .\scripts\build\windows\signtool.ps1 -cert_base64 '${{ secrets.SIGNTOOL_CERT }}' -cert_passwd '${{ secrets.SIGNTOOL_PASS }}' -cert_fingerprint '${{ secrets.SIGNTOOL_FINGERPRINT }}' -cert_name '${{ secrets.SIGNTOOL_NAME }}' -target $filename
+          .\scripts\build\windows\signtool.ps1 -cert_base64 '${{ secrets.SIGNTOOL_CERT }}' -cert_passwd '${{ secrets.SIGNTOOL_PASS }}' -target $filename
 
       - name: Build
         if: ${{ matrix.os == 'ubuntu-latest' }}
