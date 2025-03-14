@@ -12,3 +12,12 @@ foreach ($d in $dir) {
 
     #$version =
 }
+
+#certificate: '${{ secrets.SIGNTOOL_CERT }}'
+#password: '${{ secrets.SIGNTOOL_PASS }}'
+#certificatesha1: '${{ secrets.SIGNTOOL_FINGERPRINT }}'
+#certificatename: '${{ secrets.SIGNTOOL_NAME }}'
+#description: 'scsd-gui'
+#timestampUrl: 'http://timestamp.digicert.com'
+#folder: 'dist'
+#recursive: true

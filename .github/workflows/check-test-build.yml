@@ -91,14 +91,7 @@ jobs:
       - name: Sign (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          certificate: '${{ secrets.SIGNTOOL_CERT }}'
-          password: '${{ secrets.SIGNTOOL_PASS }}'
-          certificatesha1: '${{ secrets.SIGNTOOL_FINGERPRINT }}'
-          certificatename: '${{ secrets.SIGNTOOL_NAME }}'
-          description: 'scsd-gui'
-          timestampUrl: 'http://timestamp.digicert.com'
-          folder: 'dist'
-          recursive: true
+          .\scripts\build\windows\signtool.ps1
 
       # Rename because signing proecdure will collide filename & certname
       - name: Rename (Windows)
