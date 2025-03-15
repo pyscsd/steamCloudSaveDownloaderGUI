@@ -1,4 +1,5 @@
 import sys
+import traceback
 from PySide6 import QtWidgets, QtGui
 from . import main_window
 from .core import core
@@ -6,7 +7,7 @@ from . import data_provider
 from .steamCloudSaveDownloader.steamCloudSaveDownloader import logger
 from .res import icon
 
-def __main__():
+def main():
     core.init()
 
     if core.s_initial_config_reload_required:
@@ -29,3 +30,11 @@ def __main__():
         window.show()
 
     sys.exit(app.exec())
+
+def __main__():
+    try:
+        main()
+    except Exception as e:
+        ec = traceback.format_exc()
+        print(ec)
+        logger.error(ec)
