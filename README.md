@@ -35,3 +35,6 @@ Download/Backup Saves on Steam Cloud Automatically. An official frontend impleme
 pip install -r requirements-dev.txt
 python3 scsd-gui
 ```
+
+## Special Thanks
+- Alpha Test: Kadachy@@@, maer
