@@ -39,12 +39,21 @@ def get_games_last_played_time_locally() -> dict:
 
     vdf_location = os.path.join(core.s_steam_location, "userdata", str(account_id), 'config', "localconfig.vdf")
     if not os.path.isfile(vdf_location):
-        return
+        return {}
     local_vdf = vdf.load(open(vdf_location, encoding='utf-8'))
 
     played_time = {}
 
-    for key, value in local_vdf['UserLocalConfigStore']['Software']['valve']['Steam']['apps'].items():
+    try:
+        items = local_vdf['UserLocalConfigStore']['Software']['valve']['Steam']['apps'].items()
+    except:
+        try:
+            # Might be lower case
+            items = local_vdf['UserLocalConfigStore']['Software']['Valve']['Steam']['apps'].items()
+        except:
+            return {}
+
+    for key, value in items:
         if 'LastPlayed' not in value:
             continue
         played_time[int(key)] = \
