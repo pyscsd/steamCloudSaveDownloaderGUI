@@ -86,7 +86,7 @@ jobs:
           $version = $version_raw -replace "`n",""  -replace "`r",""
           $filename = "scsd-gui_${version}_windows_amd64.exe"
           .\scripts\build\windows\set_version_from_template.ps1
-          pyinstaller --version-file "./version_windows.txt" --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --hide-console hide-late --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --collect-all steamCloudSaveDownloader --onefile ./scsd-gui --name $filename
+          pyinstaller --version-file "./version_windows.txt" --add-data "version.txt;." --icon "./steamCloudSaveDownloaderGUI/res/scsd_256.ico" --noconsole --collect-all steamCloudSaveDownloaderGUI --collect-all dateutil --collect-all steamCloudSaveDownloader --onefile ./scsd-gui --name $filename
 
       - name: Sign (Windows)
         if: ${{ matrix.os == 'windows-latest' }}
