@@ -117,6 +117,13 @@ class login_dialog(QW.QDialog):
             return False
         return True
 
+class move_files_messagebox(QW.QMessageBox):
+    def __init__(self):
+        super().__init__(
+            QW.QMessageBox.Icon.NoIcon,
+            "Save directory change in progress",
+            "Please wait for the program to move the save directory.")
+
 class options_dialog(QW.QDialog):
     config_reloaded_signal = QtCore.Signal()
     def __init__(self):
@@ -130,6 +137,7 @@ class options_dialog(QW.QDialog):
 
     def load_from_config_file(self):
         self.config = data_provider.get_config_copy()
+        self.previous_save_directory = self.config['General']['save_dir']
 
     def create_widgets(self):
         self.save_directory_label = QW.QLabel("Save directory:")
@@ -231,10 +239,38 @@ class options_dialog(QW.QDialog):
 
     @QtCore.Slot()
     def save(self):
-        data_provider.commit(self.config)
+        if not self.check_input_validity():
+            return
+        self.move_files(self.previous_save_directory, self.config['General']['save_dir'])
         core.set_start_on_startup(self.config['GUI']['auto_start'])
+        data_provider.commit(self.config)
         self.accept()
         self.config_reloaded_signal.emit()
+
+    def move_files(self, p_previous, p_new):
+        if p_previous == p_new:
+            return
+
+        logger.debug("Save directory changed. Moving files.")
+        self.message_box = move_files_messagebox()
+        self.message_box.show()
+
+        data = data_provider.load_existing_from_db()
+
+        for game in data:
+            app_id = game['app_id']
+
+            # Do not use data_provider.get_save_dir here
+
+            old_path = os.path.join(p_previous, str(app_id))
+            new_path = os.path.join(p_new, str(app_id))
+
+            pathlib.Path(old_path).rename(new_path)
+
+        self.message_box.close()
+
+    def check_input_validity(self) -> bool:
+        return self.is_save_dir_valid(self.save_directory_input.text())
 
     @QtCore.Slot()
     def browse(self):
@@ -277,6 +313,18 @@ class options_dialog(QW.QDialog):
     def on_download_interval_change(self, p_value: int):
         self.config['GUI']['download_interval'] = p_value
 
+    @QtCore.Slot(int)
+    def on_save_directory_input_change(self, p_value: str):
+        self.config['General']['save_dir'] = p_value
+
+        if (self.is_save_dir_valid(p_value)):
+            self.save_directory_input.setStyleSheet("")
+        else:
+            self.save_directory_input.setStyleSheet("border: 1px solid red")
+
+    def is_save_dir_valid(self, p_value: str) -> bool:
+        return os.path.isdir(p_value)
+
     def connect_signals(self):
         self.button_box.save_button.clicked.connect(self.save)
         self.button_box.cancel_button.clicked.connect(self.reject)
@@ -286,6 +334,7 @@ class options_dialog(QW.QDialog):
         self.auto_start.toggled.connect(self.on_auto_start_change)
         self.minimize_to_tray.toggled.connect(self.on_minimize_to_tray_change)
         self.download_interval_spinbox.valueChanged.connect(self.on_download_interval_change)
+        self.save_directory_input.textChanged.connect(self.on_save_directory_input_change)
 
 class about_dialog(QW.QDialog):
     def __init__(self):
