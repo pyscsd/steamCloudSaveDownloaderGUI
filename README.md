@@ -29,6 +29,7 @@ Download/Backup Saves on Steam Cloud Automatically. An official frontend impleme
 - Secure
 - Periodically download in background
 - Intuitive interface
+- More to come...
 
 ## How to build
 ```
