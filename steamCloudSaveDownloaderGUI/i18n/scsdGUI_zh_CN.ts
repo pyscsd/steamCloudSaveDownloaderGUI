@@ -2,19 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
-    <name></name>
-    <message>
-        <location filename="../game_info_dialog.py" line="24"/>
-        <source>Name/Version</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../game_info_dialog.py" line="25"/>
-        <source>Date Written</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>_save_downloader</name>
     <message>
         <location filename="../save_downloader.py" line="84"/>
@@ -129,7 +116,7 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>game_info_dialog</name>
     <message>
-        <location filename="../game_info_dialog.py" line="228"/>
+        <location filename="../game_info_dialog.py" line="227"/>
         <source>{game_name} Saves</source>
         <translation type="unfinished"></translation>
     </message>
@@ -217,7 +204,7 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>open_saves_directory_action</name>
     <message>
-        <location filename="../game_info_dialog.py" line="165"/>
+        <location filename="../game_info_dialog.py" line="164"/>
         <source>Open File Location</source>
         <translation type="unfinished"></translation>
     </message>
@@ -456,7 +443,17 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>tree_model</name>
     <message>
-        <location filename="../game_info_dialog.py" line="55"/>
+        <location filename="../game_info_dialog.py" line="23"/>
+        <source>Name/Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../game_info_dialog.py" line="24"/>
+        <source>Date Written</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../game_info_dialog.py" line="54"/>
         <source>Placeholder</source>
         <translation type="unfinished"></translation>
     </message>
