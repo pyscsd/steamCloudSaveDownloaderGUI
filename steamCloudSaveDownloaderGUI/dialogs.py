@@ -15,15 +15,15 @@ class login_fail_message_box(QW.QMessageBox):
     def __init__(self):
         super().__init__(
             QW.QMessageBox.Icon.Critical,
-            "Login Failed",
-            "Failed to login. Please check if the inputs are correct.",
+            self.tr("Login Failed"),
+            self.tr("Failed to login. Please check if the inputs are correct."),
             QW.QMessageBox.StandardButton.Close)
 
 class login_dialog(QW.QDialog):
     def __init__(self, p_status_bar: status_bar):
         super().__init__()
         self.status_bar = p_status_bar
-        self.setWindowTitle("Login")
+        self.setWindowTitle(self.tr("Login"))
 
         self.create_widgets()
         self.layout_widgets()
@@ -32,27 +32,27 @@ class login_dialog(QW.QDialog):
     def create_widgets(self):
         input_size = 120
 
-        self.user_label = QW.QLabel("Username:")
+        self.user_label = QW.QLabel(self.tr("Username:"))
         self.user_input = QW.QLineEdit()
         self.user_input.setFixedSize(input_size, self.user_input.sizeHint().height())
 
-        self.password_label = QW.QLabel("Password:")
+        self.password_label = QW.QLabel(self.tr("Password:"))
         self.password_input = QW.QLineEdit()
         self.password_input.setEchoMode(QW.QLineEdit.EchoMode.Password)
         self.password_input.setFixedSize(input_size, self.password_input.sizeHint().height())
 
-        self.two_factor_label = QW.QLabel("2FA (case insensitive):")
+        self.two_factor_label = QW.QLabel(self.tr("2FA (case insensitive):"))
         self.two_factor_input = QW.QLineEdit()
         self.two_factor_input.setFixedSize(input_size, self.two_factor_input.sizeHint().height())
 
-        self.notice_label = QW.QLabel("NOTE: This program will not save your passwords locally.")
+        self.notice_label = QW.QLabel(self.tr("NOTE: This program will not save your passwords locally."))
 
         self.button_box = QW.QDialogButtonBox(self)
         self.button_box.ok_button = self.button_box.addButton(
-            "OK",
+            self.tr("OK"),
              QW.QDialogButtonBox.ButtonRole.AcceptRole)
         self.button_box.cancel_button = self.button_box.addButton(
-            "Cancel",
+            self.tr("Cancel"),
              QW.QDialogButtonBox.ButtonRole.RejectRole)
 
     def layout_widgets(self):
@@ -121,14 +121,14 @@ class move_files_messagebox(QW.QMessageBox):
     def __init__(self):
         super().__init__(
             QW.QMessageBox.Icon.NoIcon,
-            "Save directory change in progress",
-            "Please wait for the program to move the save directory.")
+            self.tr("Save directory change in progress"),
+            self.tr("Please wait for the program to move the save directory."))
 
 class options_dialog(QW.QDialog):
     config_reloaded_signal = QtCore.Signal()
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Options")
+        self.setWindowTitle(self.tr("Options"))
 
         self.load_from_config_file()
         self.create_widgets()
@@ -140,70 +140,70 @@ class options_dialog(QW.QDialog):
         self.previous_save_directory = self.config['General']['save_dir']
 
     def create_widgets(self):
-        self.save_directory_label = QW.QLabel("Save directory:")
+        self.save_directory_label = QW.QLabel(self.tr("Save directory:"))
         self.save_directory_input = QW.QLineEdit()
         self.save_directory_input.setText(self.config['General']['save_dir'])
         self.save_directory_input.setFixedSize(300, self.save_directory_input.sizeHint().height())
-        save_directory_help = "Where to save the saves"
+        save_directory_help = self.tr("Where to save the saves")
         self.save_directory_label.setToolTip(save_directory_help)
         self.save_directory_input.setToolTip(save_directory_help)
 
         self.browse_button = QW.QToolButton()
         self.browse_button.setIcon(QtGui.QIcon.fromTheme(QtGui.QIcon.ThemeIcon.FolderOpen))
-        self.browse_button.setToolTip("Open File Explorer")
+        self.browse_button.setToolTip(self.tr("Open File Explorer"))
 
-        self.rotation_label = QW.QLabel("Save Rotation:")
+        self.rotation_label = QW.QLabel(self.tr("Save Rotation:"))
         self.rotation_value = QW.QSpinBox()
         self.rotation_value.setMinimum(1)
         self.rotation_value.setValue(self.config['Rotation']['rotation'])
-        rotation_help = "The number of versions to keep locally. The older ones will have suffix '.scsd_X' append to the original file name."
+        rotation_help = self.tr("The number of versions to keep locally. The older ones will have suffix '.scsd_X' append to the original file name.")
         self.rotation_label.setToolTip(rotation_help)
         self.rotation_value.setToolTip(rotation_help)
 
         self.button_box = QW.QDialogButtonBox(self)
         self.button_box.save_button = self.button_box.addButton(
-            "Save",
+            self.tr("Save"),
              QW.QDialogButtonBox.ButtonRole.AcceptRole)
         self.button_box.cancel_button = self.button_box.addButton(
-            "Cancel",
+            self.tr("Cancel"),
              QW.QDialogButtonBox.ButtonRole.RejectRole)
 
-        self.log_level_label = QW.QLabel("Log Level:")
+        self.log_level_label = QW.QLabel(self.tr("Log Level:"))
         self.log_level_value = QW.QSpinBox()
         self.log_level_value.setMinimum(0)
         self.log_level_value.setMaximum(3)
         self.log_level_value.setValue(self.config['Log']['log_level'])
-        log_level_help = "How detail should the log be.\n0: Show Error messages only\n1: Show Error and Warning messages only\n2: Show Error, Warning and Info messages only\n3: Show Error, Warning, Info and Debug messages"
+        log_level_help = self.tr("How detail should the log be.\n0: Show Error messages only\n1: Show Error and Warning messages only\n2: Show Error, Warning and Info messages only\n3: Show Error, Warning, Info and Debug messages")
         self.log_level_label.setToolTip(log_level_help)
         self.log_level_value.setToolTip(log_level_help)
 
-        self.auto_start_label = QW.QLabel("Auto Start on Startup:")
+        self.auto_start_label = QW.QLabel(self.tr("Auto Start on Startup:"))
         self.auto_start = QW.QCheckBox()
         self.auto_start.setChecked(self.config['GUI']['auto_start'])
-        auto_start_help = "If the program should auto start on startup"
+        auto_start_help = self.tr("If the program should auto start on startup")
         self.auto_start_label.setToolTip(auto_start_help)
         self.auto_start.setToolTip(auto_start_help)
 
-        self.minimize_to_tray_label = QW.QLabel("Minimize to Tray:")
+        self.minimize_to_tray_label = QW.QLabel(self.tr("Minimize to Tray:"))
         self.minimize_to_tray = QW.QCheckBox()
         self.minimize_to_tray.setChecked(self.config['GUI']['minimize_to_tray'])
-        minimize_to_tray_help = "Minimize to system tray instead of close"
+        minimize_to_tray_help = self.tr("Minimize to system tray instead of close")
         self.minimize_to_tray_label.setToolTip(minimize_to_tray_help)
         self.minimize_to_tray.setToolTip(minimize_to_tray_help)
 
-        self.download_interval_label = QW.QLabel("Auto Download Interval (Minutes):")
+        self.download_interval_label = QW.QLabel(self.tr("Auto Download Interval (Minutes):"))
         self.download_interval_spinbox = QW.QSpinBox()
         self.download_interval_spinbox.setMinimum(0)
         self.download_interval_spinbox.setMaximum(10000)
         self.download_interval_spinbox.setValue(self.config['GUI']['download_interval'])
-        download_interval_help = "The interval in minutes between each auto download"
+        download_interval_help = self.tr("The interval in minutes between each auto download")
         self.download_interval_label.setToolTip(download_interval_help)
         self.download_interval_spinbox.setToolTip(download_interval_help)
 
         self.help_icon_label = QW.QLabel()
         help_icon = QtGui.QIcon.fromTheme(QtGui.QIcon.ThemeIcon.DialogQuestion)
         self.help_icon_label.setPixmap(help_icon.pixmap(help_icon.actualSize(QtCore.QSize(24, 24))))
-        self.help_label = QW.QLabel("Hover onto options for description")
+        self.help_label = QW.QLabel(self.tr("Hover onto options for description"))
 
     def layout_widgets(self):
         right_align = QtCore.Qt.AlignmentFlag.AlignRight
@@ -339,7 +339,7 @@ class options_dialog(QW.QDialog):
 class about_dialog(QW.QDialog):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("About")
+        self.setWindowTitle(self.tr("About"))
 
         self.set_icon()
         self.set_version()
@@ -421,26 +421,26 @@ class about_dialog(QW.QDialog):
         self.repo_label.setOpenExternalLinks(True)
 
     def set_author(self):
-        self.author_label = QW.QLabel("Author: <a href='https://github.com/hhhhhojeihsu'>hhhhhojeihsu</a>")
+        self.author_label = QW.QLabel(self.tr("Author: <a href='https://github.com/hhhhhojeihsu'>hhhhhojeihsu</a>"))
         self.author_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
         self.author_label.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
         self.author_label.setOpenExternalLinks(True)
 
     def set_submit_issue(self):
-        self.issue_label = QW.QLabel("<a href='https://github.com/pyscsd/steamCloudSaveDownloader/issues'>Submit Issue</a>")
+        self.issue_label = QW.QLabel(self.tr("<a href='https://github.com/pyscsd/steamCloudSaveDownloader/issues'>Submit Issue</a>"))
         self.issue_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
         self.issue_label.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
         self.issue_label.setOpenExternalLinks(True)
 
     def set_license(self):
-        self.license_label = QW.QLabel("Released under MIT License")
+        self.license_label = QW.QLabel(self.tr("Released under MIT License"))
 
     def set_disclaimer(self):
-        self.disclaimer_label = QW.QLabel("This program is not affiliated with Valve or Steam.\nSteam is a trademark of Valve Corporation.")
+        self.disclaimer_label = QW.QLabel(self.tr("This program is not affiliated with Valve or Steam.\nSteam is a trademark of Valve Corporation."))
 
     def set_button_box(self):
         self.button_box = QW.QDialogButtonBox(self)
         self.button_box.close_button = self.button_box.addButton(
-            "Close",
+            self.tr("Close"),
              QW.QDialogButtonBox.ButtonRole.AcceptRole)
         self.button_box.close_button.clicked.connect(self.accept)
