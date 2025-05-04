@@ -19,14 +19,13 @@ class tree_model(QtGui.QStandardItemModel):
     revision_loaded_role = QtCore.Qt.ItemDataRole.UserRole + 3
     versioned_name_role = QtCore.Qt.ItemDataRole.UserRole + 4
 
-    tr = QW.QApplication.translate
-
-    header_labels = [tr("Name/Version"), tr("Date Written")]
-    column_count = len(header_labels)
-
     def __init__(self, p_parent:QtCore.QObject, p_app_id: int):
+        self.header_labels = [self.tr("Name/Version"), self.tr("Date Written")]
+        self.column_count = len(self.header_labels)
+
         super().__init__(p_parent)
-        self.setHorizontalHeaderLabels(tree_model.header_labels)
+
+        self.setHorizontalHeaderLabels(self.header_labels)
         self.app_id = p_app_id
         self.file_icon = QW.QFileIconProvider().icon(QW.QFileIconProvider.IconType.File)
         self.dir_icon = QW.QFileIconProvider().icon(QW.QFileIconProvider.IconType.Folder)
@@ -35,7 +34,7 @@ class tree_model(QtGui.QStandardItemModel):
 
     def create_directory_item(self, p_directory_name: str) -> QtGui.QStandardItem:
         item = QtGui.QStandardItem(self.dir_icon, p_directory_name)
-        item.setColumnCount(tree_model.column_count)
+        item.setColumnCount(self.column_count)
         item.setData(item_type_e.dir_type, tree_model.item_type_role)
         item.setEditable(False)
         item.setCheckable(False)
@@ -45,7 +44,7 @@ class tree_model(QtGui.QStandardItemModel):
         item = QtGui.QStandardItem(
             self.file_icon,
             p_file_name)
-        item.setColumnCount(tree_model.column_count)
+        item.setColumnCount(self.column_count)
         item.setEditable(False)
         item.setCheckable(False)
         item.setData(item_type_e.file_type, tree_model.item_type_role)
