@@ -12,7 +12,7 @@ Download and backup saves from Steam Cloud automatically. A must-have tool for e
 This is an official frontend implementation to [scsd](https://github.com/pyscsd/steamCloudSaveDownloader) in Python/Qt
 
 > [!WARNING]
-> This program is in alpha stage. Expect bugs and breaking changes. Use at your own risk.
+> This program is under very active development. Expect bugs and breaking changes.
 
 #### [📄Documentation](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/wiki) | [⏬Download](https://github.com/pyscsd/steamCloudSaveDownloaderGUI/releases)
 
