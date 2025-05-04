@@ -1,0 +1,1 @@
+$languages = "zh_TW", "zh_CN"

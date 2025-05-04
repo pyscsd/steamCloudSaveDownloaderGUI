@@ -29,6 +29,8 @@ jobs:
   build:
     needs:
       - get_version
+    permissions:
+      contents: write
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -73,6 +75,18 @@ jobs:
         with:
           name: version.txt
           path: .
+
+      - name: Gen ts files (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: |
+          .\scripts\build\windows\lupdate.ps1
+
+      - name: Commit ts files to repo (Windows)
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Auto .ts Files Update
+          file_pattern: '*.ts'
 
       - name: Pack (Linux)
         if: ${{ matrix.os == 'ubuntu-latest' }}
