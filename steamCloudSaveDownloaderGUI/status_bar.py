@@ -23,7 +23,7 @@ class status_bar(QW.QStatusBar):
         self.progress_bar.setValue(p_val)
 
     def set_authenticating(self):
-        self.label.setText("Authenticating...")
+        self.label.setText(self.tr("Authenticating..."))
         self.label.setStyleSheet("")
 
     def set_text(self, p_text: str):
@@ -37,7 +37,7 @@ class status_bar(QW.QStatusBar):
     def set_table_widget_tips(self):
         if self.download_in_progress():
             return
-        self.label.setText("Double click to view files. Right click for options.")
+        self.label.setText(self.tr("Double click to view files. Right click for options."))
 
 
     @QtCore.Slot()
@@ -46,8 +46,8 @@ class status_bar(QW.QStatusBar):
             return
 
         if core.has_session():
-            self.label.setText("Ready. Press 'Refresh' to populate list or 'Start' to start downloading.")
+            self.label.setText(self.tr("Ready. Press 'Refresh' to populate list or 'Start' to start downloading."))
             self.label.setStyleSheet("")
         else:
-            self.label.setText("No session. Please create session with Session > Login.")
+            self.label.setText(self.tr("No session. Please create session with Session > Login."))
             self.label.setStyleSheet("QLabel { color : red }")

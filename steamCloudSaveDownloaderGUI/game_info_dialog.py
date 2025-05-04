@@ -19,7 +19,9 @@ class tree_model(QtGui.QStandardItemModel):
     revision_loaded_role = QtCore.Qt.ItemDataRole.UserRole + 3
     versioned_name_role = QtCore.Qt.ItemDataRole.UserRole + 4
 
-    header_labels = ["Name/Version", "Date Written"]
+    tr = QW.QApplication.translate
+
+    header_labels = [tr("Name/Version"), tr("Date Written")]
     column_count = len(header_labels)
 
     def __init__(self, p_parent:QtCore.QObject, p_app_id: int):
@@ -50,7 +52,7 @@ class tree_model(QtGui.QStandardItemModel):
         item.setData(p_file_id, tree_model.file_id_role)
         item.setData(False, tree_model.revision_loaded_role)
 
-        placeholder_item = QtGui.QStandardItem("Placeholder")
+        placeholder_item = QtGui.QStandardItem(self.tr("Placeholder"))
         placeholder_item.setData(item_type_e.version_type, tree_model.item_type_role)
         item.appendRow(placeholder_item)
 
@@ -160,7 +162,7 @@ class open_saves_directory_action(QtGui.QAction):
     def __init__(self,
                 p_model: tree_model,
                 p_index: QtCore.QModelIndex):
-        super().__init__("Open File Location")
+        super().__init__(self.tr("Open File Location"))
 
         self.model = p_model
         self.index = p_index
@@ -223,7 +225,7 @@ class game_info_dialog(QW.QDialog):
     def __init__(self, p_app_id: int, game_name: str):
         super().__init__()
 
-        self.setWindowTitle(f"{game_name} Saves")
+        self.setWindowTitle(self.tr(f"{game_name} Saves"))
         self.app_id = p_app_id
 
         self.create_widgets()

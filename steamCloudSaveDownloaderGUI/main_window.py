@@ -10,8 +10,8 @@ class exit_dialog(QW.QMessageBox):
     def __init__(self):
         super().__init__(
             QW.QMessageBox.Icon.NoIcon,
-            "Close in progress",
-            "Please wait for the program to close gracefully.")
+            self.tr("Close in progress"),
+            self.tr("Please wait for the program to close gracefully."))
 
 
 class main_window(QW.QMainWindow):

@@ -12,7 +12,7 @@ class login_action(QtGui.QAction):
     login_success_signal = QtCore.Signal()
 
     def __init__(self, p_status_bar:status_bar):
-        super().__init__("Login")
+        super().__init__(self.tr("Login"))
         self.status_bar = p_status_bar
         self.triggered.connect(self.execute)
 
@@ -28,7 +28,7 @@ class login_action(QtGui.QAction):
 class logout_action(QtGui.QAction):
     logout_signal = QtCore.Signal()
     def __init__(self, p_status_bar:status_bar):
-        super().__init__("Logout")
+        super().__init__(self.tr("Logout"))
         self.status_bar = p_status_bar
 
         self.triggered.connect(self.execute)
@@ -45,7 +45,7 @@ class session_menu(QtWidgets.QMenu):
     logout_signal = QtCore.Signal()
 
     def __init__(self, p_status_bar:status_bar):
-        super().__init__("Session")
+        super().__init__(self.tr("Session"))
         self.status_bar = p_status_bar
 
         self.login_action = login_action(p_status_bar)
@@ -72,7 +72,7 @@ class session_menu(QtWidgets.QMenu):
 class options_action(QtGui.QAction):
     config_reloaded_signal = QtCore.Signal()
     def __init__(self):
-        super().__init__("Options")
+        super().__init__(self.tr("Options"))
         self.triggered.connect(self.execute)
 
     @QtCore.Slot()
@@ -90,7 +90,7 @@ class refresh_action(QtGui.QAction):
     data_updated_signal = QtCore.Signal()
 
     def __init__(self):
-        super().__init__("Refresh")
+        super().__init__(self.tr("Refresh"))
         self.triggered.connect(self.execute)
 
         has_session:bool = core.has_session()
@@ -98,7 +98,7 @@ class refresh_action(QtGui.QAction):
 
     @QtCore.Slot()
     def execute(self, p_action):
-        logger.info("Refresh")
+        logger.info(self.tr("Refresh"))
         self.data_updated_signal.emit()
 
 class download_action(QtGui.QAction):
@@ -108,7 +108,7 @@ class download_action(QtGui.QAction):
 
     def __init__(self, p_status_bar:status_bar):
         super().__init__()
-        self.setText("Download")
+        self.setText(self.tr("Download"))
 
         self.status_bar = p_status_bar
 
@@ -129,14 +129,14 @@ class download_action(QtGui.QAction):
     @QtCore.Slot()
     def execute(self, p_action):
         if not save_downloader.save_downloader.can_download():
-            self.status_bar.set_text("Already downloading")
+            self.status_bar.set_text(self.tr("Already downloading"))
             return
 
         if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.KeyboardModifier.ShiftModifier:
-            logger.debug("Download All Executed")
+            logger.debug(self.tr("Download All Executed"))
             self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all, self.status_bar)
         else:
-            logger.debug("Download Outdated Executed")
+            logger.debug(self.tr("Download Outdated Executed"))
             self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_local_outdated, self.status_bar)
 
         self.downloader.job_finished.connect(self.download_complete)
@@ -153,7 +153,7 @@ class stop_action(QtGui.QAction):
     stop_download_signal = QtCore.Signal()
     def __init__(self):
         super().__init__()
-        self.setText("Stop")
+        self.setText(self.tr("Stop"))
         self.triggered.connect(self.execute)
         self.setVisible(False)
 
@@ -208,13 +208,13 @@ class scheduled_downloader_timer(QtWidgets.QLabel):
         self.count_down = self.count_down - 1
 
         if self.count_down != 0:
-            self.setText(f"Auto Download ({self.count_down})")
+            self.setText(self.tr(f"Auto Download ({self.count_down})"))
             return
 
         self.timer.stop()
 
         logger.info("(auto_download_timer) Scheduled Start")
-        self.setText(f"Auto Downloading")
+        self.setText(self.tr(f"Auto Downloading"))
         self.downloader = \
             save_downloader.save_downloader(
                 save_downloader.mode_e.download_local_outdated,
@@ -238,17 +238,17 @@ class scheduled_downloader_timer(QtWidgets.QLabel):
             return
 
         if self.download_interval == 0:
-            self.setText("Auto Download Disabled")
+            self.setText(self.tr("Auto Download Disabled"))
             return
 
         self.count_down = self.download_interval
-        self.setText(f"Auto Download ({self.count_down})")
+        self.setText(self.tr(f"Auto Download ({self.count_down})"))
 
         self.timer.start(60 * 1000) # Update every minute
 
 class about_action(QtGui.QAction):
     def __init__(self):
-        super().__init__("About")
+        super().__init__(self.tr("About"))
         self.triggered.connect(self.execute)
 
     @QtCore.Slot()
@@ -259,7 +259,7 @@ class about_action(QtGui.QAction):
 class quit_action(QtGui.QAction):
     quit_signal = QtCore.Signal()
     def __init__(self):
-        super().__init__("Quit")
+        super().__init__(self.tr("Quit"))
         self.triggered.connect(self.execute)
 
     @QtCore.Slot()

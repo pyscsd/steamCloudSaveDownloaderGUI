@@ -81,7 +81,7 @@ class _save_downloader(QtCore.QObject):
             if self.check_interrupt():
                 break
             logger.info(f"Downlading {game['name']}")
-            self.set_status_bar_text.emit(f"Downlading {game['name']} ({count} / {len(p_target_game_list)})")
+            self.set_status_bar_text.emit(self.tr(f"Downlading {game['name']} ({count} / {len(p_target_game_list)})"))
             self.set_status_bar_percent.emit(current_progress)
 
             self.downloader.download_game(game)
@@ -140,11 +140,11 @@ class _save_downloader(QtCore.QObject):
         if self.check_interrupt():
             logger.debug("Interrupt in file download callback")
             raise interupt_exception
-        self.set_status_bar_text.emit(f"Downlading {p_game_name}: {p_file_name}")
+        self.set_status_bar_text.emit(self.tr(f"Downlading {p_game_name}: {p_file_name}"))
 
     @QtCore.Slot()
     def do_job(self):
-        self.set_status_bar_text.emit("Initializing...")
+        self.set_status_bar_text.emit(self.tr("Initializing..."))
         self.set_status_bar_percent.emit(0)
 
         self.downloader = core_downloader(data_provider.config)

@@ -127,7 +127,7 @@ class table_refresher(QtCore.QObject):
 
     @QtCore.Slot()
     def do_job(self):
-        self.set_status_bar_text.emit("Refreshing...")
+        self.set_status_bar_text.emit(self.tr("Refreshing..."))
         self.set_status_bar_percent.emit(30)
 
         self.table_widget.table_model.update_data(data_provider.load_from_db_and_web())
@@ -223,9 +223,9 @@ class table_model(QtCore.QAbstractTableModel):
                 # Retrun 2 if found
                 match game_header_availible(item['app_id']):
                     case 0:
-                        return "Loading"
+                        return self.tr("Loading")
                     case 1:
-                        return "N/A"
+                        return self.tr("N/A")
                     case 2:
                         return None
             case table_col_e.app_id:
@@ -349,7 +349,7 @@ def get_game_info_dialog(p_model: table_sort_filter_proxy, p_index: QtCore.QMode
 
 class enable_all_action(QtGui.QAction):
     def __init__(self):
-        super().__init__("Enable All")
+        super().__init__(self.tr("Enable All"))
         self.triggered.connect(self.execute)
 
     @QtCore.Slot(bool)
@@ -358,7 +358,7 @@ class enable_all_action(QtGui.QAction):
 
 class disable_all_action(QtGui.QAction):
     def __init__(self, p_table_model: table_sort_filter_proxy):
-        super().__init__("Disable All")
+        super().__init__(self.tr("Disable All"))
         self.table_model = p_table_model
         self.triggered.connect(self.execute)
 
@@ -375,7 +375,7 @@ class view_files_action(QtGui.QAction):
     def __init__(self,
                 p_model: table_sort_filter_proxy,
                 p_index: QtCore.QModelIndex):
-        super().__init__("View Save Files")
+        super().__init__(self.tr("View Save Files"))
 
         self.model = p_model
         self.index = p_index
@@ -389,7 +389,7 @@ class open_saves_directory_action(QtGui.QAction):
     def __init__(self,
                 p_model: table_sort_filter_proxy,
                 p_index: QtCore.QModelIndex):
-        super().__init__("Open Saves Directory")
+        super().__init__(self.tr("Open Saves Directory"))
 
         self.model = p_model
         self.index = p_index
@@ -516,7 +516,7 @@ class table_widget(QW.QWidget):
     def create_search_box(self):
         self.search_box = QW.QLineEdit()
         self.search_box.setClearButtonEnabled(True)
-        self.search_box.setPlaceholderText("Search App ID / Name")
+        self.search_box.setPlaceholderText(self.tr("Search App ID / Name"))
         self.search_box.textChanged.connect(self.sort_filter_model.set_filter_text)
 
     def on_main_window_closed(self):

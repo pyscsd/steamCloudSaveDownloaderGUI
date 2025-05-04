@@ -5,7 +5,7 @@ from .res import icon
 class show_action(QtGui.QAction):
     execute_signal = QtCore.Signal()
     def __init__(self):
-        super().__init__("Show")
+        super().__init__(self.tr("Show"))
         self.triggered.connect(self.execute)
 
     @QtCore.Slot()
@@ -15,7 +15,7 @@ class show_action(QtGui.QAction):
 class quit_action(QtGui.QAction):
     execute_signal = QtCore.Signal()
     def __init__(self):
-        super().__init__("Quit")
+        super().__init__(self.tr("Quit"))
         self.triggered.connect(self.execute)
 
     @QtCore.Slot()
@@ -68,7 +68,7 @@ class system_tray(QW.QSystemTrayIcon):
 
     def show_hide_message(self):
         self.showMessage(
-            "scsd-gui is now running in background",
+            self.tr("scsd-gui is now running in background"),
             "",
             QW.QSystemTrayIcon.MessageIcon.Information,
             3000)
@@ -79,6 +79,6 @@ class system_tray(QW.QSystemTrayIcon):
             return
         self.showMessage(
             "scsd-gui",
-            "Download Complete",
+            self.tr("Download Complete"),
             QW.QSystemTrayIcon.MessageIcon.Information,
             3000)
