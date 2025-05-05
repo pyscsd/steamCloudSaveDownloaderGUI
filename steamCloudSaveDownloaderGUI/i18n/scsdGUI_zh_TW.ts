@@ -24,7 +24,7 @@
     <message>
         <location filename="../menu.py" line="251"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>關於</translation>
     </message>
 </context>
 <context>
