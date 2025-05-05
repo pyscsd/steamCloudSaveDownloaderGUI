@@ -231,7 +231,7 @@ class scheduled_downloader_timer(QtWidgets.QLabel):
         self.download_interval = \
             data_provider.config['GUI']['download_interval']
 
-        logger.info(f"(auto_download_timer) Restart. Execute in {self.download_interval}")
+        logger.debug(f"(auto_download_timer) Restart. Execute in {self.download_interval}")
 
         if not core.has_session():
             logger.debug("(auto_download_timer) No session.")

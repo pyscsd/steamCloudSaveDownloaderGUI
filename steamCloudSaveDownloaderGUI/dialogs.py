@@ -126,6 +126,9 @@ class move_files_messagebox(QW.QMessageBox):
 
 class options_dialog(QW.QDialog):
     config_reloaded_signal = QtCore.Signal()
+
+    languages = ['en_US', 'zh_TW', 'zh_CN']
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle(self.tr("Options"))
@@ -135,11 +138,35 @@ class options_dialog(QW.QDialog):
         self.layout_widgets()
         self.connect_signals()
 
+    def get_sorted_language_tuples(self):
+        tups = list()
+        for code in self.languages:
+            locale = QtCore.QLocale(code)
+            language = \
+                QtCore.QLocale.languageToString(locale.language())
+            territory = \
+                QtCore.QLocale.territoryToString(locale.territory())
+            shown = f"{language} ({territory})"
+
+            tups.append((shown, code))
+        tups.sort(key=lambda x: x[0])
+        return tups
+
     def load_from_config_file(self):
         self.config = data_provider.get_config_copy()
         self.previous_save_directory = self.config['General']['save_dir']
 
     def create_widgets(self):
+        self.language_label = QW.QLabel(self.tr("Language:"))
+        self.language_selector = QW.QComboBox()
+        for tup_ in self.get_sorted_language_tuples():
+            self.language_selector.addItem(*tup_)
+        language_current_index = \
+            self.language_selector.findData(self.config['GUI']['language'])
+        self.language_selector.setCurrentIndex(language_current_index)
+        language_selector_help = self.tr("Switch the UI and game name to the specified language.")
+        self.language_selector.setToolTip(language_selector_help)
+
         self.save_directory_label = QW.QLabel(self.tr("Save directory:"))
         self.save_directory_input = QW.QLineEdit()
         self.save_directory_input.setText(self.config['General']['save_dir'])
@@ -214,22 +241,41 @@ class options_dialog(QW.QDialog):
 
         self.grid_layout = QW.QGridLayout()
         self.main_vlayout.addLayout(self.grid_layout)
-        self.grid_layout.addWidget(self.save_directory_label, 0, 0, right_align)
-        self.grid_layout.addWidget(self.save_directory_input, 0, 1, left_align)
-        self.grid_layout.addWidget(self.browse_button, 0, 2, left_align)
-        self.grid_layout.addWidget(self.rotation_label, 1, 0, right_align)
-        self.grid_layout.addWidget(self.rotation_value, 1, 1, left_align)
-        self.grid_layout.addWidget(self.log_level_label, 2, 0, right_align)
-        self.grid_layout.addWidget(self.log_level_value, 2, 1, left_align)
-        self.grid_layout.addWidget(self.auto_start_label, 3, 0, right_align)
-        self.grid_layout.addWidget(self.auto_start, 3, 1, left_align)
-        self.grid_layout.addWidget(self.minimize_to_tray_label, 4, 0, right_align)
-        self.grid_layout.addWidget(self.minimize_to_tray, 4, 1, left_align)
-        self.grid_layout.addWidget(self.download_interval_label, 5, 0, right_align)
-        self.grid_layout.addWidget(self.download_interval_spinbox, 5, 1, left_align)
-        self.grid_layout.addWidget(self.help_icon_label, 6, 0, right_align)
-        self.grid_layout.addWidget(self.help_label, 6, 1, left_align)
 
+        row = 0
+
+        self.grid_layout.addWidget(self.save_directory_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.save_directory_input, row, 1, left_align)
+        self.grid_layout.addWidget(self.browse_button, row, 2, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.language_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.language_selector, row, 1, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.rotation_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.rotation_value, row, 1, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.log_level_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.log_level_value, row, 1, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.auto_start_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.auto_start, row, 1, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.minimize_to_tray_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.minimize_to_tray, row, 1, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.download_interval_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.download_interval_spinbox, row, 1, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.help_icon_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.help_label, row, 1, left_align)
+        row += 1
 
         # TODO setRowStretch, setColStretch
         # https://stackoverflow.com/a/69884434
@@ -322,6 +368,10 @@ class options_dialog(QW.QDialog):
         else:
             self.save_directory_input.setStyleSheet("border: 1px solid red")
 
+    @QtCore.Slot(int)
+    def on_language_selector_change(self, p_value: int):
+        self.config['GUI']['language'] = self.language_selector.currentData()
+
     def is_save_dir_valid(self, p_value: str) -> bool:
         return os.path.isdir(p_value)
 
@@ -335,6 +385,8 @@ class options_dialog(QW.QDialog):
         self.minimize_to_tray.toggled.connect(self.on_minimize_to_tray_change)
         self.download_interval_spinbox.valueChanged.connect(self.on_download_interval_change)
         self.save_directory_input.textChanged.connect(self.on_save_directory_input_change)
+        self.language_selector.currentIndexChanged.connect(self.on_language_selector_change)
+
 
 class about_dialog(QW.QDialog):
     def __init__(self):

@@ -49,7 +49,7 @@ class core:
 
     @staticmethod
     def init():
-        logger.info("Core Init")
+        logger.debug("Core Init")
         if not os.path.isdir(core.s_config_dir):
             logger.info(f"Creating {core.s_config_dir}")
             os.mkdir(core.s_config_dir)
