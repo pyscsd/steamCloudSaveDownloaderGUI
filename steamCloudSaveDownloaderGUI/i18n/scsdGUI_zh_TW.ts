@@ -32,7 +32,7 @@
     <message>
         <location filename="../dialogs.py" line="394"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">關於</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="476"/>
