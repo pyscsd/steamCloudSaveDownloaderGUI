@@ -103,12 +103,12 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>exit_dialog</name>
     <message>
-        <location filename="../main_window.py" line="13"/>
+        <location filename="../main_window.py" line="14"/>
         <source>Close in progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main_window.py" line="14"/>
+        <location filename="../main_window.py" line="15"/>
         <source>Please wait for the program to close gracefully.</source>
         <translation type="unfinished"></translation>
     </message>
