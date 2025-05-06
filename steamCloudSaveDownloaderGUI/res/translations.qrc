@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="translations">
+    <file>scsdGUI_zh_CN.qm</file>
+    <file>scsdGUI_zh_TW.qm</file>
+</qresource>
+</RCC>

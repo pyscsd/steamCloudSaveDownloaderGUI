@@ -5,6 +5,7 @@ from . import menu
 from . import status_bar
 from . import system_tray
 from . import table_widget
+from .translator import reload_translator
 
 class exit_dialog(QW.QMessageBox):
     def __init__(self):
@@ -17,6 +18,8 @@ class exit_dialog(QW.QMessageBox):
 class main_window(QW.QMainWindow):
     def __init__(self):
         super().__init__()
+
+        reload_translator()
 
         self.confirm_quit = False
 
