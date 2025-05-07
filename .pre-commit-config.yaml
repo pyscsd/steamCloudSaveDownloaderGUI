@@ -15,9 +15,9 @@ repos:
     - id: ruff
 - repo: local
   hooks:
-    - id: pytest-check
-      name: pytest-check
-      entry: pytest
+    - id: lupdate
+      name: lupdate
+      entry: powershell ./scripts/build/windows/lupdate.ps1
       pass_filenames: false
       always_run: true
       language: python
