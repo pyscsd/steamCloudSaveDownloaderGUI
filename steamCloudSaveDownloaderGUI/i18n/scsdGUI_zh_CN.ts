@@ -30,33 +30,33 @@
 <context>
     <name>about_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="394"/>
+        <location filename="../dialogs.py" line="414"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="476"/>
+        <location filename="../dialogs.py" line="496"/>
         <source>Author: &lt;a href=&apos;https://github.com/hhhhhojeihsu&apos;&gt;hhhhhojeihsu&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="482"/>
+        <location filename="../dialogs.py" line="502"/>
         <source>&lt;a href=&apos;https://github.com/pyscsd/steamCloudSaveDownloader/issues&apos;&gt;Submit Issue&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="488"/>
+        <location filename="../dialogs.py" line="508"/>
         <source>Released under MIT License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="491"/>
+        <location filename="../dialogs.py" line="511"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="496"/>
+        <location filename="../dialogs.py" line="516"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -122,6 +122,19 @@ Steam is a trademark of Valve Corporation.</source>
     </message>
 </context>
 <context>
+    <name>language_restart_message_box</name>
+    <message>
+        <location filename="../dialogs.py" line="19"/>
+        <source>Restart Required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dialogs.py" line="20"/>
+        <source>Restart is required to reflect the language change.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>login_action</name>
     <message>
         <location filename="../menu.py" line="15"/>
@@ -132,37 +145,37 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>login_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="26"/>
+        <location filename="../dialogs.py" line="35"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="35"/>
+        <location filename="../dialogs.py" line="44"/>
         <source>Username:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="39"/>
+        <location filename="../dialogs.py" line="48"/>
         <source>Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="44"/>
+        <location filename="../dialogs.py" line="53"/>
         <source>2FA (case insensitive):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="48"/>
+        <location filename="../dialogs.py" line="57"/>
         <source>NOTE: This program will not save your passwords locally.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="52"/>
+        <location filename="../dialogs.py" line="61"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="55"/>
+        <location filename="../dialogs.py" line="64"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -170,12 +183,12 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>login_fail_message_box</name>
     <message>
-        <location filename="../dialogs.py" line="18"/>
+        <location filename="../dialogs.py" line="27"/>
         <source>Login Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="19"/>
+        <location filename="../dialogs.py" line="28"/>
         <source>Failed to login. Please check if the inputs are correct.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -191,12 +204,12 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>move_files_messagebox</name>
     <message>
-        <location filename="../dialogs.py" line="124"/>
+        <location filename="../dialogs.py" line="133"/>
         <source>Save directory change in progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="125"/>
+        <location filename="../dialogs.py" line="134"/>
         <source>Please wait for the program to move the save directory.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -225,62 +238,62 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>options_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="134"/>
+        <location filename="../dialogs.py" line="143"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="160"/>
+        <location filename="../dialogs.py" line="170"/>
         <source>Language:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="168"/>
+        <location filename="../dialogs.py" line="178"/>
         <source>Switch the UI and game name to the specified language.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="170"/>
+        <location filename="../dialogs.py" line="180"/>
         <source>Save directory:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="175"/>
+        <location filename="../dialogs.py" line="185"/>
         <source>Where to save the saves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="180"/>
+        <location filename="../dialogs.py" line="190"/>
         <source>Open File Explorer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="182"/>
+        <location filename="../dialogs.py" line="192"/>
         <source>Save Rotation:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="187"/>
+        <location filename="../dialogs.py" line="197"/>
         <source>The number of versions to keep locally. The older ones will have suffix &apos;.scsd_X&apos; append to the original file name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="192"/>
+        <location filename="../dialogs.py" line="202"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="195"/>
+        <location filename="../dialogs.py" line="205"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="198"/>
+        <location filename="../dialogs.py" line="208"/>
         <source>Log Level:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="204"/>
+        <location filename="../dialogs.py" line="214"/>
         <source>How detail should the log be.
 0: Show Error messages only
 1: Show Error and Warning messages only
@@ -289,37 +302,37 @@ Steam is a trademark of Valve Corporation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="207"/>
+        <location filename="../dialogs.py" line="217"/>
         <source>Auto Start on Startup:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="211"/>
+        <location filename="../dialogs.py" line="221"/>
         <source>If the program should auto start on startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="214"/>
+        <location filename="../dialogs.py" line="224"/>
         <source>Minimize to Tray:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="218"/>
+        <location filename="../dialogs.py" line="228"/>
         <source>Minimize to system tray instead of close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="221"/>
+        <location filename="../dialogs.py" line="231"/>
         <source>Auto Download Interval (Minutes):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="227"/>
+        <location filename="../dialogs.py" line="237"/>
         <source>The interval in minutes between each auto download</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="233"/>
+        <location filename="../dialogs.py" line="243"/>
         <source>Hover onto options for description</source>
         <translation type="unfinished"></translation>
     </message>
