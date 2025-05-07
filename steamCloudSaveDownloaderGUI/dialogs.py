@@ -6,10 +6,19 @@ from .core import core
 from . import data_provider
 from .res import icon
 from .status_bar import status_bar
+from .translator import reload_translator
 from . import ver
 import os
 import pathlib
 import traceback
+
+class language_restart_message_box(QW.QMessageBox):
+    def __init__(self):
+        super().__init__(
+            QW.QMessageBox.Icon.Information,
+            self.tr("Restart Required"),
+            self.tr("Restart is required to reflect the language change."),
+            QW.QMessageBox.StandardButton.Close)
 
 class login_fail_message_box(QW.QMessageBox):
     def __init__(self):
@@ -150,6 +159,7 @@ class options_dialog(QW.QDialog):
 
             tups.append((shown, code))
         tups.sort(key=lambda x: x[0])
+        tups = [("System Default", "system")] + tups
         return tups
 
     def load_from_config_file(self):
@@ -289,9 +299,19 @@ class options_dialog(QW.QDialog):
             return
         self.move_files(self.previous_save_directory, self.config['General']['save_dir'])
         core.set_start_on_startup(self.config['GUI']['auto_start'])
+
+        translator_reload_required = \
+            self.config['GUI']['language'] != data_provider.config['GUI']['language']
         data_provider.commit(self.config)
+
         self.accept()
         self.config_reloaded_signal.emit()
+
+        if translator_reload_required:
+            reload_translator()
+            restart_msg_box = language_restart_message_box()
+            restart_msg_box.exec()
+
 
     def move_files(self, p_previous, p_new):
         if p_previous == p_new:

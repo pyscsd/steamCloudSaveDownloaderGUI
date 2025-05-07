@@ -187,4 +187,4 @@ def get_save_dir(app_id: int) -> os.path:
     return os.path.join(config['General']["save_dir"], str(app_id))
 
 def get_config_copy() -> dict:
-    return copy.copy(config)
+    return copy.deepcopy(config)
