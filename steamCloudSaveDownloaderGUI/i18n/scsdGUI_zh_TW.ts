@@ -37,7 +37,7 @@
     <message>
         <location filename="../dialogs.py" line="497"/>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>作者：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="504"/>
