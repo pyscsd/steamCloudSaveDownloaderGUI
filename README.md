@@ -45,5 +45,13 @@ pre-commit install
 python3 scsd-gui
 ```
 
+## Translations
+<a href="https://hosted.weblate.org/engage/scsd-gui/">
+<img src="https://hosted.weblate.org/widget/scsd-gui/interface/multi-auto.svg" alt="Translation status" />
+</a>
+This project is using format based on Qt Linguist `.ts` file. Translation also available on [Weblate](https://hosted.weblate.org/engage/scsd-gui/).
+
+Run `.\scripts\build\windows\translation\run.ps1` to re-generate translation files on local build.
+
 ## Special Thanks
 - Alpha Test: Kadachy@@@, maer
