@@ -136,7 +136,7 @@ class move_files_messagebox(QW.QMessageBox):
 class options_dialog(QW.QDialog):
     config_reloaded_signal = QtCore.Signal()
 
-    languages = ['en_US', 'zh_TW', 'zh_CN']
+    languages = ['en_US', "bg" , "cs" , "da" , "nl" , "en" , "fi" , "fr" , "de" , "el" , "hu" , "id" , "it" , "ja" , "ko" , "no" , "pl" , "pt" , "pt_BR" , "ro" , "ru" , "es_ES" , "sv" , "th" , "tr" , "uk" , "vi", "zh_TW", "zh_CN"]
 
     def __init__(self):
         super().__init__()
