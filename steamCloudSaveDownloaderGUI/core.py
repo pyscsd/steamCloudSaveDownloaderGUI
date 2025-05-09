@@ -43,6 +43,7 @@ class core:
     s_cache_dir = os.path.join(s_config_dir, ".cache")
     s_account_id_file = os.path.join(s_config_dir, "account_id")
     s_cache_header_dir = os.path.join(s_cache_dir, "header")
+    s_cache_translation_dir = os.path.join(s_cache_dir, "translation")
     s_default_save_dir = os.path.join(pathlib.Path.home(), "scsd", "saves")
     s_session_file = os.path.join(s_config_dir, auth.auth.s_session_filename)
     s_steam_location = get_steam_install_location()
@@ -51,25 +52,28 @@ class core:
     def init():
         logger.debug("Core Init")
         if not os.path.isdir(core.s_config_dir):
-            logger.info(f"Creating {core.s_config_dir}")
+            logger.debug(f"Creating {core.s_config_dir}")
             os.mkdir(core.s_config_dir)
         if not os.path.isdir(core.s_default_save_dir):
-            logger.info(f"Creating {core.s_default_save_dir}")
+            logger.debug(f"Creating {core.s_default_save_dir}")
             os.mkdir(core.s_default_save_dir)
         if not os.path.isdir(core.s_cache_dir):
-            logger.info(f"Creating {core.s_cache_dir}")
+            logger.debug(f"Creating {core.s_cache_dir}")
             os.mkdir(core.s_cache_dir)
-        if not os.path.isdir(core.s_cache_header_dir):
-            logger.info(f"Creating {core.s_cache_header_dir}")
-            os.mkdir(core.s_cache_header_dir)
             # TODO: .cache, hide attribute in windows
+        if not os.path.isdir(core.s_cache_header_dir):
+            logger.debug(f"Creating {core.s_cache_header_dir}")
+            os.mkdir(core.s_cache_header_dir)
+        if not os.path.isdir(core.s_cache_translation_dir):
+            logger.debug(f"Creating {core.s_cache_translation_dir}")
+            os.mkdir(core.s_cache_translation_dir)
         if not os.path.isfile(core.s_db_file):
-            logger.info(f"Creating db")
+            logger.debug(f"Creating db")
             db_ = db.db(core.s_config_dir, 10)
             del db_
 
         if not os.path.isfile(core.s_config_file):
-            logger.info(f"Creating initial config")
+            logger.debug(f"Creating initial config")
             initial_config = {
                 'General': {
                     "save_dir": core.s_default_save_dir,

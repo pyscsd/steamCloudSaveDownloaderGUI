@@ -7,6 +7,8 @@ import copy
 import datetime
 from dateutil import tz
 import os
+from PySide6.QtCore import QLocale
+import json
 import vdf
 
 # This file is a singleton
@@ -92,6 +94,34 @@ def _set_server_time_as_local_timezone(p_datetime: datetime.datetime):
     dt = dt.replace(tzinfo=None)
     return dt
 
+def get_language_code():
+    language_code = config['GUI']['language']
+    if language_code == 'system':
+        return QLocale.system().name()
+    else:
+        return language_code
+
+def get_cached_game_list_translation():
+    return os.path.join(core.s_cache_translation_dir, f"{get_language_code()}.json")
+
+def read_cached_game_list_translation():
+    file = get_cached_game_list_translation()
+    if not os.path.isfile(file):
+        return {}
+
+    with open(file, 'r') as f:
+        return json.load(f)
+
+def write_cached_game_list_translation(p_translation: list):
+    if p_translation is None:
+        return
+    file = get_cached_game_list_translation()
+
+    output = {dict_['app_id']: dict_['name'] for dict_ in p_translation}
+
+    with open(file, 'w') as f:
+        json.dump(output, f)
+
 def load_existing_from_db():
     global account_id
     if not core.has_session():
@@ -103,7 +133,13 @@ def load_existing_from_db():
 
     data = list()
 
-    for app_id, name, last_checked_time in infos:
+    translated_game_dict = read_cached_game_list_translation()
+
+    for app_id, default_name, last_checked_time in infos:
+        if str(app_id) in translated_game_dict:
+            name = translated_game_dict[str(app_id)]
+        else:
+            name = default_name
         if app_id in last_played:
             data.append({'app_id': app_id, 'name': name, 'last_checked_time': last_checked_time, 'last_played': last_played[app_id]})
         else:
@@ -123,16 +159,24 @@ def load_from_db_and_web():
 
     last_played = get_games_last_played_time_locally()
 
+
+    write_cached_game_list_translation(
+        downloader.get_game_list(config, get_language_code()))
+    translated_game_dict = read_cached_game_list_translation()
+
     for item in web_list:
-        if item['app_id'] not in existing_app_id_dict:
-            logger.debug(f'app_id {item["app_id"]} not found in DB')
-            new_list.append(
-                {
-                    'app_id': item['app_id'],
-                    'name': item['name'],
-                    'last_checked_time': None,
-                    'last_played': last_played[item['app_id']] if item['app_id'] in last_played else None
-                })
+        if item['app_id'] in existing_app_id_dict:
+            continue
+        logger.debug(f'app_id {item["app_id"]} not found in DB')
+        name = item['name']
+        if str(item['app_id']) in translated_game_dict:
+            name = translated_game_dict[item['app_id']]
+        new_list.append({
+                'app_id': item['app_id'],
+                'name': name,
+                'last_checked_time': None,
+                'last_played': last_played[item['app_id']] if item['app_id'] in last_played else None
+            })
     return new_list
 
 def get_game_info_from_app_id(p_app_id: int):
