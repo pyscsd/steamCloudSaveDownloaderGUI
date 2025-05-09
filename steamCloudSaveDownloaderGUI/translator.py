@@ -20,6 +20,9 @@ def reload_translator():
     if translator.load(locale, 'qtbase', '_', path):
         app.installTranslator(translator)
     translator = QTranslator(app)
+
+    if locale.language() == QLocale.Language.English:
+        return
     path = ":/translations"
     if translator.load(locale, 'scsdGUI', '_', path):
         app.installTranslator(translator)
