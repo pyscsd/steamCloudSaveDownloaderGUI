@@ -493,13 +493,15 @@ class about_dialog(QW.QDialog):
         self.repo_label.setOpenExternalLinks(True)
 
     def set_author(self):
-        self.author_label = QW.QLabel(self.tr("Author: <a href='https://github.com/hhhhhojeihsu'>hhhhhojeihsu</a>"))
+        author_str = self.tr("Author:")
+        self.author_label = QW.QLabel(f"{author_str} <a href='https://github.com/hhhhhojeihsu'>hhhhhojeihsu</a>")
         self.author_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
         self.author_label.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
         self.author_label.setOpenExternalLinks(True)
 
     def set_submit_issue(self):
-        self.issue_label = QW.QLabel(self.tr("<a href='https://github.com/pyscsd/steamCloudSaveDownloader/issues'>Submit Issue</a>"))
+        submit_str = self.tr("Submit Issue")
+        self.issue_label = QW.QLabel(f"<a href='https://github.com/pyscsd/steamCloudSaveDownloaderGUI/issues'>{submit_str}</a>")
         self.issue_label.setTextFormat(QtCore.Qt.TextFormat.RichText)
         self.issue_label.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
         self.issue_label.setOpenExternalLinks(True)

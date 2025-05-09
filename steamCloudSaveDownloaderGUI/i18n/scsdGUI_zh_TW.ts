@@ -35,28 +35,28 @@
         <translation>關於</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="496"/>
-        <source>Author: &lt;a href=&apos;https://github.com/hhhhhojeihsu&apos;&gt;hhhhhojeihsu&lt;/a&gt;</source>
+        <location filename="../dialogs.py" line="497"/>
+        <source>Author:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="502"/>
-        <source>&lt;a href=&apos;https://github.com/pyscsd/steamCloudSaveDownloader/issues&apos;&gt;Submit Issue&lt;/a&gt;</source>
+        <location filename="../dialogs.py" line="504"/>
+        <source>Submit Issue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="508"/>
+        <location filename="../dialogs.py" line="510"/>
         <source>Released under MIT License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="511"/>
+        <location filename="../dialogs.py" line="513"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="516"/>
+        <location filename="../dialogs.py" line="518"/>
         <source>Close</source>
         <translation type="unfinished"></translation>
     </message>
