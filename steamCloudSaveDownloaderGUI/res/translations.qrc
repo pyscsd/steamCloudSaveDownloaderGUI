@@ -1,5 +1,30 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource prefix="translations">
+    <file>scsdGUI_bg.qm</file>
+    <file>scsdGUI_cs.qm</file>
+    <file>scsdGUI_da.qm</file>
+    <file>scsdGUI_de.qm</file>
+    <file>scsdGUI_el.qm</file>
+    <file>scsdGUI_es_ES.qm</file>
+    <file>scsdGUI_fi.qm</file>
+    <file>scsdGUI_fr.qm</file>
+    <file>scsdGUI_hu.qm</file>
+    <file>scsdGUI_id.qm</file>
+    <file>scsdGUI_it.qm</file>
+    <file>scsdGUI_ja.qm</file>
+    <file>scsdGUI_ko.qm</file>
+    <file>scsdGUI_nl.qm</file>
+    <file>scsdGUI_no.qm</file>
+    <file>scsdGUI_pl.qm</file>
+    <file>scsdGUI_pt_BR.qm</file>
+    <file>scsdGUI_pt.qm</file>
+    <file>scsdGUI_ro.qm</file>
+    <file>scsdGUI_ru.qm</file>
+    <file>scsdGUI_sv.qm</file>
+    <file>scsdGUI_th.qm</file>
+    <file>scsdGUI_tr.qm</file>
+    <file>scsdGUI_uk.qm</file>
+    <file>scsdGUI_vi.qm</file>
     <file>scsdGUI_zh_CN.qm</file>
     <file>scsdGUI_zh_TW.qm</file>
 </qresource>
