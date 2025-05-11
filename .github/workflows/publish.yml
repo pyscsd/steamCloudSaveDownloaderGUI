@@ -9,6 +9,8 @@ jobs:
   build:
     uses: ./.github/workflows/check-test-build.yml
     secrets: inherit
+    permissions:
+      contents: write
   release:
     needs:
       - build
