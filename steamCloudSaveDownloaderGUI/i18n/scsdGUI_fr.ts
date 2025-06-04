@@ -16,7 +16,7 @@
     <message>
         <location filename="../save_downloader.py" line="147"/>
         <source>Initializing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialisation...</translation>
     </message>
 </context>
 <context>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../menu.py" line="251"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos</translation>
     </message>
 </context>
 <context>
@@ -32,12 +32,12 @@
     <message>
         <location filename="../dialogs.py" line="414"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="497"/>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Auteur&#xa0;:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="504"/>
@@ -58,7 +58,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="518"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer</translation>
     </message>
 </context>
 <context>
@@ -66,7 +66,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="361"/>
         <source>Disable All</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout désactiver</translation>
     </message>
 </context>
 <context>
@@ -74,17 +74,17 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="111"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger</translation>
     </message>
     <message>
         <location filename="../menu.py" line="132"/>
         <source>Already downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Déjà en téléchargement</translation>
     </message>
     <message>
         <location filename="../menu.py" line="136"/>
         <source>Download All Executed</source>
-        <translation type="unfinished"></translation>
+        <translation>Téléchargements effectués</translation>
     </message>
     <message>
         <location filename="../menu.py" line="139"/>
@@ -97,7 +97,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="352"/>
         <source>Enable All</source>
-        <translation type="unfinished"></translation>
+        <translation>Tout activer</translation>
     </message>
 </context>
 <context>
@@ -105,12 +105,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../main_window.py" line="14"/>
         <source>Close in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermeture en cours</translation>
     </message>
     <message>
         <location filename="../main_window.py" line="15"/>
         <source>Please wait for the program to close gracefully.</source>
-        <translation type="unfinished"></translation>
+        <translation>Merci de patienter pendant que le programme se ferme gracieusement.</translation>
     </message>
 </context>
 <context>
@@ -118,7 +118,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../game_info_dialog.py" line="227"/>
         <source>{game_name} Saves</source>
-        <translation type="unfinished"></translation>
+        <translation>{game_name} Sauvegardes</translation>
     </message>
 </context>
 <context>
@@ -126,12 +126,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="19"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Redémarrage requis</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="20"/>
         <source>Restart is required to reflect the language change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Redémarrage requis pour changer de langue.</translation>
     </message>
 </context>
 <context>
@@ -139,7 +139,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="15"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Se connecter</translation>
     </message>
 </context>
 <context>
@@ -147,17 +147,17 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="35"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Se connecter</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="44"/>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudonyme&#xa0;:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="48"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe&#xa0;:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="53"/>
