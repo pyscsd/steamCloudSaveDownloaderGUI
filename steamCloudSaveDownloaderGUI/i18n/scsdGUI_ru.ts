@@ -6,17 +6,17 @@
     <message>
         <location filename="../save_downloader.py" line="84"/>
         <source>Downlading {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</source>
-        <translation type="unfinished"></translation>
+        <translation>Загружается {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</translation>
     </message>
     <message>
         <location filename="../save_downloader.py" line="143"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
-        <translation type="unfinished"></translation>
+        <translation>Загружается {p_game_name}: {p_file_name}</translation>
     </message>
     <message>
         <location filename="../save_downloader.py" line="147"/>
         <source>Initializing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Инициализация...</translation>
     </message>
 </context>
 <context>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../menu.py" line="251"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О приложении</translation>
     </message>
 </context>
 <context>
@@ -32,33 +32,34 @@
     <message>
         <location filename="../dialogs.py" line="414"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О приложении</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="497"/>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Автор:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="504"/>
         <source>Submit Issue</source>
-        <translation type="unfinished"></translation>
+        <translation>Отправить проблему</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="510"/>
         <source>Released under MIT License</source>
-        <translation type="unfinished"></translation>
+        <translation>Выпущено под лицензией MIT</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="513"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Эта программа не связана с Valve или Steam.
+Steam является торговой маркой Valve Corporation.</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="518"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть</translation>
     </message>
 </context>
 <context>
@@ -66,7 +67,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="361"/>
         <source>Disable All</source>
-        <translation type="unfinished"></translation>
+        <translation>Выключить всё</translation>
     </message>
 </context>
 <context>
@@ -74,12 +75,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="111"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить</translation>
     </message>
     <message>
         <location filename="../menu.py" line="132"/>
         <source>Already downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Уже скачивается</translation>
     </message>
     <message>
         <location filename="../menu.py" line="136"/>
