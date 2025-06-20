@@ -6,17 +6,17 @@
     <message>
         <location filename="../save_downloader.py" line="84"/>
         <source>Downlading {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</source>
-        <translation type="unfinished"></translation>
+        <translation>正在下載 {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</translation>
     </message>
     <message>
         <location filename="../save_downloader.py" line="143"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
-        <translation type="unfinished"></translation>
+        <translation>正在下載 {p_game_name}: {p_file_name}</translation>
     </message>
     <message>
         <location filename="../save_downloader.py" line="147"/>
         <source>Initializing...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在初始化⋯⋯</translation>
     </message>
 </context>
 <context>
@@ -47,18 +47,19 @@
     <message>
         <location filename="../dialogs.py" line="510"/>
         <source>Released under MIT License</source>
-        <translation type="unfinished"></translation>
+        <translation>在 MIT 許可證下發佈</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="513"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation>此軟件並不附屬於維爾福或 Steam
+Steam 的商標歸屬於維爾福軟件公司。</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="518"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>關閉</translation>
     </message>
 </context>
 <context>
@@ -66,7 +67,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="361"/>
         <source>Disable All</source>
-        <translation type="unfinished"></translation>
+        <translation>禁用全部</translation>
     </message>
 </context>
 <context>
@@ -74,22 +75,22 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="111"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>下載</translation>
     </message>
     <message>
         <location filename="../menu.py" line="132"/>
         <source>Already downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>已開始下載</translation>
     </message>
     <message>
         <location filename="../menu.py" line="136"/>
         <source>Download All Executed</source>
-        <translation type="unfinished"></translation>
+        <translation>下載所有執行文件</translation>
     </message>
     <message>
         <location filename="../menu.py" line="139"/>
         <source>Download Outdated Executed</source>
-        <translation type="unfinished"></translation>
+        <translation>下載過期執行文件</translation>
     </message>
 </context>
 <context>
@@ -97,7 +98,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="352"/>
         <source>Enable All</source>
-        <translation type="unfinished"></translation>
+        <translation>啟用全部</translation>
     </message>
 </context>
 <context>
@@ -105,12 +106,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../main_window.py" line="14"/>
         <source>Close in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>正在關閉</translation>
     </message>
     <message>
         <location filename="../main_window.py" line="15"/>
         <source>Please wait for the program to close gracefully.</source>
-        <translation type="unfinished"></translation>
+        <translation>請等待軟件妥善關閉。</translation>
     </message>
 </context>
 <context>
@@ -126,12 +127,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="19"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>需要重新啟動</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="20"/>
         <source>Restart is required to reflect the language change.</source>
-        <translation type="unfinished"></translation>
+        <translation>需要重新啟動以變更語言。</translation>
     </message>
 </context>
 <context>
@@ -139,7 +140,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="15"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>登入</translation>
     </message>
 </context>
 <context>
@@ -147,37 +148,37 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="35"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>登入</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="44"/>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>使用者名稱：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="48"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>密碼：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="53"/>
         <source>2FA (case insensitive):</source>
-        <translation type="unfinished"></translation>
+        <translation>兩步驗證（不區分大小寫）：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="57"/>
         <source>NOTE: This program will not save your passwords locally.</source>
-        <translation type="unfinished"></translation>
+        <translation>注意：這個應用程式不會把你的密碼儲存於本機。</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="61"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>確定</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="64"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
 </context>
 <context>
@@ -185,12 +186,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="27"/>
         <source>Login Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>登入失敗</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="28"/>
         <source>Failed to login. Please check if the inputs are correct.</source>
-        <translation type="unfinished"></translation>
+        <translation>登入失敗，請確認是否正確輸入。</translation>
     </message>
 </context>
 <context>
@@ -198,7 +199,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="31"/>
         <source>Logout</source>
-        <translation type="unfinished"></translation>
+        <translation>登出</translation>
     </message>
 </context>
 <context>
@@ -219,12 +220,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../game_info_dialog.py" line="164"/>
         <source>Open File Location</source>
-        <translation type="unfinished"></translation>
+        <translation>開啟檔案位置</translation>
     </message>
     <message>
         <location filename="../table_widget.py" line="392"/>
         <source>Open Saves Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>開啟儲存目錄</translation>
     </message>
 </context>
 <context>
@@ -232,7 +233,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="75"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>選項</translation>
     </message>
 </context>
 <context>
@@ -240,12 +241,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="143"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>選項</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="170"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>語言：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="178"/>
@@ -255,7 +256,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="180"/>
         <source>Save directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>儲存目錄：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="185"/>
@@ -265,7 +266,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="190"/>
         <source>Open File Explorer</source>
-        <translation type="unfinished"></translation>
+        <translation>開啟檔案總管</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="192"/>
@@ -280,17 +281,17 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="202"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>儲存</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="205"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>取消</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="208"/>
         <source>Log Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>日誌等級：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="214"/>
@@ -299,42 +300,46 @@ Steam is a trademark of Valve Corporation.</source>
 1: Show Error and Warning messages only
 2: Show Error, Warning and Info messages only
 3: Show Error, Warning, Info and Debug messages</source>
-        <translation type="unfinished"></translation>
+        <translation>日誌需要詳細描述：
+0： 僅展示錯誤資訊
+1：僅展示錯誤及警告資訊
+2：僅展示錯誤、警告及資訊
+3：展示錯誤、警告、資訊及除錯資訊</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="217"/>
         <source>Auto Start on Startup:</source>
-        <translation type="unfinished"></translation>
+        <translation>在電腦啟動時自動開啟：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="221"/>
         <source>If the program should auto start on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>應用程式應該在電腦啟動時開啟</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="224"/>
         <source>Minimize to Tray:</source>
-        <translation type="unfinished"></translation>
+        <translation>最小化至系統匣：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="228"/>
         <source>Minimize to system tray instead of close</source>
-        <translation type="unfinished"></translation>
+        <translation>不關閉而最小化至系統匣</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="231"/>
         <source>Auto Download Interval (Minutes):</source>
-        <translation type="unfinished"></translation>
+        <translation>自動下載間隔（分鐘）：</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="237"/>
         <source>The interval in minutes between each auto download</source>
-        <translation type="unfinished"></translation>
+        <translation>每個下載之間的間隔（分鐘）</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="243"/>
         <source>Hover onto options for description</source>
-        <translation type="unfinished"></translation>
+        <translation>遊標懸停以獲取更多資訊</translation>
     </message>
 </context>
 <context>
@@ -343,7 +348,7 @@ Steam is a trademark of Valve Corporation.</source>
         <location filename="../menu.py" line="262"/>
         <location filename="../system_tray.py" line="18"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>離開</translation>
     </message>
 </context>
 <context>
@@ -352,7 +357,7 @@ Steam is a trademark of Valve Corporation.</source>
         <location filename="../menu.py" line="93"/>
         <location filename="../menu.py" line="101"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>重新載入</translation>
     </message>
 </context>
 <context>
@@ -361,17 +366,17 @@ Steam is a trademark of Valve Corporation.</source>
         <location filename="../menu.py" line="211"/>
         <location filename="../menu.py" line="245"/>
         <source>Auto Download ({self.count_down})</source>
-        <translation type="unfinished"></translation>
+        <translation>自動下載（{self.count_down}）</translation>
     </message>
     <message>
         <location filename="../menu.py" line="217"/>
         <source>Auto Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>自動下載中</translation>
     </message>
     <message>
         <location filename="../menu.py" line="241"/>
         <source>Auto Download Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>自動下載已禁用</translation>
     </message>
 </context>
 <context>
@@ -387,7 +392,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../system_tray.py" line="8"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>顯示</translation>
     </message>
 </context>
 <context>
@@ -395,17 +400,17 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../status_bar.py" line="26"/>
         <source>Authenticating...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在驗證⋯⋯</translation>
     </message>
     <message>
         <location filename="../status_bar.py" line="40"/>
         <source>Double click to view files. Right click for options.</source>
-        <translation type="unfinished"></translation>
+        <translation>雙擊以查看文件。點擊右鍵以查看選項。</translation>
     </message>
     <message>
         <location filename="../status_bar.py" line="49"/>
         <source>Ready. Press &apos;Refresh&apos; to populate list or &apos;Start&apos; to start downloading.</source>
-        <translation type="unfinished"></translation>
+        <translation>準備就緒，點擊「重新載入」以填滿清單或點擊「開始」以開始下載。</translation>
     </message>
     <message>
         <location filename="../status_bar.py" line="52"/>
@@ -418,7 +423,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="156"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>停止</translation>
     </message>
 </context>
 <context>
@@ -426,12 +431,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../system_tray.py" line="71"/>
         <source>scsd-gui is now running in background</source>
-        <translation type="unfinished"></translation>
+        <translation>scsd-gui 正在於背景運行</translation>
     </message>
     <message>
         <location filename="../system_tray.py" line="82"/>
         <source>Download Complete</source>
-        <translation type="unfinished"></translation>
+        <translation>下載完成</translation>
     </message>
 </context>
 <context>
@@ -439,12 +444,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="227"/>
         <source>Loading</source>
-        <translation type="unfinished"></translation>
+        <translation>正在載入</translation>
     </message>
     <message>
         <location filename="../table_widget.py" line="229"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>不適用</translation>
     </message>
 </context>
 <context>
@@ -452,7 +457,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="130"/>
         <source>Refreshing...</source>
-        <translation type="unfinished"></translation>
+        <translation>正在重新載入⋯⋯</translation>
     </message>
 </context>
 <context>
@@ -460,7 +465,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="519"/>
         <source>Search App ID / Name</source>
-        <translation type="unfinished"></translation>
+        <translation>搜尋應用程式 ID 或名稱</translation>
     </message>
 </context>
 <context>
@@ -468,7 +473,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../game_info_dialog.py" line="23"/>
         <source>Name/Version</source>
-        <translation type="unfinished"></translation>
+        <translation>名稱／版本</translation>
     </message>
     <message>
         <location filename="../game_info_dialog.py" line="24"/>
@@ -478,7 +483,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../game_info_dialog.py" line="54"/>
         <source>Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>預留位置</translation>
     </message>
 </context>
 <context>
@@ -486,7 +491,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="378"/>
         <source>View Save Files</source>
-        <translation type="unfinished"></translation>
+        <translation>檢視儲存文件</translation>
     </message>
 </context>
 </TS>
