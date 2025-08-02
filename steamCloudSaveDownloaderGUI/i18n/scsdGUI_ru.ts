@@ -140,7 +140,7 @@ Steam является торговой маркой Valve Corporation.</transla
     <message>
         <location filename="../menu.py" line="15"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Логин</translation>
     </message>
 </context>
 <context>
