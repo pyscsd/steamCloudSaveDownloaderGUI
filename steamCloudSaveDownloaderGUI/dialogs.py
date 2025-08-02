@@ -136,7 +136,7 @@ class move_files_messagebox(QW.QMessageBox):
 class options_dialog(QW.QDialog):
     config_reloaded_signal = QtCore.Signal()
 
-    languages = ['en_US', "uk", "zh_TW"]
+    languages = ['en_US', "uk", "zh_TW", "ru"]
 
     def __init__(self):
         super().__init__()
