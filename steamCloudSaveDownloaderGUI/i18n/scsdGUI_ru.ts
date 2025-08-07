@@ -85,12 +85,12 @@ Steam является торговой маркой Valve Corporation.</transla
     <message>
         <location filename="../menu.py" line="136"/>
         <source>Download All Executed</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить все выполненные</translation>
     </message>
     <message>
         <location filename="../menu.py" line="139"/>
         <source>Download Outdated Executed</source>
-        <translation type="unfinished"></translation>
+        <translation>Установить устаревшие выполненные</translation>
     </message>
 </context>
 <context>
@@ -106,12 +106,12 @@ Steam является торговой маркой Valve Corporation.</transla
     <message>
         <location filename="../main_window.py" line="14"/>
         <source>Close in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Закрыть в прогрессе</translation>
     </message>
     <message>
         <location filename="../main_window.py" line="15"/>
         <source>Please wait for the program to close gracefully.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, подождите корректоного завершения программы.</translation>
     </message>
 </context>
 <context>
@@ -119,7 +119,7 @@ Steam является торговой маркой Valve Corporation.</transla
     <message>
         <location filename="../game_info_dialog.py" line="227"/>
         <source>{game_name} Saves</source>
-        <translation type="unfinished"></translation>
+        <translation>{game_name} Сохранённые</translation>
     </message>
 </context>
 <context>
@@ -127,12 +127,12 @@ Steam является торговой маркой Valve Corporation.</transla
     <message>
         <location filename="../dialogs.py" line="19"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Требуется перезагрузка</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="20"/>
         <source>Restart is required to reflect the language change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Для применения языка необходимо перезагрузить.</translation>
     </message>
 </context>
 <context>
@@ -163,7 +163,7 @@ Steam является торговой маркой Valve Corporation.</transla
     <message>
         <location filename="../dialogs.py" line="53"/>
         <source>2FA (case insensitive):</source>
-        <translation type="unfinished"></translation>
+        <translation>2FA (case insensitive):</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="57"/>
