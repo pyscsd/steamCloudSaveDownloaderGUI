@@ -35,12 +35,12 @@
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="497"/>
+        <location filename="../dialogs.py" line="496"/>
         <source>Author:</source>
         <translation>作者：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="504"/>
+        <location filename="../dialogs.py" line="503"/>
         <source>Submit Issue</source>
         <translation>提交需求</translation>
     </message>
@@ -249,7 +249,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>语言：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="178"/>
+        <location filename="../dialogs.py" line="177"/>
         <source>Switch the UI and game name to the specified language.</source>
         <translation>将界面和游戏名称切换到指定语言。</translation>
     </message>
@@ -259,7 +259,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>存档目录：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="185"/>
+        <location filename="../dialogs.py" line="184"/>
         <source>Where to save the saves</source>
         <translation>存档保存位置</translation>
     </message>
@@ -274,7 +274,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>存档轮换：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="197"/>
+        <location filename="../dialogs.py" line="196"/>
         <source>The number of versions to keep locally. The older ones will have suffix &apos;.scsd_X&apos; append to the original file name.</source>
         <translation>本地保存的版本数量。较旧的版本将在原始文件名后附加后缀 &apos;.scsd_X&apos;。</translation>
     </message>
@@ -294,7 +294,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>日志等级：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="214"/>
+        <location filename="../dialogs.py" line="213"/>
         <source>How detail should the log be.
 0: Show Error messages only
 1: Show Error and Warning messages only
@@ -312,7 +312,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>开机自动启动：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="221"/>
+        <location filename="../dialogs.py" line="220"/>
         <source>If the program should auto start on startup</source>
         <translation>程序是否需要开机自启动</translation>
     </message>
@@ -322,7 +322,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>最小化到系统托盘：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="228"/>
+        <location filename="../dialogs.py" line="227"/>
         <source>Minimize to system tray instead of close</source>
         <translation>最小化到系统托盘而不是直接退出</translation>
     </message>
@@ -332,7 +332,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>自动下载间隔（分钟）：</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="237"/>
+        <location filename="../dialogs.py" line="236"/>
         <source>The interval in minutes between each auto download</source>
         <translation>每次自动下载之间的间隔（分钟）</translation>
     </message>
@@ -442,12 +442,12 @@ Steam 是 Valve 公司的商标。</translation>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="227"/>
+        <location filename="../table_widget.py" line="226"/>
         <source>Loading</source>
         <translation>加载中</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="229"/>
+        <location filename="../table_widget.py" line="228"/>
         <source>N/A</source>
         <translation>不适用</translation>
     </message>
@@ -476,7 +476,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>名称/版本</translation>
     </message>
     <message>
-        <location filename="../game_info_dialog.py" line="24"/>
+        <location filename="../game_info_dialog.py" line="23"/>
         <source>Date Written</source>
         <translation>填写日期</translation>
     </message>

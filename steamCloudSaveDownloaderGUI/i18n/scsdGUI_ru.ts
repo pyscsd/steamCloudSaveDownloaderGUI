@@ -35,12 +35,12 @@
         <translation>О приложении</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="497"/>
+        <location filename="../dialogs.py" line="496"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="504"/>
+        <location filename="../dialogs.py" line="503"/>
         <source>Submit Issue</source>
         <translation>Отправить проблему</translation>
     </message>
@@ -249,7 +249,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation>Язык:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="178"/>
+        <location filename="../dialogs.py" line="177"/>
         <source>Switch the UI and game name to the specified language.</source>
         <translation>Переключите пользовательский интерфейс и название игры на указанный язык.</translation>
     </message>
@@ -259,7 +259,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation>Сохранить директорию:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="185"/>
+        <location filename="../dialogs.py" line="184"/>
         <source>Where to save the saves</source>
         <translation>Где сохранить сейвы</translation>
     </message>
@@ -274,7 +274,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="197"/>
+        <location filename="../dialogs.py" line="196"/>
         <source>The number of versions to keep locally. The older ones will have suffix &apos;.scsd_X&apos; append to the original file name.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -294,7 +294,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="214"/>
+        <location filename="../dialogs.py" line="213"/>
         <source>How detail should the log be.
 0: Show Error messages only
 1: Show Error and Warning messages only
@@ -308,7 +308,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="221"/>
+        <location filename="../dialogs.py" line="220"/>
         <source>If the program should auto start on startup</source>
         <translation type="unfinished"></translation>
     </message>
@@ -318,7 +318,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="228"/>
+        <location filename="../dialogs.py" line="227"/>
         <source>Minimize to system tray instead of close</source>
         <translation type="unfinished"></translation>
     </message>
@@ -328,7 +328,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="237"/>
+        <location filename="../dialogs.py" line="236"/>
         <source>The interval in minutes between each auto download</source>
         <translation type="unfinished"></translation>
     </message>
@@ -438,12 +438,12 @@ Steam является торговой маркой Valve Corporation.</transla
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="227"/>
+        <location filename="../table_widget.py" line="226"/>
         <source>Loading</source>
         <translation>Загрузка</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="229"/>
+        <location filename="../table_widget.py" line="228"/>
         <source>N/A</source>
         <translation type="unfinished"></translation>
     </message>
@@ -472,7 +472,7 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation>Имя/Версия</translation>
     </message>
     <message>
-        <location filename="../game_info_dialog.py" line="24"/>
+        <location filename="../game_info_dialog.py" line="23"/>
         <source>Date Written</source>
         <translation>Дата написания</translation>
     </message>
