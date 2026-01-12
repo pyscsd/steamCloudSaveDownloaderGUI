@@ -6,17 +6,17 @@
     <message>
         <location filename="../save_downloader.py" line="84"/>
         <source>Downlading {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengunduh {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</translation>
     </message>
     <message>
         <location filename="../save_downloader.py" line="143"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengunduh {p_game_name}: {p_file_name}</translation>
     </message>
     <message>
         <location filename="../save_downloader.py" line="147"/>
         <source>Initializing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Menginisialisasi...</translation>
     </message>
 </context>
 <context>
@@ -24,7 +24,7 @@
     <message>
         <location filename="../menu.py" line="251"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentang</translation>
     </message>
 </context>
 <context>
@@ -32,33 +32,34 @@
     <message>
         <location filename="../dialogs.py" line="414"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentang</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="496"/>
         <source>Author:</source>
-        <translation type="unfinished"></translation>
+        <translation>Penulis:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="503"/>
         <source>Submit Issue</source>
-        <translation type="unfinished"></translation>
+        <translation>Kirim Isu</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="510"/>
         <source>Released under MIT License</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirilis di bawah Lisensi MIT</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="513"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Program ini tidak berafiliasi dengan Valve atau Steam.
+Steam adalah merek dagang Valve Corporation.</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="518"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutup</translation>
     </message>
 </context>
 <context>
@@ -66,7 +67,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="361"/>
         <source>Disable All</source>
-        <translation type="unfinished"></translation>
+        <translation>Nonaktifkan Semua</translation>
     </message>
 </context>
 <context>
@@ -74,22 +75,22 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="111"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Unduh</translation>
     </message>
     <message>
         <location filename="../menu.py" line="132"/>
         <source>Already downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Sudah mengunduh</translation>
     </message>
     <message>
         <location filename="../menu.py" line="136"/>
         <source>Download All Executed</source>
-        <translation type="unfinished"></translation>
+        <translation>Unduh Semua Dieksekusi</translation>
     </message>
     <message>
         <location filename="../menu.py" line="139"/>
         <source>Download Outdated Executed</source>
-        <translation type="unfinished"></translation>
+        <translation>Unduh yang Kedaluwarsa Dieksekusi</translation>
     </message>
 </context>
 <context>
@@ -97,7 +98,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="352"/>
         <source>Enable All</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktifkan Semua</translation>
     </message>
 </context>
 <context>
@@ -105,12 +106,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../main_window.py" line="14"/>
         <source>Close in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Penutupan sedang berlangsung</translation>
     </message>
     <message>
         <location filename="../main_window.py" line="15"/>
         <source>Please wait for the program to close gracefully.</source>
-        <translation type="unfinished"></translation>
+        <translation>Harap tunggu program menutup dengan benar.</translation>
     </message>
 </context>
 <context>
@@ -118,7 +119,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../game_info_dialog.py" line="227"/>
         <source>{game_name} Saves</source>
-        <translation type="unfinished"></translation>
+        <translation>Simpanan {game_name}</translation>
     </message>
 </context>
 <context>
@@ -126,12 +127,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="19"/>
         <source>Restart Required</source>
-        <translation type="unfinished"></translation>
+        <translation>Perlu Mulai Ulang</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="20"/>
         <source>Restart is required to reflect the language change.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mulai ulang diperlukan agar perubahan bahasa diterapkan.</translation>
     </message>
 </context>
 <context>
@@ -139,7 +140,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="15"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Masuk</translation>
     </message>
 </context>
 <context>
@@ -147,37 +148,37 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="35"/>
         <source>Login</source>
-        <translation type="unfinished"></translation>
+        <translation>Masuk</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="44"/>
         <source>Username:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nama pengguna:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="48"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kata sandi:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="53"/>
         <source>2FA (case insensitive):</source>
-        <translation type="unfinished"></translation>
+        <translation>2FA (tidak peka huruf besar/kecil):</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="57"/>
         <source>NOTE: This program will not save your passwords locally.</source>
-        <translation type="unfinished"></translation>
+        <translation>CATATAN: Program ini tidak akan menyimpan kata sandi Anda secara lokal.</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="61"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="64"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Batal</translation>
     </message>
 </context>
 <context>
@@ -185,12 +186,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="27"/>
         <source>Login Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal Masuk</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="28"/>
         <source>Failed to login. Please check if the inputs are correct.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal masuk. Silakan periksa apakah input sudah benar.</translation>
     </message>
 </context>
 <context>
@@ -198,7 +199,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="31"/>
         <source>Logout</source>
-        <translation type="unfinished"></translation>
+        <translation>Keluar</translation>
     </message>
 </context>
 <context>
@@ -206,12 +207,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="133"/>
         <source>Save directory change in progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Perubahan direktori simpanan sedang berlangsung</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="134"/>
         <source>Please wait for the program to move the save directory.</source>
-        <translation type="unfinished"></translation>
+        <translation>Harap tunggu program memindahkan direktori simpanan.</translation>
     </message>
 </context>
 <context>
@@ -219,12 +220,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../game_info_dialog.py" line="164"/>
         <source>Open File Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Buka Lokasi Berkas</translation>
     </message>
     <message>
         <location filename="../table_widget.py" line="392"/>
         <source>Open Saves Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Buka Direktori Simpanan</translation>
     </message>
 </context>
 <context>
@@ -232,7 +233,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="75"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opsi</translation>
     </message>
 </context>
 <context>
@@ -240,57 +241,57 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../dialogs.py" line="143"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opsi</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="170"/>
         <source>Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bahasa:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="177"/>
         <source>Switch the UI and game name to the specified language.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alihkan UI dan nama gim ke bahasa yang ditentukan.</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="180"/>
         <source>Save directory:</source>
-        <translation type="unfinished"></translation>
+        <translation>Direktori simpanan:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="184"/>
         <source>Where to save the saves</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempat menyimpan berkas simpanan</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="190"/>
         <source>Open File Explorer</source>
-        <translation type="unfinished"></translation>
+        <translation>Buka File Explorer</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="192"/>
         <source>Save Rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotasi Simpanan:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="196"/>
         <source>The number of versions to keep locally. The older ones will have suffix &apos;.scsd_X&apos; append to the original file name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jumlah versi yang disimpan secara lokal. Versi yang lebih lama akan memiliki akhiran &apos;.scsd_X&apos; yang ditambahkan ke nama berkas asli.</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="202"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Simpan</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="205"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Batal</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="208"/>
         <source>Log Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tingkat Log:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="213"/>
@@ -299,42 +300,46 @@ Steam is a trademark of Valve Corporation.</source>
 1: Show Error and Warning messages only
 2: Show Error, Warning and Info messages only
 3: Show Error, Warning, Info and Debug messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Seberapa detail log.
+0: Hanya tampilkan pesan Kesalahan
+1: Hanya tampilkan pesan Kesalahan dan Peringatan
+2: Hanya tampilkan pesan Kesalahan, Peringatan, dan Info
+3: Tampilkan pesan Kesalahan, Peringatan, Info, dan Debug</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="217"/>
         <source>Auto Start on Startup:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mulai Otomatis saat Startup:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="220"/>
         <source>If the program should auto start on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Apakah program harus mulai otomatis saat startup</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="224"/>
         <source>Minimize to Tray:</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalkan ke Tray:</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="227"/>
         <source>Minimize to system tray instead of close</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimalkan ke baki sistem alih-alih menutup</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="231"/>
         <source>Auto Download Interval (Minutes):</source>
-        <translation type="unfinished"></translation>
+        <translation>Interval Unduh Otomatis (Menit):</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="236"/>
         <source>The interval in minutes between each auto download</source>
-        <translation type="unfinished"></translation>
+        <translation>Interval dalam menit antara setiap unduhan otomatis</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="243"/>
         <source>Hover onto options for description</source>
-        <translation type="unfinished"></translation>
+        <translation>Arahkan kursor ke opsi untuk melihat deskripsi</translation>
     </message>
 </context>
 <context>
@@ -343,7 +348,7 @@ Steam is a trademark of Valve Corporation.</source>
         <location filename="../menu.py" line="262"/>
         <location filename="../system_tray.py" line="18"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Keluar</translation>
     </message>
 </context>
 <context>
@@ -352,7 +357,7 @@ Steam is a trademark of Valve Corporation.</source>
         <location filename="../menu.py" line="93"/>
         <location filename="../menu.py" line="101"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Segarkan</translation>
     </message>
 </context>
 <context>
@@ -361,17 +366,17 @@ Steam is a trademark of Valve Corporation.</source>
         <location filename="../menu.py" line="211"/>
         <location filename="../menu.py" line="245"/>
         <source>Auto Download ({self.count_down})</source>
-        <translation type="unfinished"></translation>
+        <translation>Unduh Otomatis ({self.count_down})</translation>
     </message>
     <message>
         <location filename="../menu.py" line="217"/>
         <source>Auto Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Sedang Mengunduh Otomatis</translation>
     </message>
     <message>
         <location filename="../menu.py" line="241"/>
         <source>Auto Download Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Unduh Otomatis Dinonaktifkan</translation>
     </message>
 </context>
 <context>
@@ -379,7 +384,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="48"/>
         <source>Session</source>
-        <translation type="unfinished"></translation>
+        <translation>Sesi</translation>
     </message>
 </context>
 <context>
@@ -387,7 +392,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../system_tray.py" line="8"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Tampilkan</translation>
     </message>
 </context>
 <context>
@@ -395,22 +400,22 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../status_bar.py" line="26"/>
         <source>Authenticating...</source>
-        <translation type="unfinished"></translation>
+        <translation>Mengautentikasi...</translation>
     </message>
     <message>
         <location filename="../status_bar.py" line="40"/>
         <source>Double click to view files. Right click for options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik dua kali untuk melihat berkas. Klik kanan untuk opsi.</translation>
     </message>
     <message>
         <location filename="../status_bar.py" line="49"/>
         <source>Ready. Press &apos;Refresh&apos; to populate list or &apos;Start&apos; to start downloading.</source>
-        <translation type="unfinished"></translation>
+        <translation>Siap. Tekan &apos;Segarkan&apos; untuk mengisi daftar atau &apos;Mulai&apos; untuk mulai mengunduh.</translation>
     </message>
     <message>
         <location filename="../status_bar.py" line="52"/>
         <source>No session. Please create session with Session &gt; Login.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidak ada sesi. Silakan buat sesi melalui Sesi &gt; Masuk.</translation>
     </message>
 </context>
 <context>
@@ -418,7 +423,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../menu.py" line="156"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Berhenti</translation>
     </message>
 </context>
 <context>
@@ -426,12 +431,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../system_tray.py" line="71"/>
         <source>scsd-gui is now running in background</source>
-        <translation type="unfinished"></translation>
+        <translation>scsd-gui kini berjalan di latar belakang</translation>
     </message>
     <message>
         <location filename="../system_tray.py" line="82"/>
         <source>Download Complete</source>
-        <translation type="unfinished"></translation>
+        <translation>Unduhan Selesai</translation>
     </message>
 </context>
 <context>
@@ -439,12 +444,12 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="226"/>
         <source>Loading</source>
-        <translation type="unfinished"></translation>
+        <translation>Memuat</translation>
     </message>
     <message>
         <location filename="../table_widget.py" line="228"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>N/A</translation>
     </message>
 </context>
 <context>
@@ -452,7 +457,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="130"/>
         <source>Refreshing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Menyegarkan...</translation>
     </message>
 </context>
 <context>
@@ -460,7 +465,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="519"/>
         <source>Search App ID / Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Cari ID Aplikasi / Nama</translation>
     </message>
 </context>
 <context>
@@ -468,17 +473,17 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../game_info_dialog.py" line="23"/>
         <source>Name/Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Nama/Versi</translation>
     </message>
     <message>
         <location filename="../game_info_dialog.py" line="23"/>
         <source>Date Written</source>
-        <translation type="unfinished"></translation>
+        <translation>Tanggal Ditulis</translation>
     </message>
     <message>
         <location filename="../game_info_dialog.py" line="54"/>
         <source>Placeholder</source>
-        <translation type="unfinished"></translation>
+        <translation>Placeholder</translation>
     </message>
 </context>
 <context>
@@ -486,7 +491,7 @@ Steam is a trademark of Valve Corporation.</source>
     <message>
         <location filename="../table_widget.py" line="378"/>
         <source>View Save Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Lihat Berkas Simpanan</translation>
     </message>
 </context>
 </TS>
