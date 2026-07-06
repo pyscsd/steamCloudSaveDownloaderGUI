@@ -20,6 +20,10 @@ This is an official frontend implementation to [scsd](https://github.com/pyscsd/
 - This program is not affiliated with Valve or Steam. Steam is a trademark of Valve Corporation.
 - This program does not come with warranty and use at your own risk. Even though this program is thoroughly tested and theoretically does not violate EULA.
 
+## :robot: AI Assistance Not Used
+- This program was created before AI agents were a thing, and I'm too broke to buy a license.
+- The logo was created with the help of AI, though, because I have no artistic skills.
+
 ## Descriptions
 For supported games, Steam will automatically upload game saves to the cloud. This is intended for seamless playing across multiple devices, but NOT as a form of backup. Assume your game save is corrupted by the game itself, or you accidently did something that cannot be undone. Steam will automatically uploads the newest(corrupted) game saves to the cloud once you close the game. This is when this tool come to the rescue.
 
