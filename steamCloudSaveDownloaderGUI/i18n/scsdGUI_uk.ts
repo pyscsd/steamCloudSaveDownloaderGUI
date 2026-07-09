@@ -30,34 +30,34 @@
 <context>
     <name>about_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="414"/>
+        <location filename="../dialogs.py" line="433"/>
         <source>About</source>
         <translation>Про застосунок</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="496"/>
+        <location filename="../dialogs.py" line="515"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="503"/>
+        <location filename="../dialogs.py" line="522"/>
         <source>Submit Issue</source>
         <translation>Надіслати проблему</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="510"/>
+        <location filename="../dialogs.py" line="529"/>
         <source>Released under MIT License</source>
         <translation>Випущено під ліцензією MIT</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="513"/>
+        <location filename="../dialogs.py" line="532"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
         <translation>Ця програма не пов&apos;язана з Valve або Steam.
 Steam є торговою маркою Valve Corporation.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="518"/>
+        <location filename="../dialogs.py" line="537"/>
         <source>Close</source>
         <translation>Закрити</translation>
     </message>
@@ -65,7 +65,7 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>disable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="361"/>
+        <location filename="../table_widget.py" line="369"/>
         <source>Disable All</source>
         <translation>Вимкнути все</translation>
     </message>
@@ -96,7 +96,7 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>enable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="352"/>
+        <location filename="../table_widget.py" line="360"/>
         <source>Enable All</source>
         <translation>Увімкнути все</translation>
     </message>
@@ -146,37 +146,37 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>login_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="35"/>
+        <location filename="../dialogs.py" line="43"/>
         <source>Login</source>
         <translation>Увійти</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="44"/>
+        <location filename="../dialogs.py" line="52"/>
         <source>Username:</source>
         <translation>Ім&apos;я користувача:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="48"/>
+        <location filename="../dialogs.py" line="56"/>
         <source>Password:</source>
         <translation>Пароль:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="53"/>
+        <location filename="../dialogs.py" line="61"/>
         <source>2FA (case insensitive):</source>
         <translation>2ЕП (без урахування регістру):</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="57"/>
+        <location filename="../dialogs.py" line="65"/>
         <source>NOTE: This program will not save your passwords locally.</source>
         <translation>ПРИМІТКА: ця програма не зберігає ваші паролі локально.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="61"/>
+        <location filename="../dialogs.py" line="69"/>
         <source>OK</source>
         <translation>Гаразд</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="64"/>
+        <location filename="../dialogs.py" line="72"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
@@ -205,12 +205,12 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>move_files_messagebox</name>
     <message>
-        <location filename="../dialogs.py" line="133"/>
+        <location filename="../dialogs.py" line="141"/>
         <source>Save directory change in progress</source>
         <translation>Зберегти зміну каталогу при виконанні</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="134"/>
+        <location filename="../dialogs.py" line="142"/>
         <source>Please wait for the program to move the save directory.</source>
         <translation>Зачекайте, поки програма перемістить каталог збереження.</translation>
     </message>
@@ -223,7 +223,7 @@ Steam є торговою маркою Valve Corporation.</translation>
         <translation>Відкрити розташування файлу</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="392"/>
+        <location filename="../table_widget.py" line="400"/>
         <source>Open Saves Directory</source>
         <translation>Відкрити каталог збережень</translation>
     </message>
@@ -239,62 +239,62 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>options_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="143"/>
+        <location filename="../dialogs.py" line="151"/>
         <source>Options</source>
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="170"/>
+        <location filename="../dialogs.py" line="178"/>
         <source>Language:</source>
         <translation>Мова:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="177"/>
+        <location filename="../dialogs.py" line="185"/>
         <source>Switch the UI and game name to the specified language.</source>
         <translation>Змінити інтерфейс і назву гри на вказану мову.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="180"/>
+        <location filename="../dialogs.py" line="188"/>
         <source>Save directory:</source>
         <translation>Зберегти каталог:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="184"/>
+        <location filename="../dialogs.py" line="192"/>
         <source>Where to save the saves</source>
         <translation>Куди зберігати збереження</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="190"/>
+        <location filename="../dialogs.py" line="198"/>
         <source>Open File Explorer</source>
         <translation>Відкрити файловий провідник</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="192"/>
+        <location filename="../dialogs.py" line="200"/>
         <source>Save Rotation:</source>
         <translation>Зберегти поворот:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="196"/>
+        <location filename="../dialogs.py" line="204"/>
         <source>The number of versions to keep locally. The older ones will have suffix &apos;.scsd_X&apos; append to the original file name.</source>
         <translation>Кількість версій, які слід зберігати локально. Старіші версії матимуть суфікс «.scsd_X» до початкового імені файлу.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="202"/>
+        <location filename="../dialogs.py" line="210"/>
         <source>Save</source>
         <translation>Зберегти</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="205"/>
+        <location filename="../dialogs.py" line="213"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="208"/>
+        <location filename="../dialogs.py" line="216"/>
         <source>Log Level:</source>
         <translation>Рівень журналу:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="213"/>
+        <location filename="../dialogs.py" line="221"/>
         <source>How detail should the log be.
 0: Show Error messages only
 1: Show Error and Warning messages only
@@ -307,37 +307,47 @@ Steam є торговою маркою Valve Corporation.</translation>
 3: Показувати повідомлення про помилки, попередження, інформацію та налагодження</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="217"/>
+        <location filename="../dialogs.py" line="225"/>
         <source>Auto Start on Startup:</source>
         <translation>Автозапуск при ввімкненні:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="220"/>
+        <location filename="../dialogs.py" line="228"/>
         <source>If the program should auto start on startup</source>
         <translation>Якщо програма повинна автоматично запускатися при ввімкненні системи</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="224"/>
+        <location filename="../dialogs.py" line="232"/>
         <source>Minimize to Tray:</source>
         <translation>Згорнути до лотка:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="227"/>
+        <location filename="../dialogs.py" line="235"/>
         <source>Minimize to system tray instead of close</source>
         <translation>Згорнути до системного лотка замість того, щоб закрити</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="231"/>
+        <location filename="../dialogs.py" line="239"/>
+        <source>Download Local Changes Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dialogs.py" line="242"/>
+        <source>Only download game saves if it is recently played on local by checking localconfig.vdf. Enable if you only play games on this computer. Disable otherwise.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dialogs.py" line="246"/>
         <source>Auto Download Interval (Minutes):</source>
         <translation>Інтервал автозавантаження (хвилин):</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="236"/>
+        <location filename="../dialogs.py" line="251"/>
         <source>The interval in minutes between each auto download</source>
         <translation>Інтервал у хвилинах між кожним автозавантаженням</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="243"/>
+        <location filename="../dialogs.py" line="258"/>
         <source>Hover onto options for description</source>
         <translation>Наведіть курсор на параметр для опису</translation>
     </message>
@@ -377,6 +387,19 @@ Steam є торговою маркою Valve Corporation.</translation>
         <location filename="../menu.py" line="241"/>
         <source>Auto Download Disabled</source>
         <translation>Автозавантаження вимкнено</translation>
+    </message>
+</context>
+<context>
+    <name>session_expired_message_box</name>
+    <message>
+        <location filename="../dialogs.py" line="35"/>
+        <source>Session Expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dialogs.py" line="36"/>
+        <source>Failed to retrieve data from Steam. Please login again to refresh session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -442,12 +465,12 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="226"/>
+        <location filename="../table_widget.py" line="234"/>
         <source>Loading</source>
         <translation>Завантаження</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="228"/>
+        <location filename="../table_widget.py" line="236"/>
         <source>N/A</source>
         <translation>Н/Д</translation>
     </message>
@@ -455,7 +478,7 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>table_refresher</name>
     <message>
-        <location filename="../table_widget.py" line="130"/>
+        <location filename="../table_widget.py" line="132"/>
         <source>Refreshing...</source>
         <translation>Оновлення...</translation>
     </message>
@@ -463,7 +486,7 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>table_widget</name>
     <message>
-        <location filename="../table_widget.py" line="519"/>
+        <location filename="../table_widget.py" line="527"/>
         <source>Search App ID / Name</source>
         <translation>Знайти ідентифікатор програми / гру</translation>
     </message>
@@ -489,7 +512,7 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>view_files_action</name>
     <message>
-        <location filename="../table_widget.py" line="378"/>
+        <location filename="../table_widget.py" line="386"/>
         <source>View Save Files</source>
         <translation>Переглянути файли збереження</translation>
     </message>

@@ -30,34 +30,34 @@
 <context>
     <name>about_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="414"/>
+        <location filename="../dialogs.py" line="433"/>
         <source>About</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="496"/>
+        <location filename="../dialogs.py" line="515"/>
         <source>Author:</source>
         <translation>개발자:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="503"/>
+        <location filename="../dialogs.py" line="522"/>
         <source>Submit Issue</source>
         <translation>이슈 제출</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="510"/>
+        <location filename="../dialogs.py" line="529"/>
         <source>Released under MIT License</source>
         <translation>MIT 라이선스에 따라 배포됨</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="513"/>
+        <location filename="../dialogs.py" line="532"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
         <translation>본 프로그램은 Valve 및 Steam과 무관합니다. 
 Steam은 Valve Corporation의 등록상표입니다.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="518"/>
+        <location filename="../dialogs.py" line="537"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
@@ -65,7 +65,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>disable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="361"/>
+        <location filename="../table_widget.py" line="369"/>
         <source>Disable All</source>
         <translation>모두 비활성화</translation>
     </message>
@@ -96,7 +96,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>enable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="352"/>
+        <location filename="../table_widget.py" line="360"/>
         <source>Enable All</source>
         <translation>모두 활성화</translation>
     </message>
@@ -146,37 +146,37 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>login_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="35"/>
+        <location filename="../dialogs.py" line="43"/>
         <source>Login</source>
         <translation>로그인</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="44"/>
+        <location filename="../dialogs.py" line="52"/>
         <source>Username:</source>
         <translation>사용자명:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="48"/>
+        <location filename="../dialogs.py" line="56"/>
         <source>Password:</source>
         <translation>패스워드:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="53"/>
+        <location filename="../dialogs.py" line="61"/>
         <source>2FA (case insensitive):</source>
         <translation>2FA (대소문자 구분 없음):</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="57"/>
+        <location filename="../dialogs.py" line="65"/>
         <source>NOTE: This program will not save your passwords locally.</source>
         <translation>안내: 이 프로그램은 비밀번호를 사용자 기기에 저장하지 않습니다.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="61"/>
+        <location filename="../dialogs.py" line="69"/>
         <source>OK</source>
         <translation>확인</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="64"/>
+        <location filename="../dialogs.py" line="72"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
@@ -205,12 +205,12 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>move_files_messagebox</name>
     <message>
-        <location filename="../dialogs.py" line="133"/>
+        <location filename="../dialogs.py" line="141"/>
         <source>Save directory change in progress</source>
         <translation>저장 경로 변경 중</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="134"/>
+        <location filename="../dialogs.py" line="142"/>
         <source>Please wait for the program to move the save directory.</source>
         <translation>저장 경로를 이동하는 중입니다. 잠시만 기다려 주세요.</translation>
     </message>
@@ -223,7 +223,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
         <translation>파일 위치 열기</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="392"/>
+        <location filename="../table_widget.py" line="400"/>
         <source>Open Saves Directory</source>
         <translation>세이브 폴더 열기</translation>
     </message>
@@ -239,62 +239,62 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>options_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="143"/>
+        <location filename="../dialogs.py" line="151"/>
         <source>Options</source>
         <translation>옵션</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="170"/>
+        <location filename="../dialogs.py" line="178"/>
         <source>Language:</source>
         <translation>언어:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="177"/>
+        <location filename="../dialogs.py" line="185"/>
         <source>Switch the UI and game name to the specified language.</source>
         <translation>UI와 게임명을 선택한 언어로 전환합니다.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="180"/>
+        <location filename="../dialogs.py" line="188"/>
         <source>Save directory:</source>
         <translation>세이브 파일 경로:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="184"/>
+        <location filename="../dialogs.py" line="192"/>
         <source>Where to save the saves</source>
         <translation>세이브 파일 저장 위치</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="190"/>
+        <location filename="../dialogs.py" line="198"/>
         <source>Open File Explorer</source>
         <translation>파일 탐색기 열기</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="192"/>
+        <location filename="../dialogs.py" line="200"/>
         <source>Save Rotation:</source>
         <translation>세이브 버전 유지 개수:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="196"/>
+        <location filename="../dialogs.py" line="204"/>
         <source>The number of versions to keep locally. The older ones will have suffix &apos;.scsd_X&apos; append to the original file name.</source>
         <translation>기기에 유지할 백업 버전 개수입니다. 이전 파일명 뒤에는 &apos;.scsd_X&apos;가 추가됩니다.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="202"/>
+        <location filename="../dialogs.py" line="210"/>
         <source>Save</source>
         <translation>저장</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="205"/>
+        <location filename="../dialogs.py" line="213"/>
         <source>Cancel</source>
         <translation>취소</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="208"/>
+        <location filename="../dialogs.py" line="216"/>
         <source>Log Level:</source>
         <translation>로그 단위:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="213"/>
+        <location filename="../dialogs.py" line="221"/>
         <source>How detail should the log be.
 0: Show Error messages only
 1: Show Error and Warning messages only
@@ -307,37 +307,47 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 3: 오류, 경고, 정보, 디버그 메시지 모두 표시</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="217"/>
+        <location filename="../dialogs.py" line="225"/>
         <source>Auto Start on Startup:</source>
         <translation>시스템 시작 시 자동 실행:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="220"/>
+        <location filename="../dialogs.py" line="228"/>
         <source>If the program should auto start on startup</source>
         <translation>기기 시작 시 프로그램을 자동 실행할지 설정합니다</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="224"/>
+        <location filename="../dialogs.py" line="232"/>
         <source>Minimize to Tray:</source>
         <translation>시스템 트레이로 최소화:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="227"/>
+        <location filename="../dialogs.py" line="235"/>
         <source>Minimize to system tray instead of close</source>
         <translation>창을 닫을 때 프로그램이 종료되지 않고 시스템 트레이로 최소화됩니다</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="231"/>
+        <location filename="../dialogs.py" line="239"/>
+        <source>Download Local Changes Only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dialogs.py" line="242"/>
+        <source>Only download game saves if it is recently played on local by checking localconfig.vdf. Enable if you only play games on this computer. Disable otherwise.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dialogs.py" line="246"/>
         <source>Auto Download Interval (Minutes):</source>
         <translation>자동 다운로드 주기 (분):</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="236"/>
+        <location filename="../dialogs.py" line="251"/>
         <source>The interval in minutes between each auto download</source>
         <translation>자동 다운로드가 실행되는 시간 간격(분)입니다</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="243"/>
+        <location filename="../dialogs.py" line="258"/>
         <source>Hover onto options for description</source>
         <translation>옵션에 마우스를 올리면 설명이 표시됩니다</translation>
     </message>
@@ -377,6 +387,19 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
         <location filename="../menu.py" line="241"/>
         <source>Auto Download Disabled</source>
         <translation>자동 다운로드 비활성화</translation>
+    </message>
+</context>
+<context>
+    <name>session_expired_message_box</name>
+    <message>
+        <location filename="../dialogs.py" line="35"/>
+        <source>Session Expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../dialogs.py" line="36"/>
+        <source>Failed to retrieve data from Steam. Please login again to refresh session.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -442,12 +465,12 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="226"/>
+        <location filename="../table_widget.py" line="234"/>
         <source>Loading</source>
         <translation>불러오는 중</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="228"/>
+        <location filename="../table_widget.py" line="236"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
@@ -455,7 +478,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>table_refresher</name>
     <message>
-        <location filename="../table_widget.py" line="130"/>
+        <location filename="../table_widget.py" line="132"/>
         <source>Refreshing...</source>
         <translation>새로고침 중...</translation>
     </message>
@@ -463,7 +486,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>table_widget</name>
     <message>
-        <location filename="../table_widget.py" line="519"/>
+        <location filename="../table_widget.py" line="527"/>
         <source>Search App ID / Name</source>
         <translation>앱 ID / 이름 검색</translation>
     </message>
@@ -489,7 +512,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>view_files_action</name>
     <message>
-        <location filename="../table_widget.py" line="378"/>
+        <location filename="../table_widget.py" line="386"/>
         <source>View Save Files</source>
         <translation>세이브 파일 보기</translation>
     </message>
