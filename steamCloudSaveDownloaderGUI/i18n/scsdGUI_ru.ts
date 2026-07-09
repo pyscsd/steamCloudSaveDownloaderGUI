@@ -22,7 +22,7 @@
 <context>
     <name>about_action</name>
     <message>
-        <location filename="../menu.py" line="251"/>
+        <location filename="../menu.py" line="254"/>
         <source>About</source>
         <translation>О приложении</translation>
     </message>
@@ -30,34 +30,34 @@
 <context>
     <name>about_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="433"/>
+        <location filename="../dialogs.py" line="438"/>
         <source>About</source>
         <translation>О приложении</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="515"/>
+        <location filename="../dialogs.py" line="520"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="522"/>
+        <location filename="../dialogs.py" line="527"/>
         <source>Submit Issue</source>
         <translation>Отправить проблему</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="529"/>
+        <location filename="../dialogs.py" line="534"/>
         <source>Released under MIT License</source>
         <translation>Выпущено под лицензией MIT</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="532"/>
+        <location filename="../dialogs.py" line="537"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
         <translation>Эта программа не связана с Valve или Steam.
 Steam является торговой маркой Valve Corporation.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="537"/>
+        <location filename="../dialogs.py" line="542"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
@@ -83,12 +83,12 @@ Steam является торговой маркой Valve Corporation.</transla
         <translation>Уже скачивается</translation>
     </message>
     <message>
-        <location filename="../menu.py" line="136"/>
+        <location filename="../menu.py" line="139"/>
         <source>Download All Executed</source>
         <translation>Установить все выполненные</translation>
     </message>
     <message>
-        <location filename="../menu.py" line="139"/>
+        <location filename="../menu.py" line="142"/>
         <source>Download Outdated Executed</source>
         <translation>Установить устаревшие выполненные</translation>
     </message>
@@ -351,7 +351,7 @@ Steam является торговой маркой Valve Corporation.</transla
 <context>
     <name>quit_action</name>
     <message>
-        <location filename="../menu.py" line="262"/>
+        <location filename="../menu.py" line="265"/>
         <location filename="../system_tray.py" line="18"/>
         <source>Quit</source>
         <translation>Выйти</translation>
@@ -369,18 +369,18 @@ Steam является торговой маркой Valve Corporation.</transla
 <context>
     <name>scheduled_downloader_timer</name>
     <message>
-        <location filename="../menu.py" line="211"/>
-        <location filename="../menu.py" line="245"/>
+        <location filename="../menu.py" line="214"/>
+        <location filename="../menu.py" line="248"/>
         <source>Auto Download ({self.count_down})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../menu.py" line="217"/>
+        <location filename="../menu.py" line="220"/>
         <source>Auto Downloading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../menu.py" line="241"/>
+        <location filename="../menu.py" line="244"/>
         <source>Auto Download Disabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -440,7 +440,7 @@ Steam является торговой маркой Valve Corporation.</transla
 <context>
     <name>stop_action</name>
     <message>
-        <location filename="../menu.py" line="156"/>
+        <location filename="../menu.py" line="159"/>
         <source>Stop</source>
         <translation>Стоп</translation>
     </message>

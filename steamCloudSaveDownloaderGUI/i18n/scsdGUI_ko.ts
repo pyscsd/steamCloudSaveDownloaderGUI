@@ -22,7 +22,7 @@
 <context>
     <name>about_action</name>
     <message>
-        <location filename="../menu.py" line="251"/>
+        <location filename="../menu.py" line="254"/>
         <source>About</source>
         <translation>정보</translation>
     </message>
@@ -30,34 +30,34 @@
 <context>
     <name>about_dialog</name>
     <message>
-        <location filename="../dialogs.py" line="433"/>
+        <location filename="../dialogs.py" line="438"/>
         <source>About</source>
         <translation>정보</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="515"/>
+        <location filename="../dialogs.py" line="520"/>
         <source>Author:</source>
         <translation>개발자:</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="522"/>
+        <location filename="../dialogs.py" line="527"/>
         <source>Submit Issue</source>
         <translation>이슈 제출</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="529"/>
+        <location filename="../dialogs.py" line="534"/>
         <source>Released under MIT License</source>
         <translation>MIT 라이선스에 따라 배포됨</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="532"/>
+        <location filename="../dialogs.py" line="537"/>
         <source>This program is not affiliated with Valve or Steam.
 Steam is a trademark of Valve Corporation.</source>
         <translation>본 프로그램은 Valve 및 Steam과 무관합니다. 
 Steam은 Valve Corporation의 등록상표입니다.</translation>
     </message>
     <message>
-        <location filename="../dialogs.py" line="537"/>
+        <location filename="../dialogs.py" line="542"/>
         <source>Close</source>
         <translation>닫기</translation>
     </message>
@@ -83,12 +83,12 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
         <translation>이미 다운로드 중</translation>
     </message>
     <message>
-        <location filename="../menu.py" line="136"/>
+        <location filename="../menu.py" line="139"/>
         <source>Download All Executed</source>
         <translation>전체 다운로드 완료</translation>
     </message>
     <message>
-        <location filename="../menu.py" line="139"/>
+        <location filename="../menu.py" line="142"/>
         <source>Download Outdated Executed</source>
         <translation>만료된 항목 다운로드 완료</translation>
     </message>
@@ -355,7 +355,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>quit_action</name>
     <message>
-        <location filename="../menu.py" line="262"/>
+        <location filename="../menu.py" line="265"/>
         <location filename="../system_tray.py" line="18"/>
         <source>Quit</source>
         <translation>종료</translation>
@@ -373,18 +373,18 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>scheduled_downloader_timer</name>
     <message>
-        <location filename="../menu.py" line="211"/>
-        <location filename="../menu.py" line="245"/>
+        <location filename="../menu.py" line="214"/>
+        <location filename="../menu.py" line="248"/>
         <source>Auto Download ({self.count_down})</source>
         <translation>자동 다운로드 ({self.count_down})</translation>
     </message>
     <message>
-        <location filename="../menu.py" line="217"/>
+        <location filename="../menu.py" line="220"/>
         <source>Auto Downloading</source>
         <translation>자동으로 다운로드 중입니다</translation>
     </message>
     <message>
-        <location filename="../menu.py" line="241"/>
+        <location filename="../menu.py" line="244"/>
         <source>Auto Download Disabled</source>
         <translation>자동 다운로드 비활성화</translation>
     </message>
@@ -444,7 +444,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>stop_action</name>
     <message>
-        <location filename="../menu.py" line="156"/>
+        <location filename="../menu.py" line="159"/>
         <source>Stop</source>
         <translation>중지</translation>
     </message>
