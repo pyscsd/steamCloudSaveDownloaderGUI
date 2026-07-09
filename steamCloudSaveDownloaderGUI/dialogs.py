@@ -28,6 +28,14 @@ class login_fail_message_box(QW.QMessageBox):
             self.tr("Failed to login. Please check if the inputs are correct."),
             QW.QMessageBox.StandardButton.Close)
 
+class session_expired_message_box(QW.QMessageBox):
+    def __init__(self):
+        super().__init__(
+            QW.QMessageBox.Icon.Critical,
+            self.tr("Session Expired"),
+            self.tr("Failed to retrieve data from Steam. Please login again to refresh session."),
+            QW.QMessageBox.StandardButton.Close)
+
 class login_dialog(QW.QDialog):
     def __init__(self, p_status_bar: status_bar):
         super().__init__()
@@ -228,6 +236,13 @@ class options_dialog(QW.QDialog):
         self.minimize_to_tray_label.setToolTip(minimize_to_tray_help)
         self.minimize_to_tray.setToolTip(minimize_to_tray_help)
 
+        self.download_local_only_label = QW.QLabel(self.tr("Download Local Changes Only"))
+        self.download_local_only = QW.QCheckBox()
+        self.download_local_only.setChecked(self.config['GUI']['download_local_only'])
+        download_local_only_help = self.tr("Only download game saves if it is recently played on local by checking localconfig.vdf. Enable if you only play games on this computer. Disable otherwise.")
+        self.minimize_to_tray_label.setToolTip(download_local_only_help)
+        self.minimize_to_tray.setToolTip(download_local_only_help)
+
         self.download_interval_label = QW.QLabel(self.tr("Auto Download Interval (Minutes):"))
         self.download_interval_spinbox = QW.QSpinBox()
         self.download_interval_spinbox.setMinimum(0)
@@ -281,6 +296,10 @@ class options_dialog(QW.QDialog):
 
         self.grid_layout.addWidget(self.download_interval_label, row, 0, right_align)
         self.grid_layout.addWidget(self.download_interval_spinbox, row, 1, left_align)
+        row += 1
+
+        self.grid_layout.addWidget(self.download_local_only_label, row, 0, right_align)
+        self.grid_layout.addWidget(self.download_local_only, row, 1, left_align)
         row += 1
 
         self.grid_layout.addWidget(self.help_icon_label, row, 0, right_align)

@@ -4,7 +4,9 @@ from .core import core
 from . import data_provider
 from . import status_bar
 from . import thread_controller
+from .dialogs import session_expired_message_box
 from .steamCloudSaveDownloader.steamCloudSaveDownloader.logger import logger
+from .steamCloudSaveDownloader.steamCloudSaveDownloader.err import err, err_enum
 from .game_info_dialog import game_info_dialog
 
 from enum import IntEnum
@@ -116,7 +118,7 @@ class table_refresher(QtCore.QObject):
     set_status_bar_text = QtCore.Signal(str)
     set_status_bar_percent = QtCore.Signal(int)
 
-    def __init__(self, p_table_widget):
+    def __init__(self, p_table_widget: QW.QWidget):
         super().__init__()
         self.table_widget = p_table_widget
 
@@ -130,7 +132,13 @@ class table_refresher(QtCore.QObject):
         self.set_status_bar_text.emit(self.tr("Refreshing..."))
         self.set_status_bar_percent.emit(30)
 
-        self.table_widget.table_model.update_data(data_provider.load_from_db_and_web())
+        try:
+            self.table_widget.table_model.update_data(data_provider.load_from_db_and_web())
+        except err as e:
+            self.notification.emit(e.num())
+            self.result_ready.emit()
+            QtCore.QThread.currentThread().quit()
+            return
 
         self.set_status_bar_text.emit("")
         self.set_status_bar_percent.emit(100)
@@ -554,6 +562,7 @@ class table_widget(QW.QWidget):
             table_refresher(self)
         self.refresher_controller = thread_controller.thread_controller(self.refresher, self.status_bar)
         self.refresher_controller.job_finished.connect(self.on_refresh_complete)
+        self.refresher_controller.job_notified.connect(self.on_refresh_fail)
         self.refresher_controller.start()
 
     @QtCore.Slot(int)
@@ -564,3 +573,9 @@ class table_widget(QW.QWidget):
     def on_refresh_complete(self):
         logger.debug("(refresher) Refresh complete")
         self.start_download_header()
+
+    @QtCore.Slot(int)
+    def on_refresh_fail(self, p_err_no: int):
+        if p_err_no == err_enum.REFRESH_FAIL:
+            fail_box = session_expired_message_box()
+            fail_box.exec()
