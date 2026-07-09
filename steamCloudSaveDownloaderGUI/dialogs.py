@@ -236,12 +236,12 @@ class options_dialog(QW.QDialog):
         self.minimize_to_tray_label.setToolTip(minimize_to_tray_help)
         self.minimize_to_tray.setToolTip(minimize_to_tray_help)
 
-        self.download_local_only_label = QW.QLabel(self.tr("Download Local Changes Only"))
+        self.download_local_only_label = QW.QLabel(self.tr("Download Local Changes Only:"))
         self.download_local_only = QW.QCheckBox()
         self.download_local_only.setChecked(self.config['GUI']['download_local_only'])
-        download_local_only_help = self.tr("Only download game saves if it is recently played on local by checking localconfig.vdf. Enable if you only play games on this computer. Disable otherwise.")
-        self.minimize_to_tray_label.setToolTip(download_local_only_help)
-        self.minimize_to_tray.setToolTip(download_local_only_help)
+        download_local_only_help = self.tr("Only download game saves if it is recently played on local by checking localconfig.vdf.\nEnable if you only play games on this computer. Disable otherwise.")
+        self.download_local_only.setToolTip(download_local_only_help)
+        self.download_local_only_label.setToolTip(download_local_only_help)
 
         self.download_interval_label = QW.QLabel(self.tr("Auto Download Interval (Minutes):"))
         self.download_interval_spinbox = QW.QSpinBox()
