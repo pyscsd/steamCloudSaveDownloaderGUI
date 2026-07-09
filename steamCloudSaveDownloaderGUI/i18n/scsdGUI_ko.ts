@@ -328,12 +328,13 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="239"/>
-        <source>Download Local Changes Only</source>
+        <source>Download Local Changes Only:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../dialogs.py" line="242"/>
-        <source>Only download game saves if it is recently played on local by checking localconfig.vdf. Enable if you only play games on this computer. Disable otherwise.</source>
+        <source>Only download game saves if it is recently played on local by checking localconfig.vdf.
+Enable if you only play games on this computer. Disable otherwise.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
