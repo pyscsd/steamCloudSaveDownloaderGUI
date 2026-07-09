@@ -394,6 +394,10 @@ class options_dialog(QW.QDialog):
     def on_minimize_to_tray_change(self, p_value: bool):
         self.config['GUI']['minimize_to_tray'] = p_value
 
+    @QtCore.Slot(bool)
+    def on_download_local_only_change(self, p_value: bool):
+        self.config['GUI']['download_local_only'] = p_value
+
     @QtCore.Slot(int)
     def on_download_interval_change(self, p_value: int):
         self.config['GUI']['download_interval'] = p_value
@@ -425,6 +429,7 @@ class options_dialog(QW.QDialog):
         self.download_interval_spinbox.valueChanged.connect(self.on_download_interval_change)
         self.save_directory_input.textChanged.connect(self.on_save_directory_input_change)
         self.language_selector.currentIndexChanged.connect(self.on_language_selector_change)
+        self.download_local_only.toggled.connect(self.on_download_local_only_change)
 
 
 class about_dialog(QW.QDialog):

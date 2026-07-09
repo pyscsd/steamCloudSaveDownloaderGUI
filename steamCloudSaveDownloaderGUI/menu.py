@@ -132,7 +132,10 @@ class download_action(QtGui.QAction):
             self.status_bar.set_text(self.tr("Already downloading"))
             return
 
-        if QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.KeyboardModifier.ShiftModifier:
+        shift_pressed = QtWidgets.QApplication.keyboardModifiers() == QtCore.Qt.KeyboardModifier.ShiftModifier
+        download_local_only = data_provider.config['GUI']['download_local_only']
+
+        if not download_local_only or shift_pressed:
             logger.debug(self.tr("Download All Executed"))
             self.downloader = save_downloader.save_downloader(save_downloader.mode_e.download_all, self.status_bar)
         else:
