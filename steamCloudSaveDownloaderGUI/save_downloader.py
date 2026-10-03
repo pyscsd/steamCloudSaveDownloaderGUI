@@ -117,7 +117,15 @@ class _save_downloader(QtCore.QObject):
                 target_game_list.append(game)
             else:
                 logger.debug(f"{game['app_id']} skipped. DB Time: {last_checked_time}. Last played time: {last_played_time}")
-        target_game_list.sort(key=lambda x: x['app_id'])
+        # Most recently played first: if the run is interrupted, the games
+        # the user actually just touched are already backed up. Games with
+        # no local play-time (never played on this machine) go last.
+        # Timestamps avoid naive/aware datetime comparisons; -app_id keeps
+        # ties in ascending app_id order under reverse=True.
+        def _sort_key(g):
+            t = last_played.get(g['app_id'])
+            return (t.timestamp() if t is not None else 0.0, -g['app_id'])
+        target_game_list.sort(key=_sort_key, reverse=True)
 
         self.download_games(target_game_list)
 
