@@ -25,6 +25,10 @@ class table_col_e(IntEnum):
     last_played = 5
 column_count_g = 6
 
+# Shown in the Last Updated / Last Played columns; keeps the column
+# narrow enough that the Stretch 'name' column keeps the leftover space.
+_DT_FMT = "%Y-%m-%d %H:%M"
+
 # Return 0 if not checked yet
 # Retrun 1 if 404
 # Retrun 2 if found
@@ -241,15 +245,11 @@ class table_model(QtCore.QAbstractTableModel):
             case table_col_e.name:
                 return item['name']
             case table_col_e.last_updated:
-                if item['last_checked_time'] is None:
-                    return 'N/A'
-                else:
-                    return str(item['last_checked_time'])
+                dt = item['last_checked_time']
+                return 'N/A' if dt is None else dt.strftime(_DT_FMT)
             case table_col_e.last_played:
-                if item['last_played'] is None:
-                    return 'N/A'
-                else:
-                    return str(item['last_played'])
+                dt = item['last_played']
+                return 'N/A' if dt is None else dt.strftime(_DT_FMT)
             case _:
                 assert(False)
 
@@ -473,21 +473,26 @@ class table_view(QW.QTableView):
         menu.popup(self.viewport().mapToGlobal(p_point))
 
     def set_header_stretch(self):
-        global column_count_g
-        last_column = (column_count_g - 1)
-        for i in range(column_count_g):
-            if i == table_col_e.enable:
-                self.horizontalHeader().setSectionResizeMode(
-                    i,
-                    QW.QHeaderView.ResizeMode.Fixed)
-            elif i == last_column:
-                self.horizontalHeader().setSectionResizeMode(
-                    i,
-                    QW.QHeaderView.ResizeMode.Stretch)
-            else:
-                self.horizontalHeader().setSectionResizeMode(
-                    i,
-                    QW.QHeaderView.ResizeMode.ResizeToContents)
+        # Only 'name' stretches; everything else is Fixed or Interactive.
+        # Interactive avoids ResizeToContents, which walks every row on
+        # layout changes (slow on large libraries and on monitor moves).
+        header = self.horizontalHeader()
+        header.setSectionResizeMode(table_col_e.enable,       QW.QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(table_col_e.capsule,      QW.QHeaderView.ResizeMode.Fixed)
+        header.setSectionResizeMode(table_col_e.app_id,       QW.QHeaderView.ResizeMode.Interactive)
+        header.setSectionResizeMode(table_col_e.name,         QW.QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(table_col_e.last_updated, QW.QHeaderView.ResizeMode.Interactive)
+        header.setSectionResizeMode(table_col_e.last_played,  QW.QHeaderView.ResizeMode.Interactive)
+        # Widths derived from font metrics so large system fonts / HiDPI
+        # don't clip the date columns.
+        fm = self.fontMetrics()
+        pad = fm.horizontalAdvance("MM")  # ~2 chars of breathing room
+        dt_w = fm.horizontalAdvance("2026-10-03 23:59") + pad
+        header.resizeSection(table_col_e.enable,       fm.horizontalAdvance("Enabled") + pad)
+        header.resizeSection(table_col_e.capsule,      table_view.capsule_width)
+        header.resizeSection(table_col_e.app_id,       fm.horizontalAdvance("9999999") + pad)
+        header.resizeSection(table_col_e.last_updated, dt_w)
+        header.resizeSection(table_col_e.last_played,  dt_w)
 
 
 class table_widget(QW.QWidget):
