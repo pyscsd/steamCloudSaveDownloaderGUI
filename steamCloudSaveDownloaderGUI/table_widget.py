@@ -155,8 +155,9 @@ class table_model(QtCore.QAbstractTableModel):
         self.parent = p_parent
         super().__init__(p_parent)
         self.raw_list = list()
-        self.update_data(data_provider.load_existing_from_db())
         self.app_id_to_row = dict()
+        # Initial DB load is deferred so the window can paint first;
+        # see table_widget._deferred_initial_load.
 
     def get_index_from_app_id(self, p_app_id: int, p_col: int) -> QtCore.QModelIndex:
         row = self.app_id_to_row[p_app_id]
@@ -224,8 +225,6 @@ class table_model(QtCore.QAbstractTableModel):
         if p_role != QtCore.Qt.ItemDataRole.DisplayRole:
             return None
 
-        self.app_id_to_row[item['app_id']] = p_index.row()
-
         match column:
             case table_col_e.enable:
                 pass
@@ -281,6 +280,9 @@ class table_model(QtCore.QAbstractTableModel):
     def update_data(self, p_list: list):
         self.beginResetModel()
         self.raw_list = p_list
+        # Populate upfront so slot callbacks (header downloads, etc.) can
+        # look up a row even if Qt has not yet asked data() for it.
+        self.app_id_to_row = {item['app_id']: idx for idx, item in enumerate(p_list)}
         self.endResetModel()
 
     def update_app_id(self, p_app_id: int):
@@ -500,6 +502,11 @@ class table_widget(QW.QWidget):
         super().__init__(p_parent)
         self.status_bar = p_status_bar
 
+        # Pre-initialized so on_main_window_closed never AttributeErrors if
+        # the user closes the window before the deferred load has fired.
+        self.header_download_controller = None
+        self._finalized = False
+
         self.table_view = table_view(self)
         self.table_model = table_model(self)
         self.sort_filter_model = table_sort_filter_proxy(self, self.table_model)
@@ -516,6 +523,18 @@ class table_widget(QW.QWidget):
         self.v_layout.addWidget(self.search_box)
         self.v_layout.addWidget(self.table_view)
 
+        # Load the DB + kick off header downloads AFTER the window paints.
+        # The main cost here is vdf.load() on Steam's localconfig.vdf, which
+        # on big libraries blocks the UI thread for seconds.
+        QtCore.QTimer.singleShot(0, self._deferred_initial_load)
+
+    def _deferred_initial_load(self):
+        # The user may have closed the window during the 0-ms gap; in that
+        # case we must not start a thread the shutdown path has already
+        # finished tearing down.
+        if self._finalized:
+            return
+        self.table_model.update_data(data_provider.load_existing_from_db())
         self.start_download_header()
 
     def enterEvent(self, p_event):
@@ -533,7 +552,9 @@ class table_widget(QW.QWidget):
         self.search_box.textChanged.connect(self.sort_filter_model.set_filter_text)
 
     def on_main_window_closed(self):
-        self.header_download_controller.stop()
+        self._finalized = True
+        if self.header_download_controller is not None:
+            self.header_download_controller.stop()
 
     def start_download_header(self):
         self.header_downloader = \
