@@ -9,11 +9,17 @@ class status_bar(QW.QStatusBar):
         self.setStyleSheet('QStatusBar::item {border: None;}')
 
         self.label = QW.QLabel()
-        self.addWidget(self.label)
+        # Stretch factor 1 → label eats all free horizontal space so the
+        # progress bar stays pinned on the right instead of jumping when
+        # the label text length changes.
+        self.addWidget(self.label, 1)
 
+        self._in_progress = False
         self.progress_bar = QW.QProgressBar()
-        self.set_progress_bar_value(100)
+        self.progress_bar.setValue(0)
         self.progress_bar.setTextVisible(False)
+        self.progress_bar.setFixedWidth(200)
+        self.progress_bar.setVisible(False)
         self.addPermanentWidget(self.progress_bar)
 
         self.set_ready()
@@ -21,6 +27,14 @@ class status_bar(QW.QStatusBar):
     @QtCore.Slot(int)
     def set_progress_bar_value(self, p_val: int):
         self.progress_bar.setValue(p_val)
+        # 100 = just finished; anything else means a job is running.
+        was_in_progress = self._in_progress
+        self._in_progress = p_val != 100
+        self.progress_bar.setVisible(self._in_progress)
+        # Workers may clear their text before reporting 100, while set_ready()
+        # still sees a job running and does nothing; reset the label here.
+        if was_in_progress and not self._in_progress:
+            self.set_ready()
 
     def set_authenticating(self):
         self.label.setText(self.tr("Authenticating..."))
@@ -31,8 +45,8 @@ class status_bar(QW.QStatusBar):
         self.label.setStyleSheet("")
 
     def download_in_progress(self) -> bool:
-        return self.progress_bar.value() != 100
-        # If progress bar is not 0 means download in progress
+        # Not isVisible(): that is False whenever the window is hidden to tray.
+        return self._in_progress
 
     def set_table_widget_tips(self):
         if self.download_in_progress():
