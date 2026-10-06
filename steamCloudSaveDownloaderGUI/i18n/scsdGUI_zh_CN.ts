@@ -9,12 +9,12 @@
         <translation>正在下载 {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="143"/>
+        <location filename="../save_downloader.py" line="151"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
         <translation>正在下载 {p_game_name}: {p_file_name}</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="147"/>
+        <location filename="../save_downloader.py" line="155"/>
         <source>Initializing...</source>
         <translation>初始化中...</translation>
     </message>
@@ -65,7 +65,7 @@ Steam 是 Valve 公司的商标。</translation>
 <context>
     <name>disable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="369"/>
+        <location filename="../table_widget.py" line="371"/>
         <source>Disable All</source>
         <translation>禁用全部</translation>
     </message>
@@ -96,7 +96,7 @@ Steam 是 Valve 公司的商标。</translation>
 <context>
     <name>enable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="360"/>
+        <location filename="../table_widget.py" line="362"/>
         <source>Enable All</source>
         <translation>启用全部</translation>
     </message>
@@ -223,7 +223,7 @@ Steam 是 Valve 公司的商标。</translation>
         <translation>打开文件位置</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="400"/>
+        <location filename="../table_widget.py" line="402"/>
         <source>Open Saves Directory</source>
         <translation>打开存档目录</translation>
     </message>
@@ -422,22 +422,22 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>status_bar</name>
     <message>
-        <location filename="../status_bar.py" line="26"/>
+        <location filename="../status_bar.py" line="40"/>
         <source>Authenticating...</source>
         <translation>正在认证...</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="40"/>
+        <location filename="../status_bar.py" line="54"/>
         <source>Double click to view files. Right click for options.</source>
         <translation>双击查看文件。右键单击查看选项。</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="49"/>
+        <location filename="../status_bar.py" line="63"/>
         <source>Ready. Press &apos;Refresh&apos; to populate list or &apos;Start&apos; to start downloading.</source>
         <translation>准备就绪。点击“刷新”更新列表或点击“开始”以开始下载。</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="52"/>
+        <location filename="../status_bar.py" line="66"/>
         <source>No session. Please create session with Session &gt; Login.</source>
         <translation>没有会话。请通过会话 &gt; 登录创建会话。</translation>
     </message>
@@ -466,12 +466,12 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="234"/>
+        <location filename="../table_widget.py" line="237"/>
         <source>Loading</source>
         <translation>加载中</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="236"/>
+        <location filename="../table_widget.py" line="239"/>
         <source>N/A</source>
         <translation>不适用</translation>
     </message>
@@ -479,7 +479,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_refresher</name>
     <message>
-        <location filename="../table_widget.py" line="132"/>
+        <location filename="../table_widget.py" line="136"/>
         <source>Refreshing...</source>
         <translation>刷新中...</translation>
     </message>
@@ -487,7 +487,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_widget</name>
     <message>
-        <location filename="../table_widget.py" line="527"/>
+        <location filename="../table_widget.py" line="551"/>
         <source>Search App ID / Name</source>
         <translation>查找 APP ID / 名称</translation>
     </message>
@@ -513,7 +513,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>view_files_action</name>
     <message>
-        <location filename="../table_widget.py" line="386"/>
+        <location filename="../table_widget.py" line="388"/>
         <source>View Save Files</source>
         <translation>查看保存的文件</translation>
     </message>

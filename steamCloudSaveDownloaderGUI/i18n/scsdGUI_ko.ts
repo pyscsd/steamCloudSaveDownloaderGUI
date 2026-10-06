@@ -9,12 +9,12 @@
         <translation>{game[&apos;name&apos;]} ({count} / {len(p_target_game_list)}) 다운로드 중</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="143"/>
+        <location filename="../save_downloader.py" line="151"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
         <translation>{p_game_name}: {p_file_name} 다운로드 중</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="147"/>
+        <location filename="../save_downloader.py" line="155"/>
         <source>Initializing...</source>
         <translation>초기화 중...</translation>
     </message>
@@ -65,7 +65,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>disable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="369"/>
+        <location filename="../table_widget.py" line="371"/>
         <source>Disable All</source>
         <translation>모두 비활성화</translation>
     </message>
@@ -96,7 +96,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
 <context>
     <name>enable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="360"/>
+        <location filename="../table_widget.py" line="362"/>
         <source>Enable All</source>
         <translation>모두 활성화</translation>
     </message>
@@ -223,7 +223,7 @@ Steam은 Valve Corporation의 등록상표입니다.</translation>
         <translation>파일 위치 열기</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="400"/>
+        <location filename="../table_widget.py" line="402"/>
         <source>Open Saves Directory</source>
         <translation>세이브 폴더 열기</translation>
     </message>
@@ -422,22 +422,22 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>status_bar</name>
     <message>
-        <location filename="../status_bar.py" line="26"/>
+        <location filename="../status_bar.py" line="40"/>
         <source>Authenticating...</source>
         <translation>로그인 인증 중...</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="40"/>
+        <location filename="../status_bar.py" line="54"/>
         <source>Double click to view files. Right click for options.</source>
         <translation>더블 클릭하면 파일을 볼 수 있습니다. 마우스 오른쪽 버튼을 클릭하면 옵션이 표시됩니다.</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="49"/>
+        <location filename="../status_bar.py" line="63"/>
         <source>Ready. Press &apos;Refresh&apos; to populate list or &apos;Start&apos; to start downloading.</source>
         <translation>준비되었습니다. 리스트를 불러오려면 &apos;새로고침&apos;을, 다운로드를 시작하려면 &apos;시작&apos;을 누르세요.</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="52"/>
+        <location filename="../status_bar.py" line="66"/>
         <source>No session. Please create session with Session &gt; Login.</source>
         <translation>세션이 없습니다. &apos;세션 &gt; 로그인&apos; 메뉴를 통해 세션을 생성해 주세요.</translation>
     </message>
@@ -466,12 +466,12 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="234"/>
+        <location filename="../table_widget.py" line="237"/>
         <source>Loading</source>
         <translation>불러오는 중</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="236"/>
+        <location filename="../table_widget.py" line="239"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
@@ -479,7 +479,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_refresher</name>
     <message>
-        <location filename="../table_widget.py" line="132"/>
+        <location filename="../table_widget.py" line="136"/>
         <source>Refreshing...</source>
         <translation>새로고침 중...</translation>
     </message>
@@ -487,7 +487,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_widget</name>
     <message>
-        <location filename="../table_widget.py" line="527"/>
+        <location filename="../table_widget.py" line="551"/>
         <source>Search App ID / Name</source>
         <translation>앱 ID / 이름 검색</translation>
     </message>
@@ -513,7 +513,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>view_files_action</name>
     <message>
-        <location filename="../table_widget.py" line="386"/>
+        <location filename="../table_widget.py" line="388"/>
         <source>View Save Files</source>
         <translation>세이브 파일 보기</translation>
     </message>

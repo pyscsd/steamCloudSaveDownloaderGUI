@@ -9,12 +9,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="143"/>
+        <location filename="../save_downloader.py" line="151"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="147"/>
+        <location filename="../save_downloader.py" line="155"/>
         <source>Initializing...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -64,7 +64,7 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>disable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="369"/>
+        <location filename="../table_widget.py" line="371"/>
         <source>Disable All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -95,7 +95,7 @@ Steam is a trademark of Valve Corporation.</source>
 <context>
     <name>enable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="360"/>
+        <location filename="../table_widget.py" line="362"/>
         <source>Enable All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -222,7 +222,7 @@ Steam is a trademark of Valve Corporation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="400"/>
+        <location filename="../table_widget.py" line="402"/>
         <source>Open Saves Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -417,22 +417,22 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>status_bar</name>
     <message>
-        <location filename="../status_bar.py" line="26"/>
+        <location filename="../status_bar.py" line="40"/>
         <source>Authenticating...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="40"/>
+        <location filename="../status_bar.py" line="54"/>
         <source>Double click to view files. Right click for options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="49"/>
+        <location filename="../status_bar.py" line="63"/>
         <source>Ready. Press &apos;Refresh&apos; to populate list or &apos;Start&apos; to start downloading.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="52"/>
+        <location filename="../status_bar.py" line="66"/>
         <source>No session. Please create session with Session &gt; Login.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -461,12 +461,12 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="234"/>
+        <location filename="../table_widget.py" line="237"/>
         <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="236"/>
+        <location filename="../table_widget.py" line="239"/>
         <source>N/A</source>
         <translation type="unfinished"></translation>
     </message>
@@ -474,7 +474,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_refresher</name>
     <message>
-        <location filename="../table_widget.py" line="132"/>
+        <location filename="../table_widget.py" line="136"/>
         <source>Refreshing...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -482,7 +482,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_widget</name>
     <message>
-        <location filename="../table_widget.py" line="527"/>
+        <location filename="../table_widget.py" line="551"/>
         <source>Search App ID / Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -508,7 +508,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>view_files_action</name>
     <message>
-        <location filename="../table_widget.py" line="386"/>
+        <location filename="../table_widget.py" line="388"/>
         <source>View Save Files</source>
         <translation type="unfinished"></translation>
     </message>

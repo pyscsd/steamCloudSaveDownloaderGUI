@@ -9,12 +9,12 @@
         <translation>Завантажується {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="143"/>
+        <location filename="../save_downloader.py" line="151"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
         <translation>Завантажується {p_game_name}: {p_file_name}</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="147"/>
+        <location filename="../save_downloader.py" line="155"/>
         <source>Initializing...</source>
         <translation>Ініціалізація...</translation>
     </message>
@@ -65,7 +65,7 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>disable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="369"/>
+        <location filename="../table_widget.py" line="371"/>
         <source>Disable All</source>
         <translation>Вимкнути все</translation>
     </message>
@@ -96,7 +96,7 @@ Steam є торговою маркою Valve Corporation.</translation>
 <context>
     <name>enable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="360"/>
+        <location filename="../table_widget.py" line="362"/>
         <source>Enable All</source>
         <translation>Увімкнути все</translation>
     </message>
@@ -223,7 +223,7 @@ Steam є торговою маркою Valve Corporation.</translation>
         <translation>Відкрити розташування файлу</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="400"/>
+        <location filename="../table_widget.py" line="402"/>
         <source>Open Saves Directory</source>
         <translation>Відкрити каталог збережень</translation>
     </message>
@@ -422,22 +422,22 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>status_bar</name>
     <message>
-        <location filename="../status_bar.py" line="26"/>
+        <location filename="../status_bar.py" line="40"/>
         <source>Authenticating...</source>
         <translation>Автентифікація...</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="40"/>
+        <location filename="../status_bar.py" line="54"/>
         <source>Double click to view files. Right click for options.</source>
         <translation>Двічі клацніть, аби переглянути файли. Клацніть ПКМ, щоби побачити параметри.</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="49"/>
+        <location filename="../status_bar.py" line="63"/>
         <source>Ready. Press &apos;Refresh&apos; to populate list or &apos;Start&apos; to start downloading.</source>
         <translation>Готово. Натисніть «Оновити», щоб оновити список, або «Почати», аби почати завантаження.</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="52"/>
+        <location filename="../status_bar.py" line="66"/>
         <source>No session. Please create session with Session &gt; Login.</source>
         <translation>Немає сеансу. Створіть сеанс у розділі Сеанс &gt; Увійти.</translation>
     </message>
@@ -466,12 +466,12 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="234"/>
+        <location filename="../table_widget.py" line="237"/>
         <source>Loading</source>
         <translation>Завантаження</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="236"/>
+        <location filename="../table_widget.py" line="239"/>
         <source>N/A</source>
         <translation>Н/Д</translation>
     </message>
@@ -479,7 +479,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_refresher</name>
     <message>
-        <location filename="../table_widget.py" line="132"/>
+        <location filename="../table_widget.py" line="136"/>
         <source>Refreshing...</source>
         <translation>Оновлення...</translation>
     </message>
@@ -487,7 +487,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_widget</name>
     <message>
-        <location filename="../table_widget.py" line="527"/>
+        <location filename="../table_widget.py" line="551"/>
         <source>Search App ID / Name</source>
         <translation>Знайти ідентифікатор програми / гру</translation>
     </message>
@@ -513,7 +513,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>view_files_action</name>
     <message>
-        <location filename="../table_widget.py" line="386"/>
+        <location filename="../table_widget.py" line="388"/>
         <source>View Save Files</source>
         <translation>Переглянути файли збереження</translation>
     </message>

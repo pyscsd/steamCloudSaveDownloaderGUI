@@ -9,12 +9,12 @@
         <translation>Baixando {game[&apos;name&apos;]} ({count} / {len(p_target_game_list)})</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="143"/>
+        <location filename="../save_downloader.py" line="151"/>
         <source>Downlading {p_game_name}: {p_file_name}</source>
         <translation>Baixando {p_game_name}: {file_name}</translation>
     </message>
     <message>
-        <location filename="../save_downloader.py" line="147"/>
+        <location filename="../save_downloader.py" line="155"/>
         <source>Initializing...</source>
         <translation>Inicializando...</translation>
     </message>
@@ -65,7 +65,7 @@ Steam é uma marca registrada da Valve Corporation.</translation>
 <context>
     <name>disable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="369"/>
+        <location filename="../table_widget.py" line="371"/>
         <source>Disable All</source>
         <translation>Desativar tudo</translation>
     </message>
@@ -96,7 +96,7 @@ Steam é uma marca registrada da Valve Corporation.</translation>
 <context>
     <name>enable_all_action</name>
     <message>
-        <location filename="../table_widget.py" line="360"/>
+        <location filename="../table_widget.py" line="362"/>
         <source>Enable All</source>
         <translation>Ativar tudo</translation>
     </message>
@@ -223,7 +223,7 @@ Steam é uma marca registrada da Valve Corporation.</translation>
         <translation>Localização do arquivo aberto</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="400"/>
+        <location filename="../table_widget.py" line="402"/>
         <source>Open Saves Directory</source>
         <translation>Abra o diretório de salvamentos</translation>
     </message>
@@ -422,22 +422,22 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>status_bar</name>
     <message>
-        <location filename="../status_bar.py" line="26"/>
+        <location filename="../status_bar.py" line="40"/>
         <source>Authenticating...</source>
         <translation>Autenticando...</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="40"/>
+        <location filename="../status_bar.py" line="54"/>
         <source>Double click to view files. Right click for options.</source>
         <translation>Clique duas vezes para visualizar os arquivos. Clique com o botão direito para ver as opções.</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="49"/>
+        <location filename="../status_bar.py" line="63"/>
         <source>Ready. Press &apos;Refresh&apos; to populate list or &apos;Start&apos; to start downloading.</source>
         <translation>Pronto. Pressione &apos;Atualizar&apos; para preencher a lista ou &apos;Iniciar&apos; para começar o download.</translation>
     </message>
     <message>
-        <location filename="../status_bar.py" line="52"/>
+        <location filename="../status_bar.py" line="66"/>
         <source>No session. Please create session with Session &gt; Login.</source>
         <translation>Nenhuma sessão disponível. Por favor, crie uma sessão em Sessão &gt; Entrar.</translation>
     </message>
@@ -466,12 +466,12 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_model</name>
     <message>
-        <location filename="../table_widget.py" line="234"/>
+        <location filename="../table_widget.py" line="237"/>
         <source>Loading</source>
         <translation>Carregando</translation>
     </message>
     <message>
-        <location filename="../table_widget.py" line="236"/>
+        <location filename="../table_widget.py" line="239"/>
         <source>N/A</source>
         <translation>N/D</translation>
     </message>
@@ -479,7 +479,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_refresher</name>
     <message>
-        <location filename="../table_widget.py" line="132"/>
+        <location filename="../table_widget.py" line="136"/>
         <source>Refreshing...</source>
         <translation>Recarregando...</translation>
     </message>
@@ -487,7 +487,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>table_widget</name>
     <message>
-        <location filename="../table_widget.py" line="527"/>
+        <location filename="../table_widget.py" line="551"/>
         <source>Search App ID / Name</source>
         <translation>ID/Nome do aplicativo de pesquisa</translation>
     </message>
@@ -513,7 +513,7 @@ Enable if you only play games on this computer. Disable otherwise.</source>
 <context>
     <name>view_files_action</name>
     <message>
-        <location filename="../table_widget.py" line="386"/>
+        <location filename="../table_widget.py" line="388"/>
         <source>View Save Files</source>
         <translation>Visualizar Arquivos Salvos</translation>
     </message>
