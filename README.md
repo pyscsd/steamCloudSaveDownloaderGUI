@@ -46,6 +46,9 @@ This program automatically crawls the [Steam cloud webpages](https://store.steam
 ```
 pip install -r requirements-dev.txt
 pre-commit install
+git submodule init
+git submodule update
+.\scripts\build\windows\translation\run.ps1
 python3 scsd-gui
 ```
 
